@@ -1,0 +1,1 @@
+ContractBoludoPropertiesXX.py
