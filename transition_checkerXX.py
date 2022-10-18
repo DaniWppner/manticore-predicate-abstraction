@@ -1,5 +1,3 @@
-
-from platform import machine
 import time
 from manticore.ethereum import ManticoreEVM, ABI
 from manticore.core.smtlib import expression
@@ -59,22 +57,14 @@ class transition_checkerXX:
                     gaslimit=0x7FFFFFFF)
 
   
-    def callContractFunction(self,func_name,call_args=None,tx_value=0):
+    def callContractFunction(self,func_name,call_args=None,tx_value=0,tx_sender=None):
         func_id = self.nameToSelector[func_name]
         print(f"# -- Calling {func_name}")
 
-        # construct the arguments passed to the contract method
-        if call_args is None:
-            arg_types = self.contract_metadata.get_func_argument_types(func_id)
-            call_args = self.machine.make_symbolic_arguments(arg_types)
-    
-        # make a symbolic value for the transaction
-        if tx_value=="symbolic":
-            tx_value = self.machine.make_symbolic_value()
-            print("- Calling with symbolic transaction value")
+        call_args, tx_value, tx_sender = self.make_transaction_parameters(func_id, call_args, tx_value, tx_sender)
     
         #__getattr__ is overriden to construct the function object.
-        getattr(self.working_contract,func_name)(args=call_args,value=tx_value)
+        getattr(self.working_contract,func_name)(args=call_args,value=tx_value,caller=tx_sender)
 
         #Get the result of the most recent transaction
         for state in self.machine.all_states:
@@ -86,9 +76,29 @@ class transition_checkerXX:
                         #FIXME quita los paréntesis a izquierda y derecha del tipo
                         return_types = return_types[1:len(return_types)-1]
                         return ABI.deserialize(return_types,tx.return_data)
+                    else:
+                        return None
+                elif tx.result == "REVERT" or tx.result == "THROW" :
+                    print(f"-- reached {tx.result}")
                 else:
-                    pass
-        raise Exception("No path to termination was found")    
+                    print("-- something else went wrong")
+        raise Exception("No path to termination was found") 
+
+    def make_transaction_parameters(self, func_id, call_args=None, tx_value=0, tx_sender=None):
+        # construct the arguments passed to the contract method
+        if call_args is None:
+            arg_types = self.contract_metadata.get_func_argument_types(func_id)
+            call_args = self.machine.make_symbolic_arguments(arg_types)
+    
+        # make a symbolic value for the transaction
+        if tx_value=="symbolic":
+            tx_value = self.machine.make_symbolic_value()
+
+        # construct a sender for the transaction
+        if tx_sender is None:
+            tx_sender = self.machine.make_symbolic_address()
+        return call_args,tx_value,tx_sender
+
 
     def constrainTo(self,func_name,expectedResult):
         return_data = self.callContractFunction(func_name)
@@ -128,7 +138,7 @@ class transition_checkerXX:
 
     @staticmethod
     def predicate_expression(expressions):
-        expr = expression.BoolConstant(True)
+        expr = expression.BoolConstant(value=True)
         for tmp_expr in expressions:
-            expr = expression.BoolAnd(expr,tmp_expr)
+            expr = expression.BoolAnd(a=expr,b=tmp_expr)
         return (expr)

@@ -5,7 +5,7 @@ from manticore.core.smtlib.operators import OR,AND,NOT
 def expressions_equal_to(expressions,expected_values):
     expr = (expressions[0]==expected_values[0])
     for curr_expr,expected in zip(expressions[1:],expected_values[1:]):
-        expr = AND(expr,curr_expr==expected)
+        expr = AND(a=expr,b=(curr_expr==expected))
     return (expr)
 
 
