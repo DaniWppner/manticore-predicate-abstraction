@@ -117,7 +117,7 @@ class transition_checkerXX:
         can_be_true = False
         expr = self.predicate_expression(expressions)
         for state in self.machine.all_states:
-            can_be_true = can_be_true or state.can_be_true(state.constrains,expr)
+            can_be_true = can_be_true or state.can_be_true(expr)
         return can_be_true
 
 
