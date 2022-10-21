@@ -1,6 +1,7 @@
 import time
 from manticore.ethereum import ManticoreEVM, ABI
 from manticore.core.smtlib import expression
+from manticore.core.smtlib import operators
 
 ETHER = 10**18
 
@@ -17,7 +18,7 @@ def state_is_reachable(machine):
 
 class transition_checkerXX:
     def __init__(self,url):
-        self.machine = ManticoreEVM(workspace_url=url+"_output")
+        self.machine = ManticoreEVM()
 
         self._initUserAndContract(url) 
         self._initContractSelectorsAndMetadata()
@@ -102,16 +103,13 @@ class transition_checkerXX:
 
     def constrainTo(self,func_name,expectedResult):
         return_data = self.callContractFunction(func_name)
-        if return_data:
-            if (return_data is expression.Constant) or (not expression.issymbolic(return_data)):
-                print("Data to constrain is not symbolic, are you sure?")
-                print(f"Data : {return_data}")
-            datasize = return_data.size
-            print(f"# -- Constrain to {repr(expectedResult)}")
-            if expectedResult is int:
-                expectedResult = expression.BitVecConstant(size=datasize,value=expectedResult)
-            self.machine.constrain(return_data==expectedResult)
-            state_is_reachable(self.machine)
+        assert return_data is not None
+        datasize = return_data.size
+        print(f"# -- Constrain to {repr(expectedResult)}")
+        if expectedResult is int:
+            expectedResult = expression.BitVecConstant(size=datasize,value=expectedResult)
+        self.machine.constrain(return_data==expectedResult)
+        state_is_reachable(self.machine)
     
     def can_all_be_true(self,expressions):
         can_be_true = False
@@ -140,5 +138,5 @@ class transition_checkerXX:
     def predicate_expression(expressions):
         expr = expression.BoolConstant(value=True)
         for tmp_expr in expressions:
-            expr = expression.BoolAnd(a=expr,b=tmp_expr)
+            expr = operators.AND(expr,tmp_expr)
         return (expr)

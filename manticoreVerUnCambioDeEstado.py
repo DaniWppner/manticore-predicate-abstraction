@@ -15,7 +15,7 @@ def state_is_reachable(machine):
         print(" -- State is impossible")
 
 
-m = ManticoreEVM(workspace_url="CrowdfundingPredicates_manticore_output")
+m = ManticoreEVM()
 ETHER = 10**18
 
 

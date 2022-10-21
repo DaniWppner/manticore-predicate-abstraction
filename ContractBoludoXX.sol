@@ -19,15 +19,19 @@ contract XXX{
         return address(this).balance;
     }
 
-    function nextIsBlockNumber() public view returns(bool){
+    function twoToBlockNumber() public returns(bool){
+        return target_Block == block.number + 2;
+    }
+
+    function nextIsBlockNumber() public returns(bool){
         return target_Block == block.number + 1;
     }
 
-    function isBlockNumber() public view returns(bool){
-        return target_Block == block.number ;
+    function isBlockNumber() public returns(bool){
+        return target_Block == block.number;
     }
 
-    function blockNumber() public view returns(uint){
+    function blockNumber() public returns(uint){
         return block.number;
     } 
 
