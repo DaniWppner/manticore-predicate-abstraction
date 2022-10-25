@@ -92,9 +92,9 @@ class transition_checkerXX:
             call_args = self.machine.make_symbolic_arguments(arg_types)
     
         # make a symbolic value for the transaction
-        if tx_value=="symbolic":
+        if (tx_value is not int) and (not expression.issymbolic(tx_value)):
             tx_value = self.machine.make_symbolic_value()
-
+        
         # construct a sender for the transaction
         if tx_sender is None:
             tx_sender = self.machine.make_symbolic_address()
@@ -111,12 +111,14 @@ class transition_checkerXX:
         self.machine.constrain(return_data==expectedResult)
         state_is_reachable(self.machine)
     
-    def can_all_be_true(self,expressions):
-        can_be_true = False
+    def can_all_be_true(self,expressions,testcaseName="user"):
         expr = self.predicate_expression(expressions)
+        count = 0
+        #no fue corrido aún con el útlimo cambio
         for state in self.machine.all_states:
-            can_be_true = can_be_true or state.can_be_true(expr)
-        return can_be_true
+            if state.can_be_true(expr):
+                self.machine.generate_testcase(state=state,only_if=expr,name=testcaseName+f"_{count}")
+        return count
 
 
     def evaluate_all_properties(self):
