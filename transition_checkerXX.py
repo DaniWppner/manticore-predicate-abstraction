@@ -50,8 +50,10 @@ class transition_checkerXX:
                 self.contractfunc_names.append(func_name)
 
     def _initBlockchain(self):
-        self.initial_block = self.machine.make_symbolic_value()
-        self.machine.start_block(blocknumber=self.initial_block,
+        self.symbolic_blockchain_vars = set()
+        initial_block= self.machine.make_symbolic_value(name="initial_block")
+        self.symbolic_blockchain_vars.add(initial_block)
+        self.machine.start_block(blocknumber=initial_block,
             timestamp=int(time.time()), # current unix timestamp, #FIXME?
             coinbase=self.owner_account,
             difficulty=0x200,
@@ -92,7 +94,7 @@ class transition_checkerXX:
             call_args = self.machine.make_symbolic_arguments(arg_types)
     
         # make a symbolic value for the transaction
-        if (tx_value is not int) and (not expression.issymbolic(tx_value)):
+        if (not isinstance(tx_value,int)) and (not expression.issymbolic(tx_value)):
             tx_value = self.machine.make_symbolic_value()
         
         # construct a sender for the transaction
@@ -106,7 +108,7 @@ class transition_checkerXX:
         assert return_data is not None
         datasize = return_data.size
         print(f"# -- Constrain to {repr(expectedResult)}")
-        if expectedResult is int:
+        if isinstance(expectedResult,int):
             expectedResult = expression.BitVecConstant(size=datasize,value=expectedResult)
         self.machine.constrain(return_data==expectedResult)
         state_is_reachable(self.machine)
@@ -121,19 +123,22 @@ class transition_checkerXX:
                 count += 1
         return count
 
-    def generateTestCases(self,only_if,expressions_to_concretize=None,testcaseName="user"):
+    def generateTestCases(self,only_if,testcaseName="user"):
         expr = self.predicate_expression(only_if)
         count = 0
-        #no fue corrido aún con el útlimo cambio
         for state in self.machine.all_states:
             if state.can_be_true(expr):
-                if expressions_to_concretize:
-                    values = state.solve_one_n_batched(expressions_to_concretize)
-                    print(f"State -- {count}")
-                    for val in values:
-                        print(f"-Concrete value: {val}")
-                self.machine.generate_testcase(state=state,only_if=expr,name=testcaseName+f"_{count}")
                 count += 1
+                with state as temp_state:
+                    temp_state.constrain(expr)
+                    self.machine.generate_testcase(state=temp_state,name=testcaseName+f"_{count}")
+                    
+                    to_concretize = list(self.symbolic_blockchain_vars)
+                    values = state.solve_one_n_batched(to_concretize)
+                    print(f"State -- {count}")
+                    for concrete,symbolic in zip(values,to_concretize):
+                        print(f"-Concrete value for {symbolic.name} : {concrete}")
+
         return count
 
     def evaluate_all_properties(self):
@@ -146,7 +151,8 @@ class transition_checkerXX:
         self.machine.end_block()
 
     def advance_symbolic_ammount_of_blocks(self):
-        ammount = self.machine.make_symbolic_value()
+        ammount = self.machine.make_symbolic_value(name="blocks_advanced")
+        self.symbolic_blockchain_vars.add(ammount)
         for state in self.machine.all_states:
             world = state.platform
             world.advance_block_number(ammount)

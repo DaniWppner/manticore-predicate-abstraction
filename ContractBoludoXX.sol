@@ -38,7 +38,7 @@ contract XXX{
     } 
     
     function reachedGoal() public returns(bool){
-        return counter >= goal;
+        return address(this).balance == goal;
     }
 
 }
