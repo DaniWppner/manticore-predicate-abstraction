@@ -72,25 +72,29 @@ contract Crowdfunding {
        return(block.number > max_block && goal > address(this).balance && !funded);
     }
 
-    function C_1() public returns (bool){
+     function C_1() public returns (bool){
         return (block.number > max_block);
     }
 
     function C_2() public returns (bool){
         return (goal > address(this).balance);
-    }
+    } 
 
     function C_3() public returns (bool){
         return (!funded);
     }
 
-    function C_1_C_3() public returns (bool){
+/*     function C_1_C_3() public returns (bool){
         return C_1() && C_3() ;
-    }
+    } */
     
-   function notC_1_C_3() public returns (bool){
-        return !(C_1() && C_3()) ;
+   function C_1_C_2() public returns (bool){
+        return (block.number > max_block && goal > address(this).balance) ;
     }
- 
+
+
+    function C_prima() public returns (bool){
+        return C_1_C_2() && C_3();
+    }
 
 }

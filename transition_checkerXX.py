@@ -50,14 +50,14 @@ class transition_checkerXX:
                 self.contractfunc_names.append(func_name)
 
     def _initBlockchain(self):
-        #Initialize blockchain state
-                self.machine.start_block(blocknumber=self.machine.make_symbolic_value(),
-                    timestamp=int(time.time()), # current unix timestamp, #FIXME?
-                    coinbase=self.owner_account,
-                    difficulty=0x200,
-                    gaslimit=0x7FFFFFFF)
+        self.initial_block = self.machine.make_symbolic_value()
+        self.machine.start_block(blocknumber=self.initial_block,
+            timestamp=int(time.time()), # current unix timestamp, #FIXME?
+            coinbase=self.owner_account,
+            difficulty=0x200,
+            gaslimit=0x7FFFFFFF)
 
-  
+    
     def callContractFunction(self,func_name,call_args=None,tx_value=0,tx_sender=None):
         func_id = self.nameToSelector[func_name]
         print(f"# -- Calling {func_name}")
@@ -118,8 +118,23 @@ class transition_checkerXX:
         for state in self.machine.all_states:
             if state.can_be_true(expr):
                 self.machine.generate_testcase(state=state,only_if=expr,name=testcaseName+f"_{count}")
+                count += 1
         return count
 
+    def generateTestCases(self,only_if,expressions_to_concretize=None,testcaseName="user"):
+        expr = self.predicate_expression(only_if)
+        count = 0
+        #no fue corrido aún con el útlimo cambio
+        for state in self.machine.all_states:
+            if state.can_be_true(expr):
+                if expressions_to_concretize:
+                    values = state.solve_one_n_batched(expressions_to_concretize)
+                    print(f"State -- {count}")
+                    for val in values:
+                        print(f"-Concrete value: {val}")
+                self.machine.generate_testcase(state=state,only_if=expr,name=testcaseName+f"_{count}")
+                count += 1
+        return count
 
     def evaluate_all_properties(self):
         return_data = []
@@ -135,10 +150,10 @@ class transition_checkerXX:
         for state in self.machine.all_states:
             world = state.platform
             world.advance_block_number(ammount)
+        return ammount
 
     @staticmethod
     def predicate_expression(expressions):
         expr = expression.BoolConstant(value=True)
-        for tmp_expr in expressions:
-            expr = operators.AND(expr,tmp_expr)
+        expr = operators.AND(expr,*expressions)
         return (expr)

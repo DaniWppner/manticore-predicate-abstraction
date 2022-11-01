@@ -4,10 +4,12 @@ pragma solidity >= 0.4.0 < 0.5.0;
 contract XXX{
     uint target_Block;
     uint public counter;
+    uint goal;
 
-    constructor (uint _blockNumber, uint _initial_count) public{
+    constructor (uint _blockNumber, uint _initial_count, uint _initial_goal) public{
         target_Block = _blockNumber;
         counter = _initial_count;
+        goal = _initial_goal;
     }
 
     function count() public payable returns(uint){
@@ -34,5 +36,9 @@ contract XXX{
     function blockNumber() public returns(uint){
         return block.number;
     } 
+    
+    function reachedGoal() public returns(bool){
+        return counter >= goal;
+    }
 
 }
