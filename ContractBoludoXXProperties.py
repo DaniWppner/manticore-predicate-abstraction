@@ -31,6 +31,6 @@ blockNumber2 = tchk.callContractFunction("blockNumber")
 #tchk.constrainTo("isBlockNumber",True)
 isBlockNumber = tchk.callContractFunction("isBlockNumber")
 
-tchk.generateTestCases(testcaseName="viendoBloques",only_if=[isBlockNumber==True])
+tchk.generateTestCases(testcaseName="constraining_blocks",only_if=[isBlockNumber==True])
 
 sys.exit()
