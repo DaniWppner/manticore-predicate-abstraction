@@ -94,7 +94,7 @@ contract Crowdfunding {
 
 
     function C_prima() public returns (bool){
-        return C_1_C_2() && C_3();
+        return C_1() && C_2() && C_3();
     }
 
 }
