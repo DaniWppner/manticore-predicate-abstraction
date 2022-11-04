@@ -17,7 +17,7 @@ def state_is_reachable(machine):
 
 
 class transition_checkerXX:
-    def __init__(self,url):
+    def __init__(self,url,workspace=None):
         self.machine = ManticoreEVM()
 
         self._initUserAndContract(url) 
@@ -42,7 +42,7 @@ class transition_checkerXX:
         self.contract_metadata = self.machine.get_metadata(self.working_contract)
         
         for func_hsh in self.contract_metadata.function_selectors:
-            func_name = self.contract_metadata.get_abi(func_hsh)["name"]
+            func_name = self.contract_metadata.get_func_name(func_hsh)
             self.nameToSelector[func_name] = func_hsh
             if ("_predicate" in func_name):
                 self.pred_names.append(func_name)
@@ -60,7 +60,7 @@ class transition_checkerXX:
             gaslimit=0x7FFFFFFF)
 
     
-    def callContractFunction(self,func_name,call_args=None,tx_value=0,tx_sender=None):
+    def callContractFunction(self,func_name,call_args=None,tx_value=None,tx_sender=None):
         func_id = self.nameToSelector[func_name]
         print(f"# -- Calling {func_name}")
 
@@ -87,15 +87,18 @@ class transition_checkerXX:
                     print("-- something else went wrong")
         raise Exception("No path to termination was found") 
 
-    def make_transaction_parameters(self, func_id, call_args=None, tx_value=0, tx_sender=None):
+    def make_transaction_parameters(self, func_id, call_args=None, tx_value=None, tx_sender=None):
         # construct the arguments passed to the contract method
         if call_args is None:
             arg_types = self.contract_metadata.get_func_argument_types(func_id)
             call_args = self.machine.make_symbolic_arguments(arg_types)
     
-        # make a symbolic value for the transaction
-        if (not isinstance(tx_value,int)) and (not expression.issymbolic(tx_value)):
-            tx_value = self.machine.make_symbolic_value()
+        # make a symbolic (or zero) value for the transaction
+        if tx_value is None:
+            if self.contract_metadata.get_abi(func_id)['payable']:
+                tx_value = self.machine.make_symbolic_value()
+            else:
+                tx_value = 0
         
         # construct a sender for the transaction
         if tx_sender is None:
@@ -113,13 +116,11 @@ class transition_checkerXX:
         self.machine.constrain(return_data==expectedResult)
         state_is_reachable(self.machine)
     
-    def can_all_be_true(self,expressions,testcaseName="user"):
+    def can_all_be_true(self,expressions):
         expr = self.predicate_expression(expressions)
         count = 0
-        #no fue corrido aún con el útlimo cambio
         for state in self.machine.all_states:
             if state.can_be_true(expr):
-                self.machine.generate_testcase(state=state,only_if=expr,name=testcaseName+f"_{count}")
                 count += 1
         return count
 
@@ -134,7 +135,7 @@ class transition_checkerXX:
                     self.machine.generate_testcase(state=temp_state,name=testcaseName+f"_{count}")
                     
                     to_concretize = list(self.symbolic_blockchain_vars)
-                    values = state.solve_one_n_batched(to_concretize)
+                    values = temp_state.solve_one_n_batched(to_concretize)
                     print(f"State -- {count}")
                     for concrete,symbolic in zip(values,to_concretize):
                         print(f"-Concrete value for {symbolic.name} : {concrete}")
