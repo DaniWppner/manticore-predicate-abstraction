@@ -17,8 +17,10 @@ def state_is_reachable(machine):
 
 
 class transition_checkerXX:
-    def __init__(self,url,workspace=None):
-        self.machine = ManticoreEVM()
+    def __init__(self,url,outputspace=None):
+        if outputspace is None:
+            outputspace = url + "_results"
+        self.machine = ManticoreEVM(outputspace_url="fs:"+outputspace)
 
         self._initUserAndContract(url) 
         self._initContractSelectorsAndMetadata()
@@ -99,7 +101,7 @@ class transition_checkerXX:
                 tx_value = self.machine.make_symbolic_value()
             else:
                 tx_value = 0
-        
+
         # construct a sender for the transaction
         if tx_sender is None:
             tx_sender = self.machine.make_symbolic_address()
@@ -109,10 +111,9 @@ class transition_checkerXX:
     def constrainTo(self,func_name,expectedResult):
         return_data = self.callContractFunction(func_name)
         assert return_data is not None
-        datasize = return_data.size
         print(f"# -- Constrain to {repr(expectedResult)}")
         if isinstance(expectedResult,int):
-            expectedResult = expression.BitVecConstant(size=datasize,value=expectedResult)
+            expectedResult = expression.BitVecConstant(size=return_data.size,value=expectedResult)
         self.machine.constrain(return_data==expectedResult)
         state_is_reachable(self.machine)
     

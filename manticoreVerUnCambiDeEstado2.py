@@ -3,59 +3,58 @@ from transition_checkerXX import transition_checkerXX
 from manticore.core.smtlib.operators import OR,AND,NOT
 
 
-tchk = transition_checkerXX("CrowdfundingPredicates",workspace="Concrete_inputs1")
+tchk = transition_checkerXX("CrowdfundingPredicates",outputspace="diff_between_C_y_C-python")
 
-tchk.constrainTo("D_predicate",True)
-tchk.constrainTo("F_predicate",False)
-tchk.constrainTo ("C_predicate",False)
+tchk.constrainTo("D_predicate",1)
+tchk.constrainTo("F_predicate",0)
+tchk.constrainTo ("C_predicate",0)
 
-tchk.callContractFunction("Donate",tx_value="symbolic")
+tchk.callContractFunction("Donate")
 blocks = tchk.advance_symbolic_ammount_of_blocks()
 
-tchk.constrainTo("D_predicate",False)
-#tchk.constrainTo("F_predicate",True)
-#tchk.constrainTo("C_predicate",False)
+tchk.constrainTo("D_predicate",0)
+tchk.constrainTo("F_predicate",1)
+#tchk.constrainTo("C_predicate",0)
 
 
 c_1 = tchk.callContractFunction("C_1")
 c_2 = tchk.callContractFunction("C_2")
 c_3 = tchk.callContractFunction("C_3")
 #c1_c2 = tchk.callContractFunction("C_1_C_2")
-#c = tchk.callContractFunction("C_prima")
+c = tchk.callContractFunction("C_predicate")
+#c_prima = tchk.callContractFunction("C_prima")
+c_python = AND(c_1==True,c_2==True,c_3==True)
 
-#c1_c2_result = tchk.generateTestCases(only_if=[NOT(AND(c_1==True,c_2==True))],testcaseName="not (c1 and c2)")
-#c1_c2_result = tchk.generateTestCases(only_if=[c1_c2 == False],testcaseName="not (c1 and c2)")
-c_result = tchk.generateTestCases([NOT(AND(c_1==True,c_2==True,c_3==True))],testcaseName="not c")
+result1 = tchk.generateTestCases([c==c_python],testcaseName="c == c_python")
+if(result1>0):
+    print(f"C_python can be equal to C, found {result1} testcases for it")
+else:
+    print("C_python can not be equal to C")
+print("\n")
 
+result2 = tchk.generateTestCases([NOT(c==c_python)],testcaseName="not (c == c_python)")
+if(result2>0):
+    print(f"C_python can be different to C, found {result2} testcases for it")
+else:
+    print("C_python can not be different to C")
+print("\n")
 
+c_result = tchk.generateTestCases([NOT(c==True)],testcaseName="not c)")
 if(c_result>0):
-    print(f"not C can be true, found {c_result} testcases for it")
+    print(f"C can be False, found {c_result} testcases for it")
+else:
+    print("C can not be False")
+print("\n")
 
-sys.exit()
-
-#tchk.constrainTo("C_3",False)
-tchk.constrainTo ("C_1_C_2",False)
-tchk.constrainTo("C_3",True)
-tchk.constrainTo("C_prima",False)
-#tchk.constrainTo ("notC_1_C_3",True)
-sys.exit()
+c_python_result = tchk.generateTestCases([NOT(c_python==True)],testcaseName="not c_python")
+if(c_python_result>0):
+    print("\n\n")
+    print(f"C_python can be False, found {c_python_result} testcases for it")
+else:
+    print("C_python can not be False")
 
 
-tchk.constrainTo("D_predicate",True)
-tchk.constrainTo("F_predicate",False)
-tchk.constrainTo ("C_predicate",False)
-
-tchk.callContractFunction("Donate",tx_value="symbolic")
-tchk.advance_symbolic_ammount_of_blocks()
-
-tchk.constrainTo("D_predicate",False)
-tchk.constrainTo("F_predicate",True)
-tchk.constrainTo("C_predicate",False)
-
-tchk.constrainTo ("C_2",False)
-tchk.constrainTo ("C_3",False)
-tchk.constrainTo ("C_1",False)
-
+#print(tchk.machine.constraints)
 
 
 sys.exit()

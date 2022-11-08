@@ -83,15 +83,10 @@ contract Crowdfunding {
     function C_3() public returns (bool){
         return (!funded);
     }
-
-/*     function C_1_C_3() public returns (bool){
-        return C_1() && C_3() ;
-    } */
     
    function C_1_C_2() public returns (bool){
         return (block.number > max_block && goal > address(this).balance) ;
     }
-
 
     function C_prima() public returns (bool){
         return C_1() && C_2() && C_3();
