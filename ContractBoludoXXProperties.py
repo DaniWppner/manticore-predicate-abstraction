@@ -20,7 +20,7 @@ blockNumber1 = tchk.callContractFunction("blockNumber")
 #balance1 = tchk.callContractFunction("balance")
 #counter1 = tchk.callContractFunction("counter")
 
-tchk.callContractFunction("count",tx_value="symbolic")
+tchk.callContractFunction("count")
 tchk.advance_symbolic_ammount_of_blocks()
 
 #balance2 = tchk.callContractFunction("balance")
