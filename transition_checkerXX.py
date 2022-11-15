@@ -69,7 +69,8 @@ class transition_checkerXX:
         call_args, tx_value, tx_sender = self.make_transaction_parameters(func_id, call_args, tx_value, tx_sender)
     
         #__getattr__ is overriden to construct the function object.
-        getattr(self.working_contract,func_name)(args=call_args,value=tx_value,caller=tx_sender)
+        fun = getattr(self.working_contract,func_name)
+        fun(args=call_args,value=tx_value,caller=tx_sender)
 
         #Get the result of the most recent transaction
         for state in self.machine.all_states:
@@ -117,8 +118,7 @@ class transition_checkerXX:
         self.machine.constrain(return_data==expectedResult)
         state_is_reachable(self.machine)
     
-    def can_all_be_true(self,expressions):
-        expr = self.predicate_expression(expressions)
+    def can_be_true(self,expr):
         count = 0
         for state in self.machine.all_states:
             if state.can_be_true(expr):
@@ -126,15 +126,15 @@ class transition_checkerXX:
         return count
 
     def generateTestCases(self,only_if,testcaseName="user"):
-        expr = self.predicate_expression(only_if)
         count = 0
         for state in self.machine.all_states:
-            if state.can_be_true(expr):
+            if state.can_be_true(only_if):
                 count += 1
                 with state as temp_state:
-                    temp_state.constrain(expr)
+                    temp_state.constrain(only_if)
                     self.machine.generate_testcase(state=temp_state,name=testcaseName+f"_{count}")
-                    
+
+                    #Also generate concrete values for variables that aren't included in transactions
                     to_concretize = list(self.symbolic_blockchain_vars)
                     values = temp_state.solve_one_n_batched(to_concretize)
                     print(f"State -- {count}")
