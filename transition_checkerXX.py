@@ -143,15 +143,6 @@ class transition_checkerXX:
 
         return count
 
-    def evaluate_all_properties(self):
-        return_data = []
-        for name in self.pred_names:
-            return_data.append(self.callContractFunction(name))
-        return return_data
-
-    def end_block(self):
-        self.machine.end_block()
-
     def advance_symbolic_ammount_of_blocks(self):
         ammount = self.machine.make_symbolic_value(name="blocks_advanced")
         self.symbolic_blockchain_vars.add(ammount)
@@ -159,9 +150,3 @@ class transition_checkerXX:
             world = state.platform
             world.advance_block_number(ammount)
         return ammount
-
-    @staticmethod
-    def predicate_expression(expressions):
-        expr = expression.BoolConstant(value=True)
-        expr = operators.AND(expr,*expressions)
-        return (expr)
