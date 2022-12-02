@@ -60,7 +60,7 @@ contract RoomThermostat
         return(!(User != sender || State != StateType.InUse) );
     }
 
-    function checkStartThermostatTransition(address senderOfSecondTransaction) public returns(bool){
+    function StartThermostatTransition(address senderOfSecondTransaction) public returns(bool){
         bool success = false;
         if (ST(msg.sender) && !STT(msg.sender) && !SM(msg.sender)){
             //Inline por cuestiones de msg.sender

@@ -18,6 +18,6 @@ assert(contract is not None), "Problemas en el creado del contrato"
 caller_symb = m.make_symbolic_address()
 next_caller_symb = m.make_symbolic_address()
 print("-- call function")
-contract.checkStartThermostatTransition(next_caller_symb,caller=caller_symb)
+contract.StartThermostatTransition(next_caller_symb,caller=caller_symb)
 
 m.finalize()
