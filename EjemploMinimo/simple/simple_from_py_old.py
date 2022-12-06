@@ -1,5 +1,6 @@
-import sys
-sys.path.append('/home/daniel/BIIC/Pasar de un estado a otro/programaticamente')
+import sys,os
+up_two_levels = os.path.dirname(os.path.dirname(sys.path[0]))
+sys.path.append(up_two_levels)
 from transition_checkerXX import transition_checkerXX
 from manticore.core.smtlib import operators
 
