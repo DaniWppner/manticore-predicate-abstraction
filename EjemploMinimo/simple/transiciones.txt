@@ -1,0 +1,20 @@
+1.
+count !reach !reset --> F T F  posible
+2.
+count !reach !reset --> T F F  posible
+3.
+count !reach !reset --> F F F  posible
+4.
+count !reach !reset --> T T F  imposible
+5.
+count !reach !reset --> F F T  imposible
+6.
+count !reach !reset --> T T T  imposible
+7.
+count !reach !reset --> T F T  imposible
+8.
+count !reach !reset --> F T T  imposible
+
+objetivo: recrear programaticamente para poder hacer todas las combinaciones
+
+

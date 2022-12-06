@@ -11,6 +11,7 @@ class state_constrainer(transition_checkerXX):
 
     def callContractFunction(self,func_name,call_args=None,tx_value=None,tx_sender=None):
         func_id = self.nameToSelector[func_name]
+
         print(f"# -- Calling {func_name}")
 
         call_args, tx_value, tx_sender = self.make_transaction_parameters(func_id, call_args, tx_value, tx_sender)
@@ -20,7 +21,7 @@ class state_constrainer(transition_checkerXX):
         fun(args=call_args,value=tx_value,caller=tx_sender)
 
         #Get the result of the most recent transaction
-        for state in self.manticore.all_states:
+        for state in self.manticore.ready_states:
             tx = state.platform.last_human_transaction
             if(func_id == tx.data[:4]):
                 if tx.return_value == 1:
@@ -32,15 +33,19 @@ class state_constrainer(transition_checkerXX):
                     else:
                         result = None
                     self.stateToTransactionResults[state.id][func_name] = result
+                    print (f"---update result of {func_name} in state {state.id}") 
                 else:
                     self.stateToTransactionResults[state.id][func_name] = None
+            #FIXME no se que hacer en otro caso para que no tire KeyError. Idealmente lo querríamos descartar este estado.
+            else:
+                self.stateToTransactionResults[state.id][func_name] = None
 
     def constrainTo(self,func_name,expectedResult):
         self.callContractFunction(func_name)
-        for state in self.manticore.all_states:
+        for state in self.manticore.ready_states:
             return_data = self.stateToTransactionResults[state.id][func_name]
             if return_data is not None:
-                print(f"# -- Constrain #{state.id} to {repr(expectedResult)}")
+                print(f"# -- Constrain {func_name} in state #{state.id} to {repr(expectedResult)}")
                 if isinstance(expectedResult,int):
                     expectedResult = expression.BitVecConstant(size=return_data.size,value=expectedResult)
                 state.constrain(return_data==expectedResult)
@@ -48,11 +53,16 @@ class state_constrainer(transition_checkerXX):
     def generateTestCases(self,keys=None,targets=None,testcaseName="user"):
         '''generate testcases for each state where the function in keys has the result in targets'''
         count = 0
-        for state in self.manticore.all_states:
+        print(self.stateToTransactionResults)
+        for state in self.manticore.ready_states:
             #generate condition to be tested
             condition = expression.BoolConstant(value=True)
             for key,target in zip (keys,targets):
-                data = self.stateToTransactionResults[state.id][key] 
+                try:
+                    data = self.stateToTransactionResults[state.id][key] 
+                except KeyError:
+                    print(f"KeyError: #{state.id} at {key}")
+                    raise RuntimeError
                 if isinstance(target,int):
                     target = expression.BitVecConstant(size=data.size,value=target)                
                 condition = operators.AND(condition,data == target)
@@ -69,3 +79,4 @@ class state_constrainer(transition_checkerXX):
                     print(f"State -- {count}")
                     for concrete,symbolic in zip(values,to_concretize):
                         print(f"-Concrete value for {symbolic.name} : {concrete}")
+        return count
