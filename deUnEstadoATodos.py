@@ -2,6 +2,8 @@ import sys
 from transition_checkerXX import transition_checkerXX
 from manticore.core.smtlib.operators import OR,AND,NOT
 
+#### NO FUNCIONA ####
+
 def expressions_equal_to(expressions,expected_values):
     expr = (expressions[0]==expected_values[0])
     for curr_expr,expected in zip(expressions[1:],expected_values[1:]):
