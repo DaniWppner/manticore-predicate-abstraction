@@ -27,9 +27,6 @@ tchk.safedelete()
 sys.exit()
 
 #TODO:
-#Traceback (most recent call last):
-#  File "simple_from_py_no_constrain.py", line 18, in <module>
-#    result1 = tchk.generateTestCases(keys=["count_pre","reach_pre","reset_pre"],targets=[0,1,0],testcaseName=f"transition{1}")
-#  File "/home/daniel/BIIC/Pasar de un estado a otro/programaticamente/state_constrainer_YY.py", line 58, in generateTestCases
-#    data = self.stateToTransactionResults[state.id][key]
-#KeyError: 'count_pre'
+#Key error: los estados vivos van cambiando las ids. No existe "count_pre" para el diccionario de los ultimos estados
+#Idea: ¿Hacer un plugin de cuando se hace un estado nuevo?
+#IMPORTANTE --> chequear que realmente sean  distintas las instancias del resultado para cada estado.
