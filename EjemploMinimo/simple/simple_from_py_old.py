@@ -1,11 +1,11 @@
 import sys,os
 up_two_levels = os.path.dirname(os.path.dirname(sys.path[0]))
 sys.path.append(up_two_levels)
-from transition_checkerXX import transition_checkerXX
+from state_constrainer_YY import state_constrainer
 from manticore.core.smtlib import operators
 
 
-tchk = transition_checkerXX("Simple",outputspace="simple_from_py_old")
+tchk = state_constrainer("Simple",outputspace="simple_from_py_old")
 
 tchk.constrainTo("count_pre",1)
 tchk.constrainTo("reach_pre",0)
@@ -18,9 +18,7 @@ count_res = tchk.callContractFunction("count_pre")
 reach_res = tchk.callContractFunction("reach_pre")
 reset_res = tchk.callContractFunction("reset_pre")
 
-condition = operators.AND(count_res==0,reach_res==1,reset_res==0)
-
-result1 = tchk.generateTestCases(only_if=condition,testcaseName=f"transition{1}")
+result1 = tchk.generateTestCases(keys=["count_pre","reach_pre","reset_pre"],targets=[0,1,0],testcaseName=f"transition{1}")
 if(result1>0):
     print(f"found {result1} testcases for it")
 else:
