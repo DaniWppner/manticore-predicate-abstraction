@@ -21,33 +21,29 @@ class state_constrainer(transition_checkerXX):
         self.callContractFunction(func_name)
         func_id = self.nameToSelector[func_name]
 
-        #Get the result of the most recent transaction
         for state in self.manticore.ready_states:
             tx = state.platform.last_human_transaction
             if(tx.data[:4] == func_id):
-                if tx.return_value == 1:
-                    return_types = self.contract_metadata.get_func_return_types(func_id)
-                    if (return_types != '()') :
-                        #FIXME quita los paréntesis a izquierda y derecha del tipo
-                        return_types = return_types[1:len(return_types)-1]
-                        result = ABI.deserialize(return_types,tx.return_data)
-                        #Constrain for each state
-                        print(f"# -- Constrain {func_name} in state #{state.id} to {repr(expectedResult)}")
-                        if isinstance(expectedResult,int):
-                            expectedResult = expression.BitVecConstant(size=result.size,value=expectedResult)
-                        state.constrain(result==expectedResult)
+                result = self.result_of_tx(tx,func_id)
+                assert result is not None
+                #Constrain for each state
+                print(f"# -- Constrain {func_name} in state #{state.id} to {repr(expectedResult)}")
+                if isinstance(expectedResult,int):
+                    expectedResult = expression.BitVecConstant(size=result.size,value=expectedResult)
+                state.constrain(result==expectedResult)
 
     def generateTestCases(self,keys=None,targets=None,testcaseName="user"):
         '''generate testcases for each state where the function in keys has the result in targets'''
         count = 0
-        func_ids = map(lambda name : self.nameToSelector[name],keys)
+        func_ids = list(map(lambda name : self.nameToSelector[name],keys))
         for state in self.manticore.ready_states:
-            #find the results of each function in keys
+            #find the result of each function in func_ids
             results = []
             for func_id in func_ids:
                 #human_transactions is in chronological order
-                results.append(next( tx for tx in reversed(state.platform.human_transactions) if tx.data[:4] == func_id))
-            
+                tx = next( tx for tx in reversed(state.platform.human_transactions) if tx.data[:4] == func_id)
+                results.append(self.result_of_tx(tx,func_id))
+
             #generate condition to be tested
             condition = expression.BoolConstant(value=True)
             for data,target in zip (results,targets):
@@ -68,3 +64,13 @@ class state_constrainer(transition_checkerXX):
                     for concrete,symbolic in zip(values,to_concretize):
                         print(f"-Concrete value for {symbolic.name} : {concrete}")
         return count
+
+    def result_of_tx(self,transaction,func_id):
+        if transaction.return_value == 1:
+            return_types = self.contract_metadata.get_func_return_types(func_id)
+            if (return_types != '()') :
+                #FIXME quita los paréntesis a izquierda y derecha del tipo
+                return_types = return_types[1:len(return_types)-1]
+                result = ABI.deserialize(return_types,transaction.return_data)
+                return result
+             
