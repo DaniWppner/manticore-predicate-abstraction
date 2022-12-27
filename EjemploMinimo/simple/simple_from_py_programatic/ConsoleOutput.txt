@@ -1,0 +1,77 @@
+# -- Deploying Contract
+# -- Contract Deployed
+# -- Calling count_pre
+# -- Calling reach_pre
+# -- Calling reset_pre
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases that reach FFF initial state
+found no testcases for FFT initial state
+found no testcases for FTT initial state
+found no testcases for TFT initial state
+found no testcases for TTT initial state
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases that reach FTF initial state
+found no testcases for TTF initial state
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases that reach TFF initial state
+# -- Calling reachFlag
+# -- Calling count_pre
+# -- Calling reach_pre
+# -- Calling reset_pre
+no testcases for FTF--FFF
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for FTF--FFT
+no testcases for FTF--FTT
+no testcases for FTF--TFT
+no testcases for FTF--TTT
+no testcases for FTF--FTF
+no testcases for FTF--TTF
+no testcases for FTF--TFF
+# -- Calling reset
+# -- Calling count_pre
+# -- Calling reach_pre
+# -- Calling reset_pre
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for FFT--FFF
+no testcases for FFT--FFT
+no testcases for FFT--FTT
+no testcases for FFT--TFT
+no testcases for FFT--TTT
+no testcases for FFT--FTF
+no testcases for FFT--TTF
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for FFT--TFF
+# -- Calling count
+# -- Calling count_pre
+# -- Calling reach_pre
+# -- Calling reset_pre
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for TFF--FFF
+no testcases for TFF--FFT
+no testcases for TFF--FTT
+no testcases for TFF--TFT
+no testcases for TFF--TTT
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for TFF--FTF
+no testcases for TFF--TTF
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for TFF--TFF
+--- Took 714.2410175800323 seconds
++++ Reached States:
+      TFF
+      FFF
+      FFT
+      FTF
++++ Explored Transitions:
+   from FTF executing reachFlag
+   from TFF executing count
+   from FFT executing reset
