@@ -70,7 +70,7 @@ class transition_checkerXX:
     
         #__getattr__ is overriden to construct the function object.
         fun = getattr(self.working_contract,func_name)
-        fun(args=call_args,value=tx_value,caller=tx_sender)
+        fun(*call_args,value=tx_value,caller=tx_sender)
 
         #Get the result of the most recent transaction
         for state in self.manticore.all_states:

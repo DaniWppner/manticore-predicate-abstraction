@@ -53,31 +53,4 @@ contract Flag{
         return finished;
     }
 
-    function sixth_transition(uint ammount) public returns(bool){
-        if(count_pre() && !reach_pre() && !reset_pre()){
-            count(ammount);
-            return (count_pre() && reach_pre() && reset_pre());
-        }else{
-            return false;
-        }
-    }
-
-    function seventh_transition(uint ammount) public returns(bool){
-        if(count_pre() && !reach_pre() && !reset_pre()){
-            count(ammount);
-            return (count_pre() && !reach_pre() && reset_pre());
-        }else{
-            return false;
-        }
-    }
-
-    function eigth_transition(uint ammount) public returns(bool){
-        if(count_pre() && !reach_pre() && !reset_pre()){
-            count(ammount);
-            return (!count_pre() && reach_pre() && reset_pre());
-        }else{
-            return false;
-        }
-    }
-
 }
