@@ -17,10 +17,10 @@ def state_is_reachable(machine):
 
 
 class transition_checkerXX:
-    def __init__(self,url,outputspace=None):
+    def __init__(self,url,outputspace=None,workspace=None):
         if outputspace is None:
             outputspace = url + "_results"
-        self.manticore = ManticoreEVM(outputspace_url="fs:"+outputspace)
+        self.manticore = ManticoreEVM(workspace_url=workspace, outputspace_url="fs:"+outputspace)
 
         self._initUserAndContract(url) 
         self._initContractSelectorsAndMetadata()
