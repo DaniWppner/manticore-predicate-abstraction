@@ -3,7 +3,7 @@ from transition_checkerXX import transition_checkerXX
 from manticore.core.smtlib import operators
 
 
-tchk = transition_checkerXX("ContractBoludoXX")
+tchk = transition_checkerXX("ContractBoludoXX.sol")
 
 #DELETEME
 """ tchk.callContractFunction("count",tx_value="symbolic")

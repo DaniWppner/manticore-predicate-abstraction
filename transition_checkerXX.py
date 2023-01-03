@@ -29,7 +29,7 @@ class transition_checkerXX:
     def _initUserAndContract(self,url):
         self.owner_account = self.manticore.create_account(balance=1*ETHER)
         print("# -- Deploying Contract")
-        with open(url+".sol",'r') as file:
+        with open(url,'r') as file:
             source_code = file.read() 
         #Hardcodeamos args=None para que use argumentos simbolicos por defecto
         self.working_contract = self.manticore.solidity_create_contract(source_code, owner=self.owner_account,args=None) 
@@ -39,15 +39,15 @@ class transition_checkerXX:
     
     def _initContractSelectorsAndMetadata(self):
         self.nameToSelector = {}
-        self.pred_names = []
+        self.precon_names = []
         self.contractfunc_names = [] 
         self.contract_metadata = self.manticore.get_metadata(self.working_contract)
         
         for func_hsh in self.contract_metadata.function_selectors:
             func_name = self.contract_metadata.get_func_name(func_hsh)
             self.nameToSelector[func_name] = func_hsh
-            if ("_predicate" in func_name):
-                self.pred_names.append(func_name)
+            if ("_precondition" in func_name):
+                self.precon_names.append(func_name)
             else:
                 self.contractfunc_names.append(func_name)
 
