@@ -1,0 +1,30 @@
+# -- Deploying Contract
+# -- Contract Deployed
+
+# -- Calling count_pre
+# -- Calling reach_pre
+# -- Calling reset_pre
+
+found 1 testcases for FFF initial state
+found no testcases for FFT initial state
+found no testcases for FTT initial state
+found no testcases for TFT initial state
+found no testcases for TTT initial state
+found 1 testcases for FTF initial state
+found no testcases for TTF initial state
+found 1 testcases for TFF initial state
+
+Call Count
+# -- Calling count_pre
+# -- Calling reach_pre
+# -- Calling reset_pre
+
+State: TFF
+found 1 testcases for TFF--FFF
+no testcases for TFF--FFT
+no testcases for TFF--FTT
+no testcases for TFF--TFT
+no testcases for TFF--TTT
+found 1 testcases for TFF--FTF
+no testcases for TFF--TTF
+found 1 testcases for TFF--TFF

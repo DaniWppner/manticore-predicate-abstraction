@@ -1,0 +1,17 @@
+no testcases for FTF--FFF
+found 1 testcases for FTF--FFT
+no testcases for FTF--FTT
+no testcases for FTF--TFT
+no testcases for FTF--TTT
+no testcases for FTF--FTF
+no testcases for FTF--TTF
+no testcases for FTF--TFF
+
+found 1 testcases for FFT--FFF
+no testcases for FFT--FFT
+no testcases for FFT--FTT
+no testcases for FFT--TFT
+no testcases for FFT--TTT
+no testcases for FFT--FTF
+no testcases for FFT--TTF
+found 1 testcases for FFT--TFF
