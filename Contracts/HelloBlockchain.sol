@@ -1,0 +1,51 @@
+pragma solidity >=0.4.25 <0.9.0;
+
+contract HelloBlockchain {
+     //Set of States
+    enum StateType { Request, Respond}
+
+    //List of properties
+    StateType public  State;
+    address public  Requestor;
+    address public  Responder;
+
+    string public RequestMessage;
+    string public ResponseMessage;
+
+    // constructor function
+    constructor(string memory message) public
+    {
+        Requestor = msg.sender;
+        RequestMessage = message;
+        State = StateType.Request;
+    }
+
+    // call this function to send a request
+    function SendRequest(string memory requestMessage) public
+    {
+        if (Requestor != msg.sender)
+        {
+            revert();
+        }
+
+        RequestMessage = requestMessage;
+        State = StateType.Request;
+    }
+
+    // call this function to send a response
+    function SendResponse(string memory responseMessage) public
+    {
+        Responder = msg.sender;
+
+        // call ContractUpdated() to record this action
+        ResponseMessage = responseMessage;
+        State = StateType.Respond;
+    }
+
+    function SendRequest_precondition(string memory requestMessage) public returns(bool){
+        return msg.sender == Requestor;
+    }
+    function SendResponse_precondition(string memory responseMessage) public returns(bool){
+        return true;
+    }
+}
