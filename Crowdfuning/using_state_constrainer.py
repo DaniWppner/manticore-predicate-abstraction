@@ -4,7 +4,7 @@ from manticore.core.smtlib.expression import BoolConstant
 
 
 
-tchk = state_constrainer("CrowdfundingPredicates",outputspace="new constrainer")
+tchk = state_constrainer("CrowdfundingPredicates.sol",outputspace="new constrainer")
 
 tchk.constrainTo("D_predicate",1)
 tchk.constrainTo("F_predicate",0)

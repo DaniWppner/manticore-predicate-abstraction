@@ -7,7 +7,7 @@ count=0
 for t1,t2,t3 in [(0,1,0),(1,0,0),(0,0,0),(1,1,0),(0,0,1),(1,1,1),(1,0,1),(0,1,1)]:
     print((t1,t2,t3))
     count+=1
-    tchk = state_constrainer("Simple",outputspace="simple_from_py")
+    tchk = state_constrainer("Simple.sol",outputspace="simple_from_py")
 
     tchk.constrainTo("count_pre",1)
     tchk.constrainTo("reach_pre",0)

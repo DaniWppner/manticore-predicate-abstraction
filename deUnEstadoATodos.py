@@ -11,7 +11,7 @@ def expressions_equal_to(expressions,expected_values):
     return (expr)
 
 
-tchk = transition_checkerXX("CrowdfundingPredicates")
+tchk = transition_checkerXX("CrowdfundingPredicates.sol")
 
 d_1, f_1, c_1 = tchk.evaluate_all_properties()
 

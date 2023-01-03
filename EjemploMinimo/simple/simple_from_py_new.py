@@ -11,7 +11,7 @@ def transition_name(start,end):
         textend += "T" if e else "F"
     return textstart+"--"+textend
 
-tchk = state_constrainer("Simple",outputspace="simple_from_py_new")
+tchk = state_constrainer("Simple.sol",outputspace="simple_from_py_new")
 
 ini_state = [0,0,1]
 

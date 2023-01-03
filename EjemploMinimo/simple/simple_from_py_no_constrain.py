@@ -35,7 +35,7 @@ def explorable_from_states(states,methods):
     return explorable
 
 start = time.time()
-tchk = state_constrainer("Simple",outputspace="simple_from_py_programatic")
+tchk = state_constrainer("Simple.sol",outputspace="simple_from_py_programatic")
 
 states = [(0,0,0), (0,0,1), (0,1,1), (1,0,1), (1,1,1), (0,1,0), (1,1,0), (1,0,0)]
 traza = ["count_pre","reach_pre","reset_pre"]

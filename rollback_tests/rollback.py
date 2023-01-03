@@ -3,7 +3,7 @@ up_one_level = os.path.dirname(sys.path[0])
 sys.path.append(up_one_level)
 from state_constrainer_YY import state_constrainer
 
-tchk = state_constrainer("Simple",outputspace="ouput",workspace="workspace")
+tchk = state_constrainer("Simple.sol",outputspace="ouput",workspace="workspace")
 
 ini_state = [0,0,1]
 

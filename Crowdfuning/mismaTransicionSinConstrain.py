@@ -7,7 +7,7 @@ from manticore.core.smtlib.operators import OR,AND,NOT
 
 transiciones=[]
 
-tchk = transition_checkerXX("CrowdfundingPredicates",outputspace="transicion_hecha_distinta")
+tchk = transition_checkerXX("CrowdfundingPredicates.sol",outputspace="transicion_hecha_distinta")
 
 tchk.constrainTo("D_predicate",1)
 tchk.constrainTo("F_predicate",0)
