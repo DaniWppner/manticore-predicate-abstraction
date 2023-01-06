@@ -148,14 +148,14 @@ contract RefrigeratedTransportation {
         // ContractUpdated('Complete');
     }
 
-    function IngestTelemetry_precondition(int humidity, int temperature, int timestamp) public returns(bool){
-        return (State != StateType.Completed && State != StateType.OutOfCompliance && Device == msg.sender);
+    function IngestTelemetry_precondition() public returns(bool){
+        return (State != StateType.Completed && State != StateType.OutOfCompliance);
     }
-    function TransferResponsibility_precondition(address newCounterparty) public returns(bool){
-        return (State != StateType.Completed && State != StateType.OutOfCompliance && InitiatingCounterparty == msg.sender && Counterparty == msg.sender && newCounterparty != Device);
+    function TransferResponsibility_precondition() public returns(bool){
+        return (State != StateType.Completed && State != StateType.OutOfCompliance);
     }
     function Complete_precondition() public returns(bool){
-        return (State != StateType.Completed && State != StateType.OutOfCompliance && Owner == msg.sender && SupplyChainOwner == msg.sender);
+        return (State != StateType.Completed && State != StateType.OutOfCompliance);
     }
 
 }

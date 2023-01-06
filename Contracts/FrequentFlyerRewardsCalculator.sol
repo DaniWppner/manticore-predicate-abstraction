@@ -58,7 +58,7 @@ contract FrequentFlyerRewardsCalculator {
     }
 
     function AddMiles_precondition(int[] memory miles) public returns(bool){
-        return (msg.sender == Flyer);
+        return true;
     }
     function ComputeTotalRewards_precondition() public returns(bool){
         return true;

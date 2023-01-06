@@ -227,33 +227,33 @@ contract AssetTransfer {
     }
 
     function Terminate_precondition() public returns(bool){
-        return (InstanceOwner == msg.sender);
+        return (true);
     }
-    function Modify_precondition(string memory description, uint256 price) public returns(bool){
-        return (InstanceOwner == msg.sender && State == StateType.Active);
+    function Modify_precondition() public returns(bool){
+        return (State == StateType.Active);
     }
-    function MakeOffer_precondition(address inspector, address appraiser, uint256 offerPrice) public returns(bool){
-        return (InstanceOwner != msg.sender && inspector != address(0x0) && appraiser != address(0x0) && offerPrice != 0 && State == StateType.Active);
+    function MakeOffer_precondition() public returns(bool){
+        return (State == StateType.Active);
     }
     function AcceptOffer_precondition() public returns(bool){
-        return (InstanceOwner == msg.sender && State == StateType.OfferPlaced);
+        return (State == StateType.OfferPlaced);
     }
     function Reject_precondition() public returns(bool){
-        return (InstanceOwner == msg.sender && (State == StateType.OfferPlaced || State == StateType.PendingInspection || State == StateType.Inspected || State == StateType.Appraised && State == StateType.NotionalAcceptance || State == StateType.BuyerAccepted));
+        return (State == StateType.OfferPlaced || State == StateType.PendingInspection || State == StateType.Inspected || State == StateType.Appraised && State == StateType.NotionalAcceptance || State == StateType.BuyerAccepted);
     }
     function Accept_precondition() public returns(bool){
-        return ((msg.sender == InstanceBuyer || msg.sender == InstanceOwner) && (msg.sender != InstanceOwner || State == StateType.NotionalAcceptance || State == StateType.BuyerAccepted) && (msg.sender != InstanceBuyer || State == StateType.NotionalAcceptance || State == StateType.SellerAccepted));
+        return ((State == StateType.NotionalAcceptance || State == StateType.BuyerAccepted) && (State == StateType.NotionalAcceptance || State == StateType.SellerAccepted));
     }
     function ModifyOffer_precondition(uint256 offerPrice) public returns(bool){
-        return (InstanceBuyer == msg.sender && offerPrice != 0 && State == StateType.OfferPlaced);
+        return (State == StateType.OfferPlaced);
     }
     function RescindOffer_precondition() public returns(bool){
-        return (InstanceBuyer == msg.sender && (State == StateType.OfferPlaced || State == StateType.PendingInspection || State == StateType.Inspected || State == StateType.Appraised || State == StateType.NotionalAcceptance || State == StateType.SellerAccepted));
+        return (State == StateType.OfferPlaced || State == StateType.PendingInspection || State == StateType.Inspected || State == StateType.Appraised || State == StateType.NotionalAcceptance || State == StateType.SellerAccepted);
     }
     function MarkAppraised_precondition() public returns(bool){
-        return (InstanceAppraiser == msg.sender && (State != StateType.PendingInspection || State != StateType.Inspected));
+        return (State != StateType.PendingInspection || State != StateType.Inspected);
     }
     function MarkInspected_precondition() public returns(bool){
-        return (InstanceInspector == msg.sender && (State != StateType.PendingInspection || State != StateType.Appraised));
+        return (State != StateType.PendingInspection || State != StateType.Appraised);
     }
 }

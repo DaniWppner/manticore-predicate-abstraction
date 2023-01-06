@@ -80,12 +80,12 @@ contract SimpleMarketplace {
     }
 
     function MakeOffer_precondition(int offerPrice) public returns(bool){
-        return (offerPrice != 0 && msg.sender != InstanceOwner && StateEnum == StateType.ItemAvailable);
+        return (StateEnum == StateType.ItemAvailable);
     }
     function Reject_precondition() public returns(bool){
-        return (msg.sender == InstanceOwner && StateEnum == StateType.OfferPlaced);
+        return (StateEnum == StateType.OfferPlaced);
     }
     function AcceptOffer_precondition() public returns(bool){
-        return (msg.sender == InstanceOwner && StateEnum == StateType.OfferPlaced);
+        return (StateEnum == StateType.OfferPlaced);
     }
 }

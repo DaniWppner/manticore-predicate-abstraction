@@ -43,7 +43,7 @@ contract HelloBlockchain {
     }
 
     function SendRequest_precondition(string memory requestMessage) public returns(bool){
-        return msg.sender == Requestor;
+        return true;
     }
     function SendResponse_precondition(string memory responseMessage) public returns(bool){
         return true;

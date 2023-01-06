@@ -49,13 +49,13 @@ contract RoomThermostat {
     }
 
     function StartThermostat_precondition() public returns(bool){
-        return (State == StateType.Created && Installer == msg.sender);
+        return (State == StateType.Created);
     }
-    function SetTargetTemperature_precondition(int targetTemperature) public returns(bool){
-        return (State == StateType.InUse && User == msg.sender);
+    function SetTargetTemperature_precondition() public returns(bool){
+        return (State == StateType.InUse);
     }
-    function SetMode_precondition(ModeEnum mode) public returns(bool){
-        return (State == StateType.InUse && User == msg.sender);
+    function SetMode_precondition() public returns(bool){
+        return (State == StateType.InUse);
     }
 
 }

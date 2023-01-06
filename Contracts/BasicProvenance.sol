@@ -51,11 +51,10 @@ contract BasicProvenance {
     }
 
     function TransferResponsibility_precondition(address newCounterparty) public returns(bool){
-        return (Counterparty == msg.sender && State != StateType.Completed);
+        return (State != StateType.Completed);
     } 
-
     function Complete_precondition() public returns(bool){
-        return (SupplyChainOwner == msg.sender && State != StateType.Completed);
+        return (State != StateType.Completed);
     }
 
 }

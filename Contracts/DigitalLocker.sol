@@ -149,14 +149,14 @@ contract DigitalLocker {
         State = StateType.Terminated;
     }
 
-    function BeginReviewProcess_precondition() public returns(bool){return (Owner != msg.sender);}
-    function RejectApplication_precondition(string memory rejectionReason) public returns(bool){return (BankAgent == msg.sender);}
-    function UploadDocuments_precondition() public returns(bool){return (BankAgent == msg.sender);}
-    function ShareWithThirdParty_precondition() public returns(bool){return (Owner == msg.sender);}
-    function AcceptSharingRequest_precondition() public returns(bool){return (Owner == msg.sender);}
-    function RejectSharingRequest_precondition() public returns(bool){return (Owner == msg.sender);}
-    function RequestLockerAccess_precondition(string memory intendedPurpose) public returns(bool){return (Owner != msg.sender);}
-    function ReleaseLockerAccess_precondition() public returns(bool){return CurrentAuthorizedUser == msg.sender;}
-    function RevokeAccessFromThirdParty_precondition() public returns(bool){return (Owner == msg.sender);}
-    function Terminate_precondition() public returns(bool){return (Owner == msg.sender);}
+    function BeginReviewProcess_precondition() public returns(bool){return true;}
+    function RejectApplication_precondition(string memory rejectionReason) public returns(bool){return true;}
+    function UploadDocuments_precondition() public returns(bool){return true;}
+    function ShareWithThirdParty_precondition() public returns(bool){return true;}
+    function AcceptSharingRequest_precondition() public returns(bool){return true;}
+    function RejectSharingRequest_precondition() public returns(bool){return true;}
+    function RequestLockerAccess_precondition(string memory intendedPurpose) public returns(bool){return true;}
+    function ReleaseLockerAccess_precondition() public returns(bool){return true;}
+    function RevokeAccessFromThirdParty_precondition() public returns(bool){return true;}
+    function Terminate_precondition() public returns(bool){return true;}
 }

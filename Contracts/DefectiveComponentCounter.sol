@@ -43,7 +43,7 @@ contract DefectiveComponentCounter {
     }
 
     function ComputeTotal_precondition() public returns (bool){
-        return (Manufacturer == msg.sender);
+        return true;
     }
     function GetDefectiveComponentsCount_precondition() public returns (bool){
         return true;
