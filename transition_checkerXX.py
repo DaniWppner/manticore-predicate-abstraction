@@ -94,7 +94,7 @@ class transition_checkerXX:
     
         # make a symbolic (or zero) value for the transaction
         if tx_value is None:
-            if self.contract_metadata.get_abi(func_id)['payable']:
+            if self.contract_metadata.get_abi(func_id)['stateMutability'] == 'payable':
                 tx_value = self.manticore.make_symbolic_value()
             else:
                 tx_value = 0
