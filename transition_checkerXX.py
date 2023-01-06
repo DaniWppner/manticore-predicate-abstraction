@@ -22,12 +22,15 @@ class transition_checkerXX:
             outputspace = url + "_results"
         self.manticore = ManticoreEVM(workspace_url=workspace, outputspace_url="fs:"+outputspace)
 
-        self._initUserAndContract(url) 
+        self._initAccountsAndContract(url) 
         self._initContractSelectorsAndMetadata()
         self._initBlockchain()
 
-    def _initUserAndContract(self,url):
+    def _initAccountsAndContract(self,url):
+        # Por ahora suponemos que tres cuentas es suficiente para la mayoria de los casos
         self.owner_account = self.manticore.create_account(balance=1*ETHER)
+        self.client_account = self.manticore.create_account(balance=1*ETHER)
+        self.witness_account = self.manticore.create_account(balance=1*ETHER,name="witness")
         print("# -- Deploying Contract")
         with open(url,'r') as file:
             source_code = file.read() 

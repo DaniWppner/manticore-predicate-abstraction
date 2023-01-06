@@ -55,7 +55,7 @@ explored = set()
 global_snapshots_stack = []
 
 for condition in traza:
-    tchk.callContractFunction(condition)
+    tchk.callContractFunction(condition,tx_sender=tchk.witness_account)
 
 for ini_state in states:
     ini_state_count = tchk.generateTestCases(keys=traza,targets=(ini_state),testcaseName=f"STATE_{repr_state(ini_state)}")
@@ -84,7 +84,7 @@ while True:
         global_snapshots_stack.append(current_states)
         tchk.callContractFunction(method)
         for condition in traza:
-            tchk.callContractFunction(condition)
+            tchk.callContractFunction(condition,tx_sender=tchk.witness_account)
         new_states = []
         for ini_state in states_that_allow(method,current_states,methods):
             for fin_state in states:
