@@ -105,22 +105,33 @@ def construct_epa(path,output):
                     tchk.manticore.take_snapshot()
                     global_snapshots_stack.append(current_states)
                     tchk.callContractFunction(method)
-                    for condition in traza:
-                        tchk.callContractFunction(condition,tx_sender=tchk.witness_account)
-                    new_states = []
-                    for ini_state in states_that_allow(method,current_states,methods):
-                        for fin_state in states:
-                            result = tchk.generateTestCases(keys=traza+traza,targets=(ini_state + fin_state),testcaseName=f"transition{transition_name(ini_state,method,fin_state,methods)}")
-                            if(result>0):
-                                print(f"found {result} testcases for {transition_name(ini_state,method,fin_state,methods)}")
-                                new_states.append(fin_state)
-                                epa[(ini_state,method)].append(fin_state)
-                            else:
-                                print(f"no testcases for {transition_name(ini_state,method,fin_state,methods)}")
-                        explored.add((ini_state,method))
+                    
 
-                    reachable_states.update(new_states)
-                    current_states = new_states
+                    if not tchk.isallive():
+                        #If trying to execute the method killed all states we should avoid executing anything else.
+                        #Go back to before executing and mark this path as already explored. 
+                        for ini_state in states_that_allow(method,current_states,methods):
+                            explored.add((ini_state,method))
+                        current_states = global_snapshots_stack.pop()
+                        tchk.manticore.goto_snapshot()
+                    else:
+                        for condition in traza:
+                            tchk.callContractFunction(condition,tx_sender=tchk.witness_account)
+                        
+                        new_states = []
+                        for ini_state in states_that_allow(method,current_states,methods):
+                            for fin_state in states:
+                                result = tchk.generateTestCases(keys=traza+traza,targets=(ini_state + fin_state),testcaseName=f"transition{transition_name(ini_state,method,fin_state,methods)}")
+                                if(result>0):
+                                    print(f"found {result} testcases for {transition_name(ini_state,method,fin_state,methods)}")
+                                    new_states.append(fin_state)
+                                    epa[(ini_state,method)].append(fin_state)
+                                else:
+                                    print(f"no testcases for {transition_name(ini_state,method,fin_state,methods)}")
+                            explored.add((ini_state,method))
+
+                        reachable_states.update(new_states)
+                        current_states = new_states
 
             end = time.time()
             print(f"--- Took {deploy_time-start} seconds to deploy the contract")
