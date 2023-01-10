@@ -1,0 +1,7 @@
+digraph { 
+init label=[init] 
+(1, 1) label=[ComputeTotalGetDefectiveComponentsCount] 
+init -> (1, 1) label=[constructor] 
+(1, 1) -> (1, 1) label=[ComputeTotal] 
+(1, 1) -> (1, 1) label=[GetDefectiveComponentsCount] 
+}
