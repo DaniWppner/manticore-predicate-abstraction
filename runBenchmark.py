@@ -1,5 +1,6 @@
 from main import construct_epa
+#ya corrieron ["DefectiveComponentCounter","RoomThermostat","HelloBlockchain"]
 
-for contract in ["DefectiveComponentCounter","RoomThermostat","HelloBlockchain","DigitalLocker","SimpleMarketPlace","FrequentFlyerRewardsCalculator","RefrigeratedTransportation","BasicProvenance","AssetTransfer"]:
+for contract in ["SimpleMarketplace","FrequentFlyerRewardsCalculator","RefrigeratedTransportation","BasicProvenance","DigitalLocker","AssetTransfer"]:
     print(contract)
     construct_epa(path=f"Contracts/{contract}.sol",output=f"graph/{contract}")

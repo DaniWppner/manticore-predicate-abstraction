@@ -3,42 +3,38 @@
 # -- Calling ComputeTotal_precondition
 # -- Calling GetDefectiveComponentsCount_precondition
 found no testcases for vacio initial state
-found no testcases for GetDefectiveComponentsCount initial state
-found no testcases for ComputeTotal initial state
+found no testcases for _GetDefectiveComponentsCount initial state
+found no testcases for _ComputeTotal initial state
 Testcase -- 1
 -Concrete value for initial_block : 0
-found 1 testcases that reach ComputeTotalGetDefectiveComponentsCount initial state
-# -- Calling GetDefectiveComponentsCount
-# -- Calling ComputeTotal_precondition
-# -- Calling GetDefectiveComponentsCount_precondition
-no testcases for ComputeTotalGetDefectiveComponentsCount-->GetDefectiveComponentsCount-->vacio
-no testcases for ComputeTotalGetDefectiveComponentsCount-->GetDefectiveComponentsCount-->GetDefectiveComponentsCount
-no testcases for ComputeTotalGetDefectiveComponentsCount-->GetDefectiveComponentsCount-->ComputeTotal
-Testcase -- 1
--Concrete value for initial_block : 0
-Testcase -- 2
--Concrete value for initial_block : 0
-Testcase -- 3
--Concrete value for initial_block : 0
-found 3 testcases for ComputeTotalGetDefectiveComponentsCount-->GetDefectiveComponentsCount-->ComputeTotalGetDefectiveComponentsCount
+found 1 testcases that reach _ComputeTotal_GetDefectiveComponentsCount initial state
 # -- Calling ComputeTotal
 # -- Calling ComputeTotal_precondition
 # -- Calling GetDefectiveComponentsCount_precondition
-no testcases for ComputeTotalGetDefectiveComponentsCount-->ComputeTotal-->vacio
-no testcases for ComputeTotalGetDefectiveComponentsCount-->ComputeTotal-->GetDefectiveComponentsCount
-no testcases for ComputeTotalGetDefectiveComponentsCount-->ComputeTotal-->ComputeTotal
+no testcases for _ComputeTotal_GetDefectiveComponentsCount-->ComputeTotal-->vacio
+no testcases for _ComputeTotal_GetDefectiveComponentsCount-->ComputeTotal-->_GetDefectiveComponentsCount
+no testcases for _ComputeTotal_GetDefectiveComponentsCount-->ComputeTotal-->_ComputeTotal
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for _ComputeTotal_GetDefectiveComponentsCount-->ComputeTotal-->_ComputeTotal_GetDefectiveComponentsCount
+# -- Calling GetDefectiveComponentsCount
+# -- Calling ComputeTotal_precondition
+# -- Calling GetDefectiveComponentsCount_precondition
+no testcases for _ComputeTotal_GetDefectiveComponentsCount-->GetDefectiveComponentsCount-->vacio
+no testcases for _ComputeTotal_GetDefectiveComponentsCount-->GetDefectiveComponentsCount-->_GetDefectiveComponentsCount
+no testcases for _ComputeTotal_GetDefectiveComponentsCount-->GetDefectiveComponentsCount-->_ComputeTotal
 Testcase -- 1
 -Concrete value for initial_block : 0
 Testcase -- 2
 -Concrete value for initial_block : 0
 Testcase -- 3
 -Concrete value for initial_block : 0
-found 3 testcases for ComputeTotalGetDefectiveComponentsCount-->ComputeTotal-->ComputeTotalGetDefectiveComponentsCount
---- Took 87.01029849052429 seconds to deploy the contract
---- Took 94.6384527683258 seconds to find the initial states
---- Took 1307.207721710205 seconds in total.
+found 3 testcases for _ComputeTotal_GetDefectiveComponentsCount-->GetDefectiveComponentsCount-->_ComputeTotal_GetDefectiveComponentsCount
+--- Took 93.78978419303894 seconds to deploy the contract
+--- Took 99.1817729473114 seconds to find the initial states
+--- Took 1005.4973587989807 seconds in total.
 +++ Reached States:
-      ComputeTotalGetDefectiveComponentsCount
+      _ComputeTotal_GetDefectiveComponentsCount
 +++ Explored Transitions:
-   from ComputeTotalGetDefectiveComponentsCount executing GetDefectiveComponentsCount
-   from ComputeTotalGetDefectiveComponentsCount executing ComputeTotal
+   from _ComputeTotal_GetDefectiveComponentsCount executing ComputeTotal
+   from _ComputeTotal_GetDefectiveComponentsCount executing GetDefectiveComponentsCount

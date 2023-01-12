@@ -49,6 +49,8 @@ contract AssetTransfer {
         // ContractUpdated('Modify');
     }
 
+    
+
     function MakeOffer(address inspector, address appraiser, uint256 offerPrice) public
     {
         if (inspector == address(0x0) || appraiser == address(0x0) || offerPrice == 0)
