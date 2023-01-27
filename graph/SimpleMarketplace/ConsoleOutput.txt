@@ -1,0 +1,92 @@
+# -- Deploying Contract
+# -- Contract Deployed
+# -- Calling AcceptOffer_precondition
+# -- Calling MakeOffer_precondition
+# -- Calling Reject_precondition
+found no testcases for vacio initial state
+found no testcases for _Reject initial state
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases that reach _MakeOffer initial state
+found no testcases for _MakeOffer_Reject initial state
+found no testcases for _AcceptOffer initial state
+found no testcases for _AcceptOffer_Reject initial state
+found no testcases for _AcceptOffer_MakeOffer initial state
+found no testcases for _AcceptOffer_MakeOffer_Reject initial state
+# -- Calling MakeOffer
+# -- Calling AcceptOffer_precondition
+# -- Calling MakeOffer_precondition
+# -- Calling Reject_precondition
+no testcases for _MakeOffer-->MakeOffer-->vacio
+no testcases for _MakeOffer-->MakeOffer-->_Reject
+no testcases for _MakeOffer-->MakeOffer-->_MakeOffer
+no testcases for _MakeOffer-->MakeOffer-->_MakeOffer_Reject
+no testcases for _MakeOffer-->MakeOffer-->_AcceptOffer
+Testcase -- 1
+-Concrete value for initial_block : 0
+Testcase -- 2
+-Concrete value for initial_block : 0
+Testcase -- 3
+-Concrete value for initial_block : 0
+found 3 testcases for _MakeOffer-->MakeOffer-->_AcceptOffer_Reject
+no testcases for _MakeOffer-->MakeOffer-->_AcceptOffer_MakeOffer
+no testcases for _MakeOffer-->MakeOffer-->_AcceptOffer_MakeOffer_Reject
+# -- Calling Reject
+# -- Calling AcceptOffer_precondition
+# -- Calling MakeOffer_precondition
+# -- Calling Reject_precondition
+no testcases for _AcceptOffer_Reject-->Reject-->vacio
+no testcases for _AcceptOffer_Reject-->Reject-->_Reject
+Testcase -- 1
+-Concrete value for initial_block : 0
+Testcase -- 2
+-Concrete value for initial_block : 0
+Testcase -- 3
+-Concrete value for initial_block : 0
+Testcase -- 4
+-Concrete value for initial_block : 0
+Testcase -- 5
+-Concrete value for initial_block : 0
+Testcase -- 6
+-Concrete value for initial_block : 0
+found 6 testcases for _AcceptOffer_Reject-->Reject-->_MakeOffer
+no testcases for _AcceptOffer_Reject-->Reject-->_MakeOffer_Reject
+no testcases for _AcceptOffer_Reject-->Reject-->_AcceptOffer
+no testcases for _AcceptOffer_Reject-->Reject-->_AcceptOffer_Reject
+no testcases for _AcceptOffer_Reject-->Reject-->_AcceptOffer_MakeOffer
+no testcases for _AcceptOffer_Reject-->Reject-->_AcceptOffer_MakeOffer_Reject
+# -- Calling AcceptOffer
+# -- Calling AcceptOffer_precondition
+# -- Calling MakeOffer_precondition
+# -- Calling Reject_precondition
+Testcase -- 1
+-Concrete value for initial_block : 0
+Testcase -- 2
+-Concrete value for initial_block : 0
+Testcase -- 3
+-Concrete value for initial_block : 0
+Testcase -- 4
+-Concrete value for initial_block : 0
+Testcase -- 5
+-Concrete value for initial_block : 0
+Testcase -- 6
+-Concrete value for initial_block : 0
+found 6 testcases for _AcceptOffer_Reject-->AcceptOffer-->vacio
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_Reject
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_MakeOffer
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_MakeOffer_Reject
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_AcceptOffer
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_AcceptOffer_Reject
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_AcceptOffer_MakeOffer
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_AcceptOffer_MakeOffer_Reject
+--- Took 160.4370996952057 seconds to deploy the contract
+--- Took 426.6600821018219 seconds to find the initial states
+--- Took 8921.056592464447 seconds in total.
++++ Reached States:
+      _AcceptOffer_Reject
+      vacio
+      _MakeOffer
++++ Explored Transitions:
+   from _AcceptOffer_Reject executing Reject
+   from _MakeOffer executing MakeOffer
+   from _AcceptOffer_Reject executing AcceptOffer

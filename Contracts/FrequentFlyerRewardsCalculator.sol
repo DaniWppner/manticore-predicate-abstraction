@@ -57,13 +57,13 @@ contract FrequentFlyerRewardsCalculator {
         return Miles;
     }
 
-    function AddMiles_precondition(int[] memory miles) public returns(bool){
+    function AddMiles_precondition() public returns(bool){
         return true;
     }
-    function ComputeTotalRewards_precondition() public returns(bool){
-        return true;
-    }
-    function GetMiles_precondition(uint[] memory) public returns(bool){
+    //function ComputeTotalRewards_precondition() public returns(bool){      <.... is private
+    //    return true;
+    //}
+    function GetMiles_precondition() public returns(bool){
         return true;
     }
 }
