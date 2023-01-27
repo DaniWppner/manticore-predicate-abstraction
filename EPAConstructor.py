@@ -9,7 +9,7 @@ class ABSTRACT_epa_constructor:
     def __init__(self,path,output):
         self.path = path
         self.output = output
-        self.thck = state_constrainer(self.path,outputspace=self.output)
+        self.tchk = state_constrainer(self.path,outputspace=self.output)
         self.__init_states_and_methods__()
 
     def __init_states_and_methods__(self):
