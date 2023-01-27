@@ -5,18 +5,15 @@ from collections import defaultdict
 from contextlib import redirect_stdout
 
 
-class epa_constructor:
+class ABSTRACT_epa_constructor:
     def __init__(self,path,output):
         self.path = path
         self.output = output
-        self.thck = state_constrainer(path,outputspace=output)
-        self.traza = self.tchk.precon_names
-        self.states = list(itertools.product([0,1],repeat=len(self.traza)))
-        self.methods = []
-        for condition in self.traza:
-            self.methods.append(next(m for m in self.tchk.contractfunc_names if m==condition.replace('_precondition','')))
+        self.__init_states_and_methods__()
 
-           
+    def __init_states_and_methods__(self):
+        raise NotImplementedError       
+
     def construct_epa(self):
         with open(self.output+"/ConsoleOutput.txt",'w') as f:
             with redirect_stdout(f):
@@ -106,6 +103,33 @@ class epa_constructor:
 
 
     def repr_state(self,state):
+        raise NotImplementedError
+
+    def transition_name(self,start,method,end):
+        raise NotImplementedError
+
+    def allowed_methods(self,state):
+        raise NotImplementedError
+
+    def states_that_allow(self,method,current_states):
+        raise NotImplementedError
+
+    def explorable_from_states(self,states):
+        raise NotImplementedError
+
+    def write_epa(self,epa,reachable_states):
+        raise NotImplementedError
+
+
+class precondition_epa_constructor(ABSTRACT_epa_constructor):
+    def __init_states_and_methods__(self): 
+        self.traza = self.tchk.precon_names
+        self.states = list(itertools.product([0,1],repeat=len(self.traza)))
+        self.methods = []
+        for condition in self.traza:
+            self.methods.append(next(m for m in self.tchk.contractfunc_names if m==condition.replace('_precondition','')))
+
+    def repr_state(self,state):
         text = ""
         for x,method in zip(state,self.methods):
             text += '_'+method if x else ""
@@ -138,7 +162,7 @@ class epa_constructor:
         return explorable
 
     def write_epa(self,epa,reachable_states):
-        with open(self.path+"/epa.txt",'w') as output:
+        with open(self.output+"/epa.txt",'w') as output:
             output.write("digraph { \n")
             output.write("init [label=init] \n")
             for state in reachable_states:
@@ -150,3 +174,5 @@ class epa_constructor:
                     for fin_state in epa[state,method]:
                         output.write(f"{self.repr_state(state)} -> {self.repr_state(fin_state)} [label={method}] \n")
             output.write("}")
+           
+    
