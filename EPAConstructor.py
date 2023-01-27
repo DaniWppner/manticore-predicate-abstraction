@@ -9,6 +9,7 @@ class ABSTRACT_epa_constructor:
     def __init__(self,path,output):
         self.path = path
         self.output = output
+        self.thck = state_constrainer(self.path,outputspace=self.output)
         self.__init_states_and_methods__()
 
     def __init_states_and_methods__(self):
@@ -122,6 +123,9 @@ class ABSTRACT_epa_constructor:
 
 
 class precondition_epa_constructor(ABSTRACT_epa_constructor):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+
     def __init_states_and_methods__(self): 
         self.traza = self.tchk.precon_names
         self.states = list(itertools.product([0,1],repeat=len(self.traza)))
