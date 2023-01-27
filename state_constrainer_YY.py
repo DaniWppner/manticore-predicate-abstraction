@@ -1,9 +1,55 @@
-from manticore.ethereum import ABI
-from manticore.core.smtlib import expression
-from manticore.core.smtlib import operators
-from transition_checkerXX import transition_checkerXX
+import time
+from manticore.core.smtlib import expression, operators
+from manticore.ethereum import ManticoreEVM, ABI
 
-class state_constrainer(transition_checkerXX):
+class state_constrainer:
+    def __init__(self,url,outputspace=None,workspace=None):
+        if outputspace is None:
+            outputspace = url + "_results"
+        self.manticore = ManticoreEVM(workspace_url=workspace, outputspace_url="fs:"+outputspace)
+
+        self._initAccountsAndContract(url) 
+        self._initContractSelectorsAndMetadata()
+        self._initBlockchain()
+        self._snapshot_history = []
+
+    def _initAccountsAndContract(self,url):
+        # Por ahora suponemos que tres cuentas es suficiente para la mayoria de los casos
+        self.owner_account = self.manticore.create_account(balance=1*ETHER)
+        self.client_account = self.manticore.create_account(balance=1*ETHER)
+        self.witness_account = self.manticore.create_account(balance=1*ETHER,name="witness")
+        print("# -- Deploying Contract")
+        with open(url,'r') as file:
+            source_code = file.read() 
+        #Hardcodeamos args=None para que use argumentos simbolicos por defecto
+        self.working_contract = self.manticore.solidity_create_contract(source_code, owner=self.owner_account,args=None) 
+        assert(self.working_contract is not None), "Problemas en el creado del contrato"
+        print("# -- Contract Deployed")
+
+    def _initContractSelectorsAndMetadata(self):
+        self.nameToSelector = {}
+        self.precon_names = []
+        self.contractfunc_names = [] 
+        self.contract_metadata = self.manticore.get_metadata(self.working_contract)
+        
+        for func_hsh in self.contract_metadata.function_selectors:
+            func_name = self.contract_metadata.get_func_name(func_hsh)
+            self.nameToSelector[func_name] = func_hsh
+            if ("_precondition" in func_name):
+                self.precon_names.append(func_name)
+            else:
+                self.contractfunc_names.append(func_name)
+
+    def _initBlockchain(self):
+        self.symbolic_blockchain_vars = set()
+        initial_block= self.manticore.make_symbolic_value(name="initial_block")
+        self.symbolic_blockchain_vars.add(initial_block)
+        self.manticore.start_block(blocknumber=initial_block,
+            timestamp=int(time.time()), # current unix timestamp, #FIXME?
+            coinbase=self.owner_account,
+            difficulty=0x200,
+            gaslimit=0x7FFFFFFF)
+
     def callContractFunction(self,func_name,call_args=None,tx_value=None,tx_sender=None):
         func_id = self.nameToSelector[func_name]
 
@@ -15,6 +61,24 @@ class state_constrainer(transition_checkerXX):
         fun = getattr(self.working_contract,func_name)
         fun(*call_args,value=tx_value,caller=tx_sender)
 
+    def make_transaction_parameters(self, func_id, call_args=None, tx_value=None, tx_sender=None):
+        # construct the arguments passed to the contract method
+        if call_args is None:
+            arg_types = self.contract_metadata.get_func_argument_types(func_id)
+            call_args = self.manticore.make_symbolic_arguments(arg_types)
+    
+        # make a symbolic (or zero) value for the transaction
+        if tx_value is None:
+            if self.contract_metadata.get_abi(func_id)['stateMutability'] == 'payable':
+                tx_value = self.manticore.make_symbolic_value()
+            else:
+                tx_value = 0
+
+        # construct a sender for the transaction
+        # if it is symbollic it will concretize to one of the existing accounts in the manticore instance
+        if tx_sender is None:
+            tx_sender = self.manticore.make_symbolic_address()
+        return call_args,tx_value,tx_sender
 
     def constrainTo(self,func_name,expectedResult):
         self.callContractFunction(func_name)
@@ -31,21 +95,30 @@ class state_constrainer(transition_checkerXX):
                     expectedResult = expression.BitVecConstant(size=result.size,value=expectedResult)
                 state.constrain(result==expectedResult)
 
+    def result_of_tx(self,transaction,func_id):
+        if transaction.return_value == 1:
+            return_types = self.contract_metadata.get_func_return_types(func_id)
+            if (return_types != '()') :
+                #FIXME quita los paréntesis a izquierda y derecha del tipo
+                return_types = return_types[1:len(return_types)-1]
+                result = ABI.deserialize(return_types,transaction.return_data)
+                return result
+
     def generateTestCases(self,keys=None,targets=None,testcaseName="user"):
         '''generate testcases for each state where the function in keys has the result in targets'''
         count = 0
-        func_ids = list(map(lambda name : self.nameToSelector[name],keys))
+        func_ids_of_keys = list(map(lambda name : self.nameToSelector[name],keys))
         for state in self.manticore.ready_states:        
             #find the result of each function in func_ids
             results = []
-            temp = func_ids.copy()
+            temp_ids = func_ids_of_keys.copy()
             #human_transactions is in chronological order
             for tx in reversed(state.platform.human_transactions):
-                if not temp:
+                if not temp_ids:
                     break    
-                if tx.data[:4] == temp[-1]:
-                    results.append(self.result_of_tx(tx,temp[-1]))
-                    temp.pop()
+                if tx.data[:4] == temp_ids[-1]:
+                    results.append(self.result_of_tx(tx,temp_ids[-1]))
+                    temp_ids.pop()
             results = list(reversed(results))
 
             #generate condition to be tested
@@ -77,11 +150,32 @@ class state_constrainer(transition_checkerXX):
                         
         return count
 
-    def result_of_tx(self,transaction,func_id):
-        if transaction.return_value == 1:
-            return_types = self.contract_metadata.get_func_return_types(func_id)
-            if (return_types != '()') :
-                #FIXME quita los paréntesis a izquierda y derecha del tipo
-                return_types = return_types[1:len(return_types)-1]
-                result = ABI.deserialize(return_types,transaction.return_data)
-                return result
+    def advance_symbolic_ammount_of_blocks(self):
+        ammount = self.manticore.make_symbolic_value(name="blocks_advanced")
+        self.symbolic_blockchain_vars.add(ammount)
+        for state in self.manticore.all_states:
+            world = state.platform
+            world.advance_block_number(ammount)
+        return ammount
+
+    def take_snapshot(self):
+        self.manticore.take_snapshot()
+        self._snapshot_history.append(self.symbolic_blockchain_vars.copy())    
+
+    def goto_snapshot(self):
+        self.manticore.goto_snapshot()
+        self.symbolic_blockchain_vars = self._snapshot_history.pop()
+
+    def can_be_true(self,expr):
+        count = 0
+        for state in self.manticore.all_states:
+            if state.can_be_true(expr):
+                count += 1
+        return count
+
+    def isallive(self):
+        return (self.manticore.count_ready_states() > 0)
+
+    def safedelete(self):
+        self.manticore.kill()
+        self.manticore.remove_all()    
