@@ -2,6 +2,8 @@ import time
 from manticore.core.smtlib import expression, operators
 from manticore.ethereum import ManticoreEVM, ABI
 
+ETHER = 10**18
+
 class state_constrainer:
     def __init__(self,url,outputspace=None,workspace=None):
         if outputspace is None:
@@ -30,15 +32,22 @@ class state_constrainer:
         self.nameToSelector = {}
         self.precon_names = []
         self.contractfunc_names = [] 
+        self.enums = []
         self.contract_metadata = self.manticore.get_metadata(self.working_contract)
         
         for func_hsh in self.contract_metadata.function_selectors:
             func_name = self.contract_metadata.get_func_name(func_hsh)
+            #detect enums
+            for output in self.contract_metadata.get_abi(func_hsh)['outputs']:
+                if output['internalType'].startswith('enum'):
+                    self.enums.append(func_name)
+            #detect preconditions
             self.nameToSelector[func_name] = func_hsh
             if ("_precondition" in func_name):
                 self.precon_names.append(func_name)
             else:
                 self.contractfunc_names.append(func_name)
+
 
     def _initBlockchain(self):
         self.symbolic_blockchain_vars = set()
