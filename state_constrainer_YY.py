@@ -32,15 +32,10 @@ class state_constrainer:
         self.nameToSelector = {}
         self.precon_names = []
         self.contractfunc_names = [] 
-        self.enums = []
         self.contract_metadata = self.manticore.get_metadata(self.working_contract)
         
         for func_hsh in self.contract_metadata.function_selectors:
             func_name = self.contract_metadata.get_func_name(func_hsh)
-            #detect enums
-            for output in self.contract_metadata.get_abi(func_hsh)['outputs']:
-                if output['internalType'].startswith('enum'):
-                    self.enums.append(func_name)
             #detect preconditions
             self.nameToSelector[func_name] = func_hsh
             if ("_precondition" in func_name):
@@ -112,6 +107,30 @@ class state_constrainer:
                 return_types = return_types[1:len(return_types)-1]
                 result = ABI.deserialize(return_types,transaction.return_data)
                 return result
+    
+    def last_return_of(self,func_name):
+        func_id = self.nameToSelector[func_name]
+        for state in self.manticore.ready_states:
+            tx = state.platform.last_human_transaction
+            if(tx.data[:4] == func_id):
+                result = self.result_of_tx(tx,func_id)
+                return state.solve_one(result)
+
+    def getEnumInfo(self): 
+        #podria hacerse para que devuelva el diccionario si ya existe
+        self.enums = {}
+        
+        for func_hsh in self.contract_metadata.function_selectors:
+            func_name = self.contract_metadata.get_func_name(func_hsh)
+            #detect enums
+            for output in self.contract_metadata.get_abi(func_hsh)['outputs']:
+                internalReturnType = output['internalType']
+                if internalReturnType.startswith('enum'):
+                    enumTypeName = internalReturnType.replace('enum ', '').split('.')[-1]
+                    self.callContractFunction("Enum"+enumTypeName)
+                    self.enums[func_name] = self.last_return_of("Enum"+enumTypeName).decode().split(',')
+        return self.enums
+                              
 
     def generateTestCases(self,keys=None,targets=None,testcaseName="user"):
         '''generate testcases for each state where the function in keys has the result in targets'''
@@ -147,9 +166,9 @@ class state_constrainer:
                     #Also generate concrete values for variables that aren't included in transactions
                     to_concretize = list(self.symbolic_blockchain_vars)
                     values = temp_state.solve_one_n_batched(to_concretize)
-                    #FIXME Even though temp_state is supposed to be a CoW version of state, both share the reference to the "context" attribute.
+                    #FIXME Even though temp_state is supposed to be a CoW version of state, both share the same reference to the attribute called "context".
                     #This makes it so when the variables in "to_concretize" are migrated into "temp_state"'s set of constraints, 
-                    # the name of the variables remains in the original state's map, even though the reference to the variables themselves is properly deleted.  
+                    # the variables remain named in the original state's migration_map, even though the variables themselves are properly deleted.  
                     migration_map = temp_state.context.get("migration_map")
                     print(f"Testcase -- {count}")
                     for concrete,symbolic in zip(values,to_concretize):
