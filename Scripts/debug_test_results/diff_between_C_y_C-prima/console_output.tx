@@ -1,0 +1,16 @@
+State -- 1
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+-Concrete value for initial_block : 0
+State -- 2
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+-Concrete value for initial_block : 0
+State -- 3
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+-Concrete value for initial_block : 0
+C_prima can be equal to C, found 3 testcases for it
+
+C_prima can not be different to C
+
+C can not be False
+
+C_prima can not be False

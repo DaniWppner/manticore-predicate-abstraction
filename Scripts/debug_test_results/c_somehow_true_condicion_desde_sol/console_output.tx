@@ -1,0 +1,10 @@
+State -- 1
+-Concrete value for initial_block : 0
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+State -- 2
+-Concrete value for initial_block : 0
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+State -- 3
+-Concrete value for initial_block : 0
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+C can somehow be true, found 3 testcases for it

@@ -1,4 +1,4 @@
-from EPAConstructor import epa_constructor
+from AbstractionConstructor import epa_constructor
 
  
 
@@ -8,5 +8,4 @@ print("Desired path to output")
 output = input()
 
 epaC = epa_constructor(path,output)
-
-epaC.construct_epa
+epaC.construct_abstraction()

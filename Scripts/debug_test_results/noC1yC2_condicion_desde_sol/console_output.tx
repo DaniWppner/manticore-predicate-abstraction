@@ -1,0 +1,13 @@
+State -- 1
+-Concrete value for initial_block : 0
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+State -- 2
+-Concrete value for initial_block : 0
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+State -- 3
+-Concrete value for initial_block : 0
+-Concrete value for blocks_advanced : 57896044618658097711785492504343953926634992332820282019728792003956564819968
+State -- 4
+-Concrete value for initial_block : 0
+-Concrete value for blocks_advanced : 57896044618658097711785492504343953926634992332820282019728792003956564819968
+not (C_1 && C_2) can be true
