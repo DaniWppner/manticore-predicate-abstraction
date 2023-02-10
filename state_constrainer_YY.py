@@ -122,12 +122,12 @@ class state_constrainer:
         
         for func_hsh in self.contract_metadata.function_selectors:
             func_name = self.contract_metadata.get_func_name(func_hsh)
-            #detect enums
             for output in self.contract_metadata.get_abi(func_hsh)['outputs']:
                 internalReturnType = output['internalType']
+                #Esta solucion podria ser muy mala si hay otros metodos que tambien devuelven algo de tipo enum
                 if internalReturnType.startswith('enum'):
                     enumTypeName = internalReturnType.replace('enum ', '').split('.')[-1]
-                    self.callContractFunction("Enum"+enumTypeName)
+                    self.callContractFunction("Enum"+enumTypeName,tx_sender=self.witness_account)
                     self.enums[func_name] = self.last_return_of("Enum"+enumTypeName).decode().split(',')
         return self.enums
                               
@@ -147,9 +147,10 @@ class state_constrainer:
                 if tx.data[:4] == temp_ids[-1]:
                     results.append(self.result_of_tx(tx,temp_ids[-1]))
                     temp_ids.pop()
+            #this makes it so their order correlates to the one in targets                    
             results = list(reversed(results))
 
-            #generate condition to be tested
+            #generate condition to be tested. The condition needs to be constructed independantly for each state.
             condition = expression.BoolConstant(value=True)
             for data,target in zip (results,targets):
                 if isinstance(target,int):
@@ -168,7 +169,8 @@ class state_constrainer:
                     values = temp_state.solve_one_n_batched(to_concretize)
                     #FIXME Even though temp_state is supposed to be a CoW version of state, both share the same reference to the attribute called "context".
                     #This makes it so when the variables in "to_concretize" are migrated into "temp_state"'s set of constraints, 
-                    # the variables remain named in the original state's migration_map, even though the variables themselves are properly deleted.  
+                    # the variables remain named in the original state's migration_map, even though the variables themselves are properly deleted.
+                    # This is why we need to delete them manually from the migration_map.  
                     migration_map = temp_state.context.get("migration_map")
                     print(f"Testcase -- {count}")
                     for concrete,symbolic in zip(values,to_concretize):

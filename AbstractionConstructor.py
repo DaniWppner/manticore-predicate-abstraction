@@ -184,8 +184,48 @@ class state_abstraction_constructor(abstraction_constructor):
         super().__init__(*args,**kwargs)
 
     def __init_states_and_methods__(self): 
-        self.traza = self.tchk.precon_names
-        self.states = list(itertools.product([0,1],repeat=len(self.traza)))
+        self.enumdir = self.tchk.getEnumInfo()
+        self.traza = list(self.enumdir.keys())
+        #Cuando un contrato de solidity returnea Enum en realidad devuelve un uint8.
+        enumReturnValues = list(map(lambda container : list(range(len(container))) ,self.enumdir.values()))
+        self.states = list(itertools.product(*enumReturnValues))
         self.methods = []
-        for condition in self.traza:
+        #Esto no está necesariamente bien? Dice que los metodos a considerar son los que tengan una precondicion explicita en el contrato.
+        for condition in self.tchk.precon_names:
             self.methods.append(next(m for m in self.tchk.contractfunc_names if m==condition.replace('_precondition','')))
+
+    def repr_state(self,state):
+        text = ""
+        for enumIndex,enumVar in zip(state,self.traza):
+            text += (self.enumdir[enumVar])[enumIndex]
+        return text
+
+    def transition_name(self,start,method,end):
+        return self.repr_state(start)+"-->"+method+"-->"+self.repr_state(end)
+
+    def allowed_methods(self,state):
+        return set(self.methods)
+
+    def states_that_allow(self,method,current_states):
+        return set(current_states)
+
+    def explorable_from_states(self,states):
+        explorable = set()
+        for state in states:
+            for method in self.methods:
+                explorable.add((state,method))
+        return explorable
+
+    def write_epa(self,epa,reachable_states):
+        with open(self.output+"/states.txt",'w') as output:
+            output.write("digraph { \n")
+            output.write("init [label=init] \n")
+            for state in reachable_states:
+                output.write(f"{self.repr_state(state)} [label={self.repr_state(state)}] \n")
+            for fin_state in epa["ini"]:
+                output.write(f"init -> {self.repr_state(fin_state)} [label=constructor] \n")
+            for state in reachable_states:
+                for method in self.methods:
+                    for fin_state in epa[state,method]:
+                        output.write(f"{self.repr_state(state)} -> {self.repr_state(fin_state)} [label={method}] \n")
+            output.write("}")
