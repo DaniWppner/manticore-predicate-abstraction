@@ -1,8 +1,6 @@
 import time
 from manticore.core.smtlib import expression, operators
 from manticore.ethereum import ManticoreEVM, ABI
- 
-ETHER = 1000000000000000000 
 
 ETHER = 10**18
 
@@ -101,9 +99,8 @@ class state_constrainer:
                     expectedResult = expression.BitVecConstant(size=result.size,value=expectedResult)
                 state.constrain(result==expectedResult)
 
-
-
-
+    def result_of_tx(self,transaction,func_id):
+        if transaction.return_value == 1:
             return_types = self.contract_metadata.get_func_return_types(func_id)
             if (return_types != '()') :
                 #FIXME quita los paréntesis a izquierda y derecha del tipo
