@@ -1,6 +1,8 @@
 import time
 from manticore.core.smtlib import expression, operators
 from manticore.ethereum import ManticoreEVM, ABI
+ 
+ETHER = 1000000000000000000 
 
 class state_constrainer:
     def __init__(self,url,outputspace=None,workspace=None):
