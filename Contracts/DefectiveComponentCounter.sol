@@ -48,5 +48,8 @@ contract DefectiveComponentCounter {
     function GetDefectiveComponentsCount_precondition() public returns (bool){
         return true;
     }
+    function EnumStateType() public returns (string memory){
+        return ("Create,ComputeTotal");
+    }
 
 }

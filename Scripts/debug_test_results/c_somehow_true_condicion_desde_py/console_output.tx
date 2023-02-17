@@ -1,0 +1,4 @@
+State -- 1
+-Concrete value for initial_block : 0
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+C1 && C2 && C3 can also somehow be true, found 1 testcases for it

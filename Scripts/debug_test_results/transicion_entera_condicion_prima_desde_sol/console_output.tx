@@ -1,0 +1,8 @@
+2022-11-08 12:01:17,190: [991] m.c.plugin:WARNING: Caught will_solve in state None, but failed to capture its initialization
+State -- 1
+-Concrete value for initial_block : 0
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+State -- 2
+-Concrete value for initial_block : 0
+-Concrete value for blocks_advanced : 86844066927987146567678238756515930889952488499230423029593188005934847229952
+not C_prima can be true, found 2 testcases for it

@@ -4,6 +4,8 @@ from manticore.ethereum import ManticoreEVM, ABI
  
 ETHER = 1000000000000000000 
 
+ETHER = 10**18
+
 class state_constrainer:
     def __init__(self,url,outputspace=None,workspace=None):
         if outputspace is None:
@@ -36,11 +38,13 @@ class state_constrainer:
         
         for func_hsh in self.contract_metadata.function_selectors:
             func_name = self.contract_metadata.get_func_name(func_hsh)
+            #detect preconditions
             self.nameToSelector[func_name] = func_hsh
             if ("_precondition" in func_name):
                 self.precon_names.append(func_name)
             else:
                 self.contractfunc_names.append(func_name)
+
 
     def _initBlockchain(self):
         self.symbolic_blockchain_vars = set()
@@ -97,14 +101,39 @@ class state_constrainer:
                     expectedResult = expression.BitVecConstant(size=result.size,value=expectedResult)
                 state.constrain(result==expectedResult)
 
-    def result_of_tx(self,transaction,func_id):
-        if transaction.return_value == 1:
+
+
+
             return_types = self.contract_metadata.get_func_return_types(func_id)
             if (return_types != '()') :
                 #FIXME quita los paréntesis a izquierda y derecha del tipo
                 return_types = return_types[1:len(return_types)-1]
                 result = ABI.deserialize(return_types,transaction.return_data)
                 return result
+    
+    def last_return_of(self,func_name):
+        func_id = self.nameToSelector[func_name]
+        for state in self.manticore.ready_states:
+            tx = state.platform.last_human_transaction
+            if(tx.data[:4] == func_id):
+                result = self.result_of_tx(tx,func_id)
+                return state.solve_one(result)
+
+    def getEnumInfo(self): 
+        #podria hacerse para que devuelva el diccionario si ya existe
+        self.enums = {}
+        
+        for func_hsh in self.contract_metadata.function_selectors:
+            func_name = self.contract_metadata.get_func_name(func_hsh)
+            for output in self.contract_metadata.get_abi(func_hsh)['outputs']:
+                internalReturnType = output['internalType']
+                #Esta solucion podria ser muy mala si hay otros metodos que tambien devuelven algo de tipo enum
+                if internalReturnType.startswith('enum'):
+                    enumTypeName = internalReturnType.replace('enum ', '').split('.')[-1]
+                    self.callContractFunction("Enum"+enumTypeName,tx_sender=self.witness_account)
+                    self.enums[func_name] = self.last_return_of("Enum"+enumTypeName).decode().split(',')
+        return self.enums
+                              
 
     def generateTestCases(self,keys=None,targets=None,testcaseName="user"):
         '''generate testcases for each state where the function in keys has the result in targets'''
@@ -121,9 +150,10 @@ class state_constrainer:
                 if tx.data[:4] == temp_ids[-1]:
                     results.append(self.result_of_tx(tx,temp_ids[-1]))
                     temp_ids.pop()
+            #this makes it so their order correlates to the one in targets                    
             results = list(reversed(results))
 
-            #generate condition to be tested
+            #generate condition to be tested. The condition needs to be constructed independantly for each state.
             condition = expression.BoolConstant(value=True)
             for data,target in zip (results,targets):
                 if isinstance(target,int):
@@ -140,9 +170,10 @@ class state_constrainer:
                     #Also generate concrete values for variables that aren't included in transactions
                     to_concretize = list(self.symbolic_blockchain_vars)
                     values = temp_state.solve_one_n_batched(to_concretize)
-                    #FIXME Even though temp_state is supposed to be a CoW version of state, both share the reference to the "context" attribute.
+                    #FIXME Even though temp_state is supposed to be a CoW version of state, both share the same reference to the attribute called "context".
                     #This makes it so when the variables in "to_concretize" are migrated into "temp_state"'s set of constraints, 
-                    # the name of the variables remains in the original state's map, even though the reference to the variables themselves is properly deleted.  
+                    # the variables remain named in the original state's migration_map, even though the variables themselves are properly deleted.
+                    # This is why we need to delete them manually from the migration_map.  
                     migration_map = temp_state.context.get("migration_map")
                     print(f"Testcase -- {count}")
                     for concrete,symbolic in zip(values,to_concretize):

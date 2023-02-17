@@ -57,5 +57,11 @@ contract RoomThermostat {
     function SetMode_precondition() public returns(bool){
         return (State == StateType.InUse);
     }
+    function EnumStateType() public returns (string memory){
+        return ("Created,InUse");
+    }
+    function EnumModeEnum() public returns (string memory){
+        return ("Off,Cool,Heat,Auto");
+    }
 
 }
