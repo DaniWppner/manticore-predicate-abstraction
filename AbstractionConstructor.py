@@ -6,10 +6,11 @@ from contextlib import redirect_stdout
 
 
 class abstraction_constructor:
-    def __init__(self,path,output):
+    def __init__(self,path,output,advanceBlocks=False):
         self.path = path
         self.output = output
         self.tchk = state_constrainer(self.path,outputspace=self.output)
+        self.advanceBlocks = advanceBlocks
         self.__init_states_and_methods__()
 
     def __init_states_and_methods__(self):
@@ -27,6 +28,7 @@ class abstraction_constructor:
                 epa = defaultdict(list)
  
                 self.check_preconditions()
+                check_preconditions_time = time.time()
 
                 for ini_state in self.states:
                     ini_state_count = self.tchk.generateTestCases(keys=self.traza,targets=(ini_state),testcaseName=f"STATE_{self.repr_state(ini_state)}")
@@ -56,6 +58,9 @@ class abstraction_constructor:
                         self.tchk.take_snapshot()
                         global_snapshots_stack.append(current_states)
                         self.tchk.callContractFunction(method)
+                        print(f"# -- Calling {method}")
+                        if (self.advanceBlocks):
+                            self.tchk.advance_symbolic_ammount_of_blocks()
                         
 
                         if not self.tchk.isallive():
@@ -69,21 +74,26 @@ class abstraction_constructor:
                             self.check_preconditions()
                             
                             new_states = []
+                            ini_result_states_time = time.time()
                             for ini_state in self.states_that_allow(method,current_states):
-                                for fin_state in self.states:
-                                    result = self.tchk.generateTestCases(keys=(self.traza+self.traza),targets=(ini_state + fin_state),testcaseName=f"transition{self.transition_name(ini_state,method,fin_state)}")
-                                    if(result>0):
-                                        print(f"found {result} testcases for {self.transition_name(ini_state,method,fin_state)}")
-                                        new_states.append(fin_state)
-                                        epa[(ini_state,method)].append(fin_state)
-                                    else:
-                                        print(f"no testcases for {self.transition_name(ini_state,method,fin_state)}")
-                                explored.add((ini_state,method))
+                                if (ini_state,method) not in explored:
+                                    for fin_state in self.states:
+                                        result = self.tchk.generateTestCases(keys=(self.traza+self.traza),targets=(ini_state + fin_state),testcaseName=f"transition{self.transition_name(ini_state,method,fin_state)}")
+                                        if(result>0):
+                                            print(f"found {result} testcases for {self.transition_name(ini_state,method,fin_state)}")
+                                            new_states.append(fin_state)
+                                            epa[(ini_state,method)].append(fin_state)
+                                        else:
+                                            print(f"no testcases for {self.transition_name(ini_state,method,fin_state)}")
+                                    explored.add((ini_state,method))
+                            end_result_states_time = time.time()
+                            print(f"--- Took {end_result_states_time-ini_result_states_time} seconds to explore the transitions executing {method}")
 
                             reachable_states.update(new_states)
                             current_states = new_states
 
                 end = time.time()
+                print(f"--- Took {check_preconditions_time-start} seconds to execute the preconditions for the first time")
                 print(f"--- Took {ini_states_time-start} seconds to find the initial states")
                 print(f"--- Took {end-start} seconds in total.")
 
