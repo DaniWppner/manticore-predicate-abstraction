@@ -29,17 +29,20 @@ class state_constrainer:
         print("# -- Contract Deployed")
 
     def _initContractSelectorsAndMetadata(self):
-        self.nameToSelector = {}
+        self.nameToFuncId = {}
         self.precon_names = []
         self.contractfunc_names = [] 
+        self.enumdescriptor_names = []
         self.contract_metadata = self.manticore.get_metadata(self.working_contract)
         
         for func_hsh in self.contract_metadata.function_selectors:
             func_name = self.contract_metadata.get_func_name(func_hsh)
             #detect preconditions
-            self.nameToSelector[func_name] = func_hsh
-            if ("_precondition" in func_name):
+            self.nameToFuncId[func_name] = func_hsh
+            if func_name.endswith("_precondition"):
                 self.precon_names.append(func_name)
+            elif func_name.startswith("Enum"):
+                self.enumdescriptor_names.append(func_name)
             else:
                 self.contractfunc_names.append(func_name)
 
@@ -55,7 +58,7 @@ class state_constrainer:
             gaslimit=0x7FFFFFFF)
 
     def callContractFunction(self,func_name,call_args=None,tx_value=None,tx_sender=None):
-        func_id = self.nameToSelector[func_name]
+        func_id = self.nameToFuncId[func_name]
 
         print(f"# -- Calling {func_name}")
 
@@ -86,7 +89,7 @@ class state_constrainer:
 
     def constrainTo(self,func_name,expectedResult):
         self.callContractFunction(func_name)
-        func_id = self.nameToSelector[func_name]
+        func_id = self.nameToFuncId[func_name]
 
         for state in self.manticore.ready_states:
             tx = state.platform.last_human_transaction
@@ -109,7 +112,7 @@ class state_constrainer:
                 return result
     
     def last_return_of(self,func_name):
-        func_id = self.nameToSelector[func_name]
+        func_id = self.nameToFuncId[func_name]
         for state in self.manticore.ready_states:
             tx = state.platform.last_human_transaction
             if(tx.data[:4] == func_id):
@@ -127,16 +130,24 @@ class state_constrainer:
                 #Esta solucion podria ser muy mala si hay otros metodos que tambien devuelven algo de tipo enum
                 if internalReturnType.startswith('enum'):
                     enumTypeName = internalReturnType.replace('enum ', '').split('.')[-1]
-                    self.callContractFunction("Enum"+enumTypeName,tx_sender=self.witness_account)
-                    self.enums[func_name] = self.last_return_of("Enum"+enumTypeName).decode().split(',')
+                    if ("Enum"+enumTypeName in self.enumdescriptor_names):
+                        self.callContractFunction("Enum"+enumTypeName,tx_sender=self.witness_account)
+                        self.enums[func_name] = self.last_return_of("Enum"+enumTypeName).decode().split(',')
         return self.enums
+
+        
+
                               
 
-    def generateTestCases(self,keys=None,targets=None,testcaseName="user"):
+    def generateTestCases(self,keys=None,targets=None,testcaseName="user",ammount=1):
         '''generate testcases for each state where the function in keys has the result in targets'''
         count = 0
-        func_ids_of_keys = list(map(lambda name : self.nameToSelector[name],keys))
-        for state in self.manticore.ready_states:        
+        func_ids_of_keys = list(map(lambda name : self.nameToFuncId[name],keys))
+        if not (0 < ammount <= self.manticore.count_ready_states()):
+            ammount = self.manticore.count_ready_states()
+        for state in self.manticore.ready_states:
+            if count >= ammount:
+                break
             #find the result of each function in func_ids
             results = []
             temp_ids = func_ids_of_keys.copy()
@@ -147,13 +158,13 @@ class state_constrainer:
                 if tx.data[:4] == temp_ids[-1]:
                     results.append(self.result_of_tx(tx,temp_ids[-1]))
                     temp_ids.pop()
-            #this makes it so their order correlates to the one in targets                    
+            #this makes it so their order is the same as the one in targets                    
             results = list(reversed(results))
 
             #generate condition to be tested. The condition needs to be constructed independantly for each state.
             condition = expression.BoolConstant(value=True)
             for data,target in zip (results,targets):
-                if isinstance(target,int):
+                if isinstance(target,int): #pretty sure we need to do this for '==' to work
                     target = expression.BitVecConstant(size=data.size,value=target)                
                 condition = operators.AND(condition,data == target)
             
