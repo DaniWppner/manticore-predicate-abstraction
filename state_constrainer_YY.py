@@ -60,7 +60,7 @@ class state_constrainer:
     def callContractFunction(self,func_name,call_args=None,tx_value=None,tx_sender=None):
         func_id = self.nameToFuncId[func_name]
 
-        print(f"# -- Calling {func_name}")
+        #print(f"# -- Calling {func_name}")
 
         call_args, tx_value, tx_sender = self.make_transaction_parameters(func_id, call_args, tx_value, tx_sender)
     
@@ -183,7 +183,7 @@ class state_constrainer:
                     # the variables remain named in the original state's migration_map, even though the variables themselves are properly deleted.
                     # This is why we need to delete them manually from the migration_map.  
                     migration_map = temp_state.context.get("migration_map")
-                    print(f"Testcase -- {count}")
+                    #print(f"Testcase -- {count}")
                     for concrete,symbolic in zip(values,to_concretize):
                         print(f"-Concrete value for {symbolic.name} : {concrete}")
                         del migration_map[symbolic.name]
