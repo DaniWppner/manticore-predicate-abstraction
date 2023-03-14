@@ -88,4 +88,8 @@ contract SimpleMarketplace {
     function AcceptOffer_precondition() public returns(bool){
         return (StateEnum == StateType.OfferPlaced);
     }
+
+    function EnumStateType() public returns(string memory)  { 
+      return ("ItemAvailable,OfferPlaced,Accepted");
+    }
 }

@@ -57,4 +57,8 @@ contract BasicProvenance {
         return (State != StateType.Completed);
     }
 
+    function EnumStateType() public returns(string memory){
+        return ("Created,InTransit,Completed");
+    }
+
 }

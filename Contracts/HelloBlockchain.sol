@@ -48,4 +48,8 @@ contract HelloBlockchain {
     function SendResponse_precondition(string memory responseMessage) public returns(bool){
         return true;
     }
+    
+    function EnumStateType() public returns(string memory){
+        return ("Request,Respond");
+    }
 }

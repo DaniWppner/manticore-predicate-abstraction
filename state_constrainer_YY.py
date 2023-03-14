@@ -24,9 +24,11 @@ class state_constrainer:
         with open(url,'r') as file:
             source_code = file.read() 
         #Hardcodeamos args=None para que use argumentos simbolicos por defecto
-        self.working_contract = self.manticore.solidity_create_contract(source_code, owner=self.owner_account,args=None) 
+        start=time.time()
+        self.working_contract = self.manticore.solidity_create_contract(source_code, owner=self.owner_account,args=None)
+        end=time.time()
         assert(self.working_contract is not None), "Problemas en el creado del contrato"
-        print("# -- Contract Deployed")
+        print(f"# -- Contract Deployed      (took {end-start} seconds)")
 
     def _initContractSelectorsAndMetadata(self):
         self.nameToFuncId = {}

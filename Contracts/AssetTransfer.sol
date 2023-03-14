@@ -258,4 +258,8 @@ contract AssetTransfer {
     function MarkInspected_precondition() public returns(bool){
         return (State != StateType.PendingInspection || State != StateType.Appraised);
     }
+
+    function EnumStateType() public returns(string memory) {
+        return ("Active,OfferPlaced,PendingInspection,Inspected,Appraised,NotionalAcceptance,BuyerAccepted,SellerAccepted,Accepted,Terminated"); 
+    }
 }

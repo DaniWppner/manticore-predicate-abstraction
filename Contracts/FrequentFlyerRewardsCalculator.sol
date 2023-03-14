@@ -66,4 +66,8 @@ contract FrequentFlyerRewardsCalculator {
     function GetMiles_precondition() public returns(bool){
         return true;
     }
+
+    function EnumStateType() public returns(string memory){
+        return ("SetFlyerAndReward,MilesAdded");
+    }
 }

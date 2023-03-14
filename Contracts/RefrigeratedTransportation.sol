@@ -158,4 +158,11 @@ contract RefrigeratedTransportation {
         return (State != StateType.Completed && State != StateType.OutOfCompliance);
     }
 
+    function EnumStateType() public returns(string memory){
+        return ("Created,InTransit,Completed,OutOfCompliance");
+    }
+    function EnumSensorType() public returns(string memory){
+        return ("None,Humidity,Temperature");
+    }
+
 }

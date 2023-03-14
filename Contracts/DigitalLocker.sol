@@ -159,4 +159,9 @@ contract DigitalLocker {
     function ReleaseLockerAccess_precondition() public returns(bool){return true;}
     function RevokeAccessFromThirdParty_precondition() public returns(bool){return true;}
     function Terminate_precondition() public returns(bool){return true;}
+
+    function EnumStateType() public returns(string memory){
+        return ("Requested,DocumentReview,AvailableToShare,SharingRequestPending,SharingWithThirdParty,Terminated");
+    }
+
 }

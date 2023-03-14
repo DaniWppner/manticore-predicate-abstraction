@@ -3,6 +3,7 @@ import itertools
 import time
 from collections import defaultdict
 from contextlib import redirect_stdout
+import numpy as np
 
 
 class abstraction_constructor:
@@ -17,7 +18,7 @@ class abstraction_constructor:
         raise NotImplementedError       
 
     def construct_abstraction(self):
-        with open(self.output+"/ConsoleOutput.txt",'w') as f:
+        with open(self.output+"/ConsoleOutput",'w') as f:
             with redirect_stdout(f):
                 start = time.time()
 
@@ -26,11 +27,22 @@ class abstraction_constructor:
                 explored = set()
                 global_snapshots_stack = []
                 epa = defaultdict(list)
- 
-                self.check_preconditions()
-                check_preconditions_time = time.time()
 
+                method_times = []
+                precondition_times = []
+                query_times = []
+                _low_level_methods_executed = 0
+
+                check_preconditions_time_init = time.time()
+                self.check_preconditions()
+                check_preconditions_time_fin = time.time()
+                precondition_times.append(check_preconditions_time_fin-check_preconditions_time_init)
+                
+
+
+                #preguntar cuales son los estados iniciales
                 for ini_state in self.states:
+                    ini_states_time_start = time.time()
                     ini_state_count = self.tchk.generateTestCases(keys=self.traza,targets=(ini_state),testcaseName=f"STATE_{self.repr_state(ini_state)}")
                     if ini_state_count > 0:
                         print(f"found {ini_state_count} testcases that reach {self.repr_state(ini_state)} initial state")
@@ -38,8 +50,9 @@ class abstraction_constructor:
                         epa["ini"].append(ini_state)
                     else:
                         print(f"found no testcases for {self.repr_state(ini_state)} initial state")
+                    ini_states_time_end = time.time()
+                    query_times.append(ini_states_time_end-ini_states_time_start)
 
-                ini_states_time = time.time()
 
                 current_states = list(reachable_states)
 
@@ -57,8 +70,12 @@ class abstraction_constructor:
                         _state,method = to_explore.pop() #will loop through all the states anyways
                         self.tchk.take_snapshot()
                         global_snapshots_stack.append(current_states)
-                        self.tchk.callContractFunction(method)
+                        _low_level_methods_executed += self.tchk.manticore.count_ready_states()
+                        method_execution_time_ini = time.time()
                         print(f"# -- Calling {method}")
+                        self.tchk.callContractFunction(method)
+                        method_execution_time_fin = time.time()
+                        method_times.append(method_execution_time_fin-method_execution_time_ini)
                         if (self.advanceBlocks):
                             self.tchk.advance_symbolic_ammount_of_blocks()
                         
@@ -71,30 +88,36 @@ class abstraction_constructor:
                             current_states = global_snapshots_stack.pop()
                             self.tchk.manticore.goto_snapshot()
                         else:
+                            check_preconditions_time_init = time.time()
                             self.check_preconditions()
-                            
+                            check_preconditions_time_fin = time.time()
+
+                            precondition_times.append(check_preconditions_time_fin-check_preconditions_time_init)
+
                             new_states = []
-                            ini_result_states_time = time.time()
                             for ini_state in self.states_that_allow(method,current_states):
                                 if (ini_state,method) not in explored:
                                     for fin_state in self.states:
+                                        ini_result_states_time = time.time()
                                         result = self.tchk.generateTestCases(keys=(self.traza+self.traza),targets=(ini_state + fin_state),testcaseName=f"transition{self.transition_name(ini_state,method,fin_state)}")
+                                        end_result_states_time = time.time()
                                         if(result>0):
                                             print(f"found {result} testcases for {self.transition_name(ini_state,method,fin_state)}")
                                             new_states.append(fin_state)
                                             epa[(ini_state,method)].append(fin_state)
                                         else:
                                             print(f"no testcases for {self.transition_name(ini_state,method,fin_state)}")
+                                        query_times.append(end_result_states_time-ini_result_states_time)
                                     explored.add((ini_state,method))
-                            end_result_states_time = time.time()
-                            print(f"--- Took {end_result_states_time-ini_result_states_time} seconds to explore the transitions executing {method}")
 
                             reachable_states.update(new_states)
                             current_states = new_states
 
                 end = time.time()
-                print(f"--- Took {check_preconditions_time-start} seconds to execute the preconditions for the first time")
-                print(f"--- Took {ini_states_time-start} seconds to find the initial states")
+                print(f"--- We executed the preconditions {len(precondition_times)} times, which took {sum(precondition_times)} seconds to execute, {np.mean(precondition_times)} on average (min={np.minimum(precondition_times)} max={np.maximum(precondition_times)})")
+                print(f"--- We executed a method {len(method_times)} times, which took {sum(method_times)} seconds, {np.mean(method_times)} seconds on average (min={np.minimum(method_times)} max={np.maximum(method_times)})")
+                print(f"--- There were {_low_level_methods_executed} low level executions of solidity methods")
+                print(f"--- We did {len(query_times)} high level queries, which took {sum(query_times)} seconds, {np.mean(query_times)} seconds on average (min={np.minimum(query_times)} max={np.maximum(query_times)})")
                 print(f"--- Took {end-start} seconds in total.")
 
                 print("+++ Reached States:")
@@ -115,7 +138,7 @@ class abstraction_constructor:
 
     def repr_state(self,state):
         raise NotImplementedError
-
+    
     def transition_name(self,start,method,end):
         raise NotImplementedError
 
@@ -150,9 +173,17 @@ class epa_constructor(abstraction_constructor):
         if text == "":
             text = "vacio"
         return text
+    
+    def short_repr_state(self,state):
+        text = ""
+        for x,method in zip(state,range(len(self.methods))):
+            text += '_'+method if x else ""
+        if text == "":
+            text = "vacio"
+        return text
 
     def transition_name(self,start,method,end):
-        return self.repr_state(start)+"-->"+method+"-->"+self.repr_state(end)
+        return self.short_repr_state(start)+"-->"+method+"-->"+self.short_repr_state(end)
 
     def allowed_methods(self,state):
         allowed = set()
