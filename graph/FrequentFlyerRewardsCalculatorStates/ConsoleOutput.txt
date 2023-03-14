@@ -1,0 +1,3 @@
+-Concrete value for initial_block : 0
+found 1 testcases that reach SetFlyerAndReward initial state
+found no testcases for MilesAdded initial state

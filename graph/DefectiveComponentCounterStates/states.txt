@@ -1,0 +1,10 @@
+digraph { 
+init [label=init] 
+Create [label=Create] 
+ComputeTotal [label=ComputeTotal] 
+init -> Create [label=constructor] 
+Create -> ComputeTotal [label=ComputeTotal] 
+Create -> Create [label=GetDefectiveComponentsCount] 
+ComputeTotal -> ComputeTotal [label=ComputeTotal] 
+ComputeTotal -> ComputeTotal [label=GetDefectiveComponentsCount] 
+}

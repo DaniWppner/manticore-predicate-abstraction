@@ -1,0 +1,39 @@
+# -- Calling State
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases that reach Create initial state
+found no testcases for ComputeTotal initial state
+# -- Calling ComputeTotal
+# -- Calling State
+no testcases for Create-->ComputeTotal-->Create
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for Create-->ComputeTotal-->ComputeTotal
+# -- Calling ComputeTotal
+# -- Calling State
+no testcases for ComputeTotal-->ComputeTotal-->Create
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for ComputeTotal-->ComputeTotal-->ComputeTotal
+# -- Calling GetDefectiveComponentsCount
+# -- Calling State
+no testcases for ComputeTotal-->GetDefectiveComponentsCount-->Create
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for ComputeTotal-->GetDefectiveComponentsCount-->ComputeTotal
+# -- Calling GetDefectiveComponentsCount
+# -- Calling State
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for Create-->GetDefectiveComponentsCount-->Create
+no testcases for Create-->GetDefectiveComponentsCount-->ComputeTotal
+--- Took 101.14553308486938 seconds to find the initial states
+--- Took 4133.8505692481995 seconds in total.
++++ Reached States:
+      Create
+      ComputeTotal
++++ Explored Transitions:
+   from Create executing ComputeTotal
+   from Create executing GetDefectiveComponentsCount
+   from ComputeTotal executing ComputeTotal
+   from ComputeTotal executing GetDefectiveComponentsCount

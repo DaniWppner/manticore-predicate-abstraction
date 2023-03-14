@@ -1,5 +1,3 @@
-# -- Deploying Contract
-# -- Contract Deployed
 # -- Calling ComputeTotal_precondition
 # -- Calling GetDefectiveComponentsCount_precondition
 found no testcases for vacio initial state
@@ -16,11 +14,7 @@ no testcases for _ComputeTotal_GetDefectiveComponentsCount-->GetDefectiveCompone
 no testcases for _ComputeTotal_GetDefectiveComponentsCount-->GetDefectiveComponentsCount-->_ComputeTotal
 Testcase -- 1
 -Concrete value for initial_block : 0
-Testcase -- 2
--Concrete value for initial_block : 0
-Testcase -- 3
--Concrete value for initial_block : 0
-found 3 testcases for _ComputeTotal_GetDefectiveComponentsCount-->GetDefectiveComponentsCount-->_ComputeTotal_GetDefectiveComponentsCount
+found 1 testcases for _ComputeTotal_GetDefectiveComponentsCount-->GetDefectiveComponentsCount-->_ComputeTotal_GetDefectiveComponentsCount
 # -- Calling ComputeTotal
 # -- Calling ComputeTotal_precondition
 # -- Calling GetDefectiveComponentsCount_precondition
@@ -29,16 +23,11 @@ no testcases for _ComputeTotal_GetDefectiveComponentsCount-->ComputeTotal-->_Get
 no testcases for _ComputeTotal_GetDefectiveComponentsCount-->ComputeTotal-->_ComputeTotal
 Testcase -- 1
 -Concrete value for initial_block : 0
-Testcase -- 2
--Concrete value for initial_block : 0
-Testcase -- 3
--Concrete value for initial_block : 0
-found 3 testcases for _ComputeTotal_GetDefectiveComponentsCount-->ComputeTotal-->_ComputeTotal_GetDefectiveComponentsCount
---- Took 87.43109703063965 seconds to deploy the contract
---- Took 100.99634957313538 seconds to find the initial states
---- Took 1325.7382690906525 seconds in total.
+found 1 testcases for _ComputeTotal_GetDefectiveComponentsCount-->ComputeTotal-->_ComputeTotal_GetDefectiveComponentsCount
+--- Took 120.80163431167603 seconds to find the initial states
+--- Took 3369.959666490555 seconds in total.
 +++ Reached States:
       _ComputeTotal_GetDefectiveComponentsCount
 +++ Explored Transitions:
-   from _ComputeTotal_GetDefectiveComponentsCount executing GetDefectiveComponentsCount
    from _ComputeTotal_GetDefectiveComponentsCount executing ComputeTotal
+   from _ComputeTotal_GetDefectiveComponentsCount executing GetDefectiveComponentsCount

@@ -1,0 +1,38 @@
+# -- Calling State
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases that reach Created initial state
+found no testcases for InUse initial state
+# -- Calling SetMode
+# -- Calling StartThermostat
+# -- Calling State
+no testcases for Created-->StartThermostat-->Created
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for Created-->StartThermostat-->InUse
+# -- Calling SetTargetTemperature
+# -- Calling State
+no testcases for InUse-->SetTargetTemperature-->Created
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for InUse-->SetTargetTemperature-->InUse
+# -- Calling SetMode
+# -- Calling State
+no testcases for InUse-->SetMode-->Created
+Testcase -- 1
+-Concrete value for initial_block : 0
+found 1 testcases for InUse-->SetMode-->InUse
+# -- Calling StartThermostat
+# -- Calling SetTargetTemperature
+--- Took 124.9727566242218 seconds to find the initial states
+--- Took 11277.957083940506 seconds in total.
++++ Reached States:
+      Created
+      InUse
++++ Explored Transitions:
+   from Created executing SetMode
+   from InUse executing SetMode
+   from InUse executing StartThermostat
+   from Created executing StartThermostat
+   from InUse executing SetTargetTemperature
+   from Created executing SetTargetTemperature

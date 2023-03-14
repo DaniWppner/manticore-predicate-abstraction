@@ -1,0 +1,9 @@
+digraph { 
+init [label=init] 
+Created [label=Created] 
+InUse [label=InUse] 
+init -> Created [label=constructor] 
+Created -> InUse [label=StartThermostat] 
+InUse -> InUse [label=SetMode] 
+InUse -> InUse [label=SetTargetTemperature] 
+}
