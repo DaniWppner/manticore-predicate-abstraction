@@ -84,7 +84,7 @@ class state_constrainer:
                 tx_value = 0
 
         # construct a sender for the transaction
-        # if it is symbollic it will concretize to one of the existing accounts in the manticore instance
+        # if it is symbollic it will concretize to one of the existing accounts in the manticore ethereum world
         if tx_sender is None:
             tx_sender = self.manticore.make_symbolic_address()
         return call_args,tx_value,tx_sender
@@ -108,12 +108,14 @@ class state_constrainer:
         if transaction.return_value == 1:
             return_types = self.contract_metadata.get_func_return_types(func_id)
             if (return_types != '()') :
-                #FIXME quita los paréntesis a izquierda y derecha del tipo
+                #FIXME transforma "(int)" -> "int"      (es un bug de manticore)
+                #No funciona si la transaccion tuvo varios returns 
                 return_types = return_types[1:len(return_types)-1]
                 result = ABI.deserialize(return_types,transaction.return_data)
                 return result
     
     def last_return_of(self,func_name):
+        # Se espera que sea constante el valor a retornar
         func_id = self.nameToFuncId[func_name]
         for state in self.manticore.ready_states:
             tx = state.platform.last_human_transaction
@@ -122,7 +124,7 @@ class state_constrainer:
                 return state.solve_one(result)
 
     def getEnumInfo(self): 
-        #podria hacerse para que devuelva el diccionario si ya existe
+        #deberia hacerse para que devuelva el diccionario si ya existe
         self.enums = {}
         
         for func_hsh in self.contract_metadata.function_selectors:
@@ -132,6 +134,8 @@ class state_constrainer:
                 #Esta solucion podria ser muy mala si hay otros metodos que tambien devuelven algo de tipo enum
                 if internalReturnType.startswith('enum'):
                     enumTypeName = internalReturnType.replace('enum ', '').split('.')[-1]
+                    #En respuesta al otro comentario: 
+                    # igual estamos filtrando que el nombre del metodo arranque con "Enum".
                     if ("Enum"+enumTypeName in self.enumdescriptor_names):
                         self.callContractFunction("Enum"+enumTypeName,tx_sender=self.witness_account)
                         self.enums[func_name] = self.last_return_of("Enum"+enumTypeName).decode().split(',')
