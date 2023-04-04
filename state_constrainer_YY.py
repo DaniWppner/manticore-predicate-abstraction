@@ -196,7 +196,7 @@ class state_constrainer:
     def advance_symbolic_ammount_of_blocks(self):
         ammount = self.manticore.make_symbolic_value(name="blocks_advanced")
         self.symbolic_blockchain_vars.add(ammount)
-        for state in self.manticore.all_states:
+        for state in self.manticore.ready_states:
             world = state.platform
             world.advance_block_number(ammount)
         return ammount
@@ -211,7 +211,7 @@ class state_constrainer:
 
     def can_be_true(self,expr):
         count = 0
-        for state in self.manticore.all_states:
+        for state in self.manticore.ready_states:
             if state.can_be_true(expr):
                 count += 1
         return count
