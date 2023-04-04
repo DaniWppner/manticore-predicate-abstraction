@@ -32,6 +32,7 @@ class abstraction_constructor:
                 precondition_times = []
                 query_times = []
                 _low_level_methods_executed = 0
+                _low_level_preconditions_executed = 0
 
                 check_preconditions_time_init = time.time()
                 self.check_preconditions()
@@ -88,6 +89,7 @@ class abstraction_constructor:
                             current_states = global_snapshots_stack.pop()
                             self.tchk.manticore.goto_snapshot()
                         else:
+                            _low_level_preconditions_executed += self.tchk.manticore.count_ready_states()
                             check_preconditions_time_init = time.time()
                             self.check_preconditions()
                             check_preconditions_time_fin = time.time()
@@ -114,10 +116,11 @@ class abstraction_constructor:
                             current_states = new_states
 
                 end = time.time()
-                print(f"--- We executed the preconditions {len(precondition_times)} times, which took {sum(precondition_times)} seconds to execute, {np.mean(precondition_times)} on average (min={np.minimum(precondition_times)} max={np.maximum(precondition_times)})")
-                print(f"--- We executed a method {len(method_times)} times, which took {sum(method_times)} seconds, {np.mean(method_times)} seconds on average (min={np.minimum(method_times)} max={np.maximum(method_times)})")
-                print(f"--- There were {_low_level_methods_executed} low level executions of solidity methods")
-                print(f"--- We did {len(query_times)} high level queries, which took {sum(query_times)} seconds, {np.mean(query_times)} seconds on average (min={np.minimum(query_times)} max={np.maximum(query_times)})")
+                print(f"--- We executed the preconditions {len(precondition_times)} times, which took {sum(precondition_times)} seconds to execute, {np.mean(precondition_times)} on average (min={np.min(precondition_times)} max={np.max(precondition_times)})")
+                print(f"--- There were {_low_level_preconditions_executed} low level executions of the precondition methods")
+                print(f"--- We executed a method {len(method_times)} times, which took {sum(method_times)} seconds, {np.mean(method_times)} seconds on average (min={np.min(method_times)} max={np.max(method_times)})")
+                print(f"--- There were {_low_level_methods_executed} low level executions of the interface methods")
+                print(f"--- We did {len(query_times)} high level queries, which took {sum(query_times)} seconds, {np.mean(query_times)} seconds on average (min={np.min(query_times)} max={np.max(query_times)})")
                 print(f"--- Took {end-start} seconds in total.")
 
                 print("+++ Reached States:")
@@ -174,16 +177,16 @@ class epa_constructor(abstraction_constructor):
             text = "vacio"
         return text
     
-    def short_repr_state(self,state):
+    '''def short_repr_state(self,state):
         text = ""
         for x,method in zip(state,range(len(self.methods))):
             text += '_'+method if x else ""
         if text == "":
             text = "vacio"
-        return text
+        return text'''
 
     def transition_name(self,start,method,end):
-        return self.short_repr_state(start)+"-->"+method+"-->"+self.short_repr_state(end)
+        return self.repr_state(start)+"-->"+method+"-->"+self.repr_state(end)
 
     def allowed_methods(self,state):
         allowed = set()
