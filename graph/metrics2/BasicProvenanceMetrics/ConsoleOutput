@@ -1,0 +1,454 @@
+(level 0) took 0.0008225440979003906 seconds (sat)
+(level 0) took 0.00019979476928710938 seconds (unsat)
+(level 0) took 0.0008597373962402344 seconds (sat)
+(level 0) took 5.2928924560546875e-05 seconds (unsat)
+(level 0) took 0.0007772445678710938 seconds (sat)
+(level 0) took 9.274482727050781e-05 seconds (unsat)
+(level 0) took 0.0008723735809326172 seconds (sat)
+(level 0) took 4.57763671875e-05 seconds (unsat)
+(level 0) took 0.0008819103240966797 seconds (sat)
+(level 0) took 0.00010776519775390625 seconds (unsat)
+(level 0) took 0.0008516311645507812 seconds (sat)
+(level 0) took 4.6253204345703125e-05 seconds (unsat)
+(level 0) took 0.0008177757263183594 seconds (sat)
+(level 0) took 0.00011587142944335938 seconds (unsat)
+(level 0) took 0.0007855892181396484 seconds (sat)
+(level 0) took 4.601478576660156e-05 seconds (unsat)
+(level 0) took 0.0008080005645751953 seconds (sat)
+(level 0) took 9.34600830078125e-05 seconds (unsat)
+(level 0) took 0.0006949901580810547 seconds (unsat)
+(level 1.1) took 0.002073526382446289 seconds
+(level 2.1) took 0.0021338462829589844 seconds
+found no testcases for vacio initial state
+(level 0) took 0.0007104873657226562 seconds (unsat)
+(level 1.1) took 0.0020914077758789062 seconds
+(level 2.1) took 0.0021507740020751953 seconds
+found no testcases for _TransferResponsibility initial state
+(level 0) took 0.0006809234619140625 seconds (unsat)
+(level 1.1) took 0.002059459686279297 seconds
+(level 2.1) took 0.0021164417266845703 seconds
+found no testcases for _Complete initial state
+(level 0) took 0.0008199214935302734 seconds (sat)
+(level 1.1) took 0.002181529998779297 seconds
+(level 2.1) took 0.002238750457763672 seconds
+(level 0) took 0.0006687641143798828 seconds (sat)
+(level 1.1) took 0.0017473697662353516 seconds
+(level 2.1) took 0.0017511844635009766 seconds
+(level 1.1) took 0.0002536773681640625 seconds
+(level 2.1) took 0.0002789497375488281 seconds
+(level 0) took 0.0004246234893798828 seconds (sat)
+(level 1.2) took 0.0020666122436523438 seconds
+level(2.2) took 0.0021066665649414062 seconds
+(level 0) took 0.002777099609375 seconds (sat)
+(level 1.2) took 0.009333372116088867 seconds
+level(2.2) took 0.013755559921264648 seconds
+(level 0) took 0.0003123283386230469 seconds (sat)
+(level 1.2) took 0.0022344589233398438 seconds
+level(2.2) took 0.0022389888763427734 seconds
+(level 0) took 0.00030803680419921875 seconds (sat)
+(level 1.2) took 0.0021371841430664062 seconds
+level(2.2) took 0.0021648406982421875 seconds
+(level 0) took 0.0002913475036621094 seconds (sat)
+(level 1.2) took 0.002217531204223633 seconds
+level(2.2) took 0.002245664596557617 seconds
+(level 0) took 0.00034999847412109375 seconds (sat)
+(level 1.2) took 0.0022192001342773438 seconds
+level(2.2) took 0.002223968505859375 seconds
+(level 0) took 0.0002918243408203125 seconds (sat)
+(level 1.2) took 0.0021615028381347656 seconds
+level(2.2) took 0.00218963623046875 seconds
+(level 0) took 0.0002894401550292969 seconds (sat)
+(level 1.2) took 0.0021696090698242188 seconds
+level(2.2) took 0.002197265625 seconds
+(level 0) took 0.00029850006103515625 seconds (sat)
+(level 1.2) took 0.0021469593048095703 seconds
+level(2.2) took 0.0021512508392333984 seconds
+(level 0) took 0.00030040740966796875 seconds (sat)
+(level 1.2) took 0.0021843910217285156 seconds
+level(2.2) took 0.002212047576904297 seconds
+(level 0) took 0.0003037452697753906 seconds (sat)
+(level 1.2) took 0.00211334228515625 seconds
+level(2.2) took 0.0021414756774902344 seconds
+(level 0) took 0.0003724098205566406 seconds (sat)
+(level 1.2) took 0.10529255867004395 seconds
+level(2.2) took 0.1067194938659668 seconds
+(level 0) took 0.0003695487976074219 seconds (sat)
+(level 1.2) took 0.002585172653198242 seconds
+level(2.2) took 0.0027523040771484375 seconds
+(level 0) took 0.011863946914672852 seconds (sat)
+(level 1.2) took 47.283064126968384 seconds
+level(2.2) took 47.335426807403564 seconds
+(level 0) took 0.011080026626586914 seconds (sat)
+(level 1.2) took 116.52667737007141 seconds
+level(2.2) took 116.60080313682556 seconds
+(level 0) took 0.0004513263702392578 seconds (sat)
+(level 1.2) took 0.010065555572509766 seconds
+level(2.2) took 0.010949373245239258 seconds
+(level 0) took 0.0012853145599365234 seconds (sat)
+(level 1.2) took 0.18236613273620605 seconds
+level(2.2) took 0.18366336822509766 seconds
+(level 3) took 164.31886434555054 seconds
+(level 0) took 0.0005190372467041016 seconds (sat)
+(level 1.2) took 0.0022554397583007812 seconds
+level(2.2) took 0.002313852310180664 seconds
+-Concrete value for initial_block : 0
+found 1 testcases that reach _Complete_TransferResponsibility initial state
+# -- Calling TransferResponsibility
+(level 0) took 0.0013012886047363281 seconds (sat)
+(level 0) took 0.0003018379211425781 seconds (sat)
+(level 0) took 0.00025153160095214844 seconds (sat)
+(level 0) took 4.3392181396484375e-05 seconds (unsat)
+(level 0) took 0.012420654296875 seconds (sat)
+(level 0) took 0.020416975021362305 seconds (sat)
+(level 0) took 0.0052335262298583984 seconds (unsat)
+(level 0) took 0.02548980712890625 seconds (sat)
+(level 0) took 0.015430212020874023 seconds (unsat)
+(level 0) took 0.010241508483886719 seconds (sat)
+(level 0) took 0.01042485237121582 seconds (unsat)
+(level 0) took 0.03586697578430176 seconds (sat)
+(level 0) took 0.041210174560546875 seconds (unsat)
+(level 0) took 0.01545858383178711 seconds (sat)
+(level 0) took 0.005175352096557617 seconds (unsat)
+(level 0) took 0.023684024810791016 seconds (sat)
+(level 0) took 0.0052013397216796875 seconds (unsat)
+(level 0) took 0.011512994766235352 seconds (sat)
+(level 0) took 0.010363578796386719 seconds (unsat)
+(level 0) took 0.005217790603637695 seconds (sat)
+(level 0) took 0.008815526962280273 seconds (unsat)
+(level 0) took 0.00889134407043457 seconds (sat)
+(level 0) took 0.0022106170654296875 seconds (unsat)
+(level 0) took 0.010223865509033203 seconds (sat)
+(level 0) took 0.015443086624145508 seconds (unsat)
+(level 0) took 0.06282162666320801 seconds (sat)
+(level 0) took 0.005261421203613281 seconds (unsat)
+(level 0) took 0.07156825065612793 seconds (sat)
+(level 0) took 0.010356664657592773 seconds (unsat)
+(level 0) took 0.025542259216308594 seconds (sat)
+(level 0) took 0.005156993865966797 seconds (unsat)
+(level 0) took 0.021187543869018555 seconds (sat)
+(level 0) took 0.005267620086669922 seconds (unsat)
+(level 0) took 0.022820234298706055 seconds (sat)
+(level 0) took 0.010216474533081055 seconds (unsat)
+(level 0) took 0.06660962104797363 seconds (sat)
+(level 0) took 0.005254507064819336 seconds (unsat)
+(level 0) took 0.012006759643554688 seconds (sat)
+(level 0) took 0.1490950584411621 seconds (unsat)
+(level 0) took 0.005432844161987305 seconds (sat)
+(level 0) took 0.015648365020751953 seconds (unsat)
+(level 0) took 0.007336616516113281 seconds (sat)
+(level 0) took 0.0030095577239990234 seconds (unsat)
+(level 0) took 0.007443428039550781 seconds (sat)
+(level 0) took 0.0001285076141357422 seconds (unsat)
+(level 0) took 0.0077762603759765625 seconds (sat)
+(level 0) took 0.0028831958770751953 seconds (unsat)
+(level 0) took 0.007810831069946289 seconds (sat)
+(level 0) took 0.0001277923583984375 seconds (unsat)
+(level 0) took 0.007790088653564453 seconds (sat)
+(level 0) took 0.0030884742736816406 seconds (unsat)
+(level 0) took 0.007901668548583984 seconds (sat)
+(level 0) took 0.00018143653869628906 seconds (unsat)
+(level 0) took 0.0074994564056396484 seconds (sat)
+(level 0) took 0.002955913543701172 seconds (unsat)
+(level 0) took 0.007568359375 seconds (sat)
+(level 0) took 0.00012803077697753906 seconds (unsat)
+(level 0) took 0.007689237594604492 seconds (sat)
+(level 0) took 0.002980947494506836 seconds (unsat)
+(level 0) took 0.0043752193450927734 seconds (unsat)
+(level 1.1) took 0.008109807968139648 seconds
+(level 2.1) took 0.008202314376831055 seconds
+no testcases for _Complete_TransferResponsibility-->TransferResponsibility-->vacio
+(level 0) took 0.004205942153930664 seconds (unsat)
+(level 1.1) took 0.008028507232666016 seconds
+(level 2.1) took 0.008120536804199219 seconds
+no testcases for _Complete_TransferResponsibility-->TransferResponsibility-->_TransferResponsibility
+(level 0) took 0.004243612289428711 seconds (unsat)
+(level 1.1) took 0.007991552352905273 seconds
+(level 2.1) took 0.00812840461730957 seconds
+no testcases for _Complete_TransferResponsibility-->TransferResponsibility-->_Complete
+(level 0) took 0.007740974426269531 seconds (sat)
+(level 1.1) took 0.011494874954223633 seconds
+(level 2.1) took 0.011590719223022461 seconds
+(level 0) took 0.007704734802246094 seconds (sat)
+(level 1.1) took 0.010970592498779297 seconds
+(level 2.1) took 0.010975122451782227 seconds
+(level 1.1) took 0.0001690387725830078 seconds
+(level 2.1) took 0.00018072128295898438 seconds
+(level 0) took 0.00043010711669921875 seconds (sat)
+(level 1.2) took 0.004038810729980469 seconds
+level(2.2) took 0.004081010818481445 seconds
+(level 0) took 0.009056806564331055 seconds (sat)
+(level 1.2) took 0.028218507766723633 seconds
+level(2.2) took 0.0369417667388916 seconds
+(level 0) took 0.0004031658172607422 seconds (sat)
+(level 1.2) took 0.00504612922668457 seconds
+level(2.2) took 0.0050506591796875 seconds
+(level 0) took 0.0003104209899902344 seconds (sat)
+(level 1.2) took 0.0046269893646240234 seconds
+level(2.2) took 0.0046617984771728516 seconds
+(level 0) took 0.0003228187561035156 seconds (sat)
+(level 1.2) took 0.004637002944946289 seconds
+level(2.2) took 0.004673480987548828 seconds
+(level 0) took 0.0003337860107421875 seconds (sat)
+(level 1.2) took 0.004725456237792969 seconds
+level(2.2) took 0.004729747772216797 seconds
+(level 0) took 0.00031566619873046875 seconds (sat)
+(level 1.2) took 0.00461125373840332 seconds
+level(2.2) took 0.004644632339477539 seconds
+(level 0) took 0.0003170967102050781 seconds (sat)
+(level 1.2) took 0.004722118377685547 seconds
+level(2.2) took 0.004754304885864258 seconds
+(level 0) took 0.0003249645233154297 seconds (sat)
+(level 1.2) took 0.0046122074127197266 seconds
+level(2.2) took 0.004616498947143555 seconds
+(level 0) took 0.00034117698669433594 seconds (sat)
+(level 1.2) took 0.004691600799560547 seconds
+level(2.2) took 0.004727363586425781 seconds
+(level 0) took 0.0003311634063720703 seconds (sat)
+(level 1.2) took 0.0047245025634765625 seconds
+level(2.2) took 0.004757404327392578 seconds
+(level 0) took 0.0006330013275146484 seconds (sat)
+(level 1.2) took 0.05732560157775879 seconds
+level(2.2) took 0.06047654151916504 seconds
+(level 0) took 0.0004105567932128906 seconds (sat)
+(level 1.2) took 0.005293607711791992 seconds
+level(2.2) took 0.0056629180908203125 seconds
+(level 0) took 0.015308380126953125 seconds (sat)
+(level 1.2) took 47.87341594696045 seconds
+level(2.2) took 47.9289128780365 seconds
+(level 0) took 0.015522003173828125 seconds (sat)
+(level 1.2) took 112.82357883453369 seconds
+level(2.2) took 112.89932346343994 seconds
+(level 0) took 0.0006048679351806641 seconds (sat)
+(level 1.2) took 0.01421666145324707 seconds
+level(2.2) took 0.015249013900756836 seconds
+(level 0) took 0.0010008811950683594 seconds (sat)
+(level 1.2) took 0.05031871795654297 seconds
+level(2.2) took 0.05191159248352051 seconds
+(level 0) took 0.012190103530883789 seconds (sat)
+(level 1.2) took 0.16604924201965332 seconds
+level(2.2) took 0.16703319549560547 seconds
+(level 0) took 0.0004086494445800781 seconds (sat)
+(level 1.2) took 0.011953115463256836 seconds
+level(2.2) took 0.012796640396118164 seconds
+(level 0) took 0.0009596347808837891 seconds (sat)
+(level 1.2) took 0.04460644721984863 seconds
+level(2.2) took 0.04591059684753418 seconds
+(level 3) took 161.33256363868713 seconds
+(level 0) took 0.00038051605224609375 seconds (sat)
+(level 1.2) took 0.0037314891815185547 seconds
+level(2.2) took 0.0037779808044433594 seconds
+-Concrete value for initial_block : 0
+found 1 testcases for _Complete_TransferResponsibility-->TransferResponsibility-->_Complete_TransferResponsibility
+# -- Calling Complete
+(level 0) took 0.007649898529052734 seconds (sat)
+(level 0) took 0.003412485122680664 seconds (sat)
+(level 0) took 0.0034203529357910156 seconds (sat)
+(level 0) took 0.00013709068298339844 seconds (unsat)
+(level 0) took 0.0952599048614502 seconds (sat)
+(level 0) took 0.02555680274963379 seconds (sat)
+(level 0) took 0.08201074600219727 seconds (sat)
+(level 0) took 0.0721597671508789 seconds (unsat)
+(level 0) took 0.03861045837402344 seconds (sat)
+(level 0) took 0.015420675277709961 seconds (unsat)
+(level 0) took 0.015574932098388672 seconds (sat)
+(level 0) took 0.0038154125213623047 seconds (unsat)
+(level 0) took 0.015589714050292969 seconds (sat)
+(level 0) took 0.015502214431762695 seconds (unsat)
+(level 0) took 0.020596742630004883 seconds (sat)
+(level 0) took 0.041039466857910156 seconds (sat)
+(level 0) took 0.32186388969421387 seconds (unsat)
+(level 0) took 0.020441293716430664 seconds (sat)
+(level 0) took 0.015229225158691406 seconds (sat)
+(level 0) took 0.010196447372436523 seconds (unsat)
+(level 0) took 0.020635604858398438 seconds (sat)
+(level 0) took 0.11257648468017578 seconds (sat)
+(level 0) took 0.03125762939453125 seconds (unsat)
+(level 0) took 0.18180441856384277 seconds (unsat)
+(level 0) took 0.026354551315307617 seconds (sat)
+(level 0) took 0.010419845581054688 seconds (unsat)
+(level 0) took 0.2528510093688965 seconds (sat)
+(level 0) took 0.015421152114868164 seconds (unsat)
+(level 0) took 0.030933618545532227 seconds (sat)
+(level 0) took 0.06652593612670898 seconds (unsat)
+(level 0) took 1.664515495300293 seconds (sat)
+(level 0) took 0.11891293525695801 seconds (unsat)
+(level 0) took 0.03593111038208008 seconds (sat)
+(level 0) took 0.4164745807647705 seconds (sat)
+(level 0) took 0.03670763969421387 seconds (sat)
+(level 0) took 0.035932302474975586 seconds (sat)
+(level 0) took 0.02567887306213379 seconds (unsat)
+(level 0) took 0.00576472282409668 seconds (unsat)
+(level 0) took 0.020496606826782227 seconds (sat)
+(level 0) took 0.03566932678222656 seconds (unsat)
+(level 0) took 0.04584050178527832 seconds (sat)
+(level 0) took 0.015399456024169922 seconds (unsat)
+(level 0) took 0.010346174240112305 seconds (sat)
+(level 0) took 0.010284423828125 seconds (unsat)
+(level 0) took 0.026751279830932617 seconds (sat)
+(level 0) took 0.03941011428833008 seconds (unsat)
+(level 0) took 0.04840803146362305 seconds (sat)
+(level 0) took 0.010276556015014648 seconds (unsat)
+(level 0) took 0.025755882263183594 seconds (sat)
+(level 0) took 0.40645599365234375 seconds (unsat)
+(level 0) took 0.03930974006652832 seconds (sat)
+(level 0) took 0.015583515167236328 seconds (sat)
+(level 0) took 0.020781278610229492 seconds (unsat)
+(level 0) took 0.010986804962158203 seconds (unsat)
+(level 0) took 0.0203857421875 seconds (sat)
+(level 0) took 0.010222196578979492 seconds (unsat)
+(level 0) took 0.2248837947845459 seconds (sat)
+(level 0) took 0.6295931339263916 seconds (unsat)
+(level 0) took 0.010263442993164062 seconds (sat)
+(level 0) took 0.015419483184814453 seconds (unsat)
+(level 0) took 0.02874016761779785 seconds (sat)
+(level 0) took 0.015407085418701172 seconds (unsat)
+(level 0) took 0.03362441062927246 seconds (sat)
+(level 0) took 0.010284900665283203 seconds (unsat)
+(level 0) took 0.04084062576293945 seconds (sat)
+(level 0) took 0.04600381851196289 seconds (unsat)
+(level 0) took 0.020413637161254883 seconds (sat)
+(level 0) took 0.0563051700592041 seconds (unsat)
+(level 0) took 0.015450477600097656 seconds (sat)
+(level 0) took 0.012513399124145508 seconds (unsat)
+(level 0) took 0.290816068649292 seconds (sat)
+(level 0) took 0.030712127685546875 seconds (unsat)
+(level 0) took 0.030748605728149414 seconds (sat)
+(level 0) took 0.015362262725830078 seconds (unsat)
+(level 0) took 0.03065180778503418 seconds (sat)
+(level 0) took 0.030831098556518555 seconds (unsat)
+(level 0) took 0.025721073150634766 seconds (sat)
+(level 0) took 0.4530673027038574 seconds (unsat)
+(level 0) took 0.05672764778137207 seconds (sat)
+(level 0) took 0.0308840274810791 seconds (unsat)
+(level 0) took 0.07146096229553223 seconds (sat)
+(level 0) took 0.010288715362548828 seconds (unsat)
+(level 0) took 0.03582429885864258 seconds (sat)
+(level 0) took 0.01544189453125 seconds (unsat)
+(level 0) took 0.11279034614562988 seconds (sat)
+(level 0) took 0.01027369499206543 seconds (unsat)
+(level 0) took 0.026268959045410156 seconds (sat)
+(level 0) took 0.011299848556518555 seconds (unsat)
+(level 0) took 0.020861148834228516 seconds (sat)
+(level 1.1) took 0.027048587799072266 seconds
+(level 2.1) took 0.02713942527770996 seconds
+(level 0) took 0.022307634353637695 seconds (sat)
+(level 1.1) took 0.029112577438354492 seconds
+(level 2.1) took 0.029117107391357422 seconds
+(level 1.1) took 0.00016427040100097656 seconds
+(level 2.1) took 0.00017523765563964844 seconds
+(level 0) took 0.00037169456481933594 seconds (sat)
+(level 1.2) took 0.006253957748413086 seconds
+level(2.2) took 0.0062944889068603516 seconds
+(level 0) took 0.020504236221313477 seconds (sat)
+(level 1.2) took 0.057233333587646484 seconds
+level(2.2) took 0.07418107986450195 seconds
+(level 0) took 0.0003349781036376953 seconds (sat)
+(level 1.2) took 0.007567405700683594 seconds
+level(2.2) took 0.007572174072265625 seconds
+(level 0) took 0.0002875328063964844 seconds (sat)
+(level 1.2) took 0.007326602935791016 seconds
+level(2.2) took 0.007356882095336914 seconds
+(level 0) took 0.00028634071350097656 seconds (sat)
+(level 1.2) took 0.007513999938964844 seconds
+level(2.2) took 0.007543325424194336 seconds
+(level 0) took 0.0002894401550292969 seconds (sat)
+(level 1.2) took 0.007358074188232422 seconds
+level(2.2) took 0.00736236572265625 seconds
+(level 0) took 0.0002808570861816406 seconds (sat)
+(level 1.2) took 0.007328510284423828 seconds
+level(2.2) took 0.007356882095336914 seconds
+(level 0) took 0.025938749313354492 seconds (sat)
+(level 1.2) took 0.0569005012512207 seconds
+level(2.2) took 0.06117129325866699 seconds
+(level 0) took 0.0003497600555419922 seconds (sat)
+(level 1.2) took 0.008194684982299805 seconds
+level(2.2) took 0.008199453353881836 seconds
+(level 0) took 0.00028896331787109375 seconds (sat)
+(level 1.2) took 0.007901668548583984 seconds
+level(2.2) took 0.007931709289550781 seconds
+(level 0) took 0.0002913475036621094 seconds (sat)
+(level 1.2) took 0.007988929748535156 seconds
+level(2.2) took 0.008016824722290039 seconds
+(level 0) took 0.0005223751068115234 seconds (sat)
+(level 1.2) took 0.016561031341552734 seconds
+level(2.2) took 0.021218061447143555 seconds
+(level 0) took 0.00032639503479003906 seconds (sat)
+(level 1.2) took 0.008428096771240234 seconds
+level(2.2) took 0.00900578498840332 seconds
+(level 0) took 0.02512669563293457 seconds (sat)
+(level 1.2) took 46.03496479988098 seconds
+level(2.2) took 46.089454650878906 seconds
+(level 0) took 0.022909879684448242 seconds (sat)
+(level 1.2) took 103.25199317932129 seconds
+level(2.2) took 103.32465481758118 seconds
+(level 0) took 0.00044798851013183594 seconds (sat)
+(level 1.2) took 0.015875577926635742 seconds
+level(2.2) took 0.01694941520690918 seconds
+(level 0) took 0.0010366439819335938 seconds (sat)
+(level 1.2) took 0.05998420715332031 seconds
+level(2.2) took 0.06166982650756836 seconds
+(level 0) took 0.02669215202331543 seconds (sat)
+(level 1.2) took 0.10384964942932129 seconds
+level(2.2) took 0.10494613647460938 seconds
+(level 0) took 0.0004322528839111328 seconds (sat)
+(level 1.2) took 0.015563249588012695 seconds
+level(2.2) took 0.01651310920715332 seconds
+(level 0) took 0.0009922981262207031 seconds (sat)
+(level 1.2) took 0.05514979362487793 seconds
+level(2.2) took 0.05663800239562988 seconds
+(level 0) took 0.026229381561279297 seconds (sat)
+(level 1.2) took 0.07379817962646484 seconds
+level(2.2) took 0.07448697090148926 seconds
+(level 0) took 0.00042247772216796875 seconds (sat)
+(level 1.2) took 0.015569686889648438 seconds
+level(2.2) took 0.01641702651977539 seconds
+(level 0) took 0.0009622573852539062 seconds (sat)
+(level 1.2) took 0.05113506317138672 seconds
+level(2.2) took 0.05243730545043945 seconds
+(level 3) took 150.18197536468506 seconds
+(level 0) took 0.0003514289855957031 seconds (sat)
+(level 1.2) took 0.006189823150634766 seconds
+level(2.2) took 0.006239652633666992 seconds
+-Concrete value for initial_block : 0
+found 1 testcases for _Complete_TransferResponsibility-->Complete-->vacio
+(level 0) took 0.00936579704284668 seconds (unsat)
+(level 1.1) took 0.015661239624023438 seconds
+(level 2.1) took 0.015752553939819336 seconds
+(level 0) took 0.0048482418060302734 seconds (unsat)
+(level 1.1) took 0.008912086486816406 seconds
+(level 2.1) took 0.009011268615722656 seconds
+(level 0) took 0.007221221923828125 seconds (unsat)
+(level 1.1) took 0.011939764022827148 seconds
+(level 2.1) took 0.012033462524414062 seconds
+no testcases for _Complete_TransferResponsibility-->Complete-->_TransferResponsibility
+(level 0) took 0.009473323822021484 seconds (unsat)
+(level 1.1) took 0.01573777198791504 seconds
+(level 2.1) took 0.015825986862182617 seconds
+(level 0) took 0.004868030548095703 seconds (unsat)
+(level 1.1) took 0.008874177932739258 seconds
+(level 2.1) took 0.00896453857421875 seconds
+(level 0) took 0.007159709930419922 seconds (unsat)
+(level 1.1) took 0.011978387832641602 seconds
+(level 2.1) took 0.012073040008544922 seconds
+no testcases for _Complete_TransferResponsibility-->Complete-->_Complete
+(level 0) took 0.00928187370300293 seconds (unsat)
+(level 1.1) took 0.015583515167236328 seconds
+(level 2.1) took 0.01567864418029785 seconds
+(level 0) took 0.004698514938354492 seconds (unsat)
+(level 1.1) took 0.008826971054077148 seconds
+(level 2.1) took 0.008919239044189453 seconds
+(level 0) took 0.00722813606262207 seconds (unsat)
+(level 1.1) took 0.012070655822753906 seconds
+(level 2.1) took 0.01216268539428711 seconds
+no testcases for _Complete_TransferResponsibility-->Complete-->_Complete_TransferResponsibility
+--- We executed the preconditions 3 times, which took 1231.6082582473755 seconds to execute, 410.5360860824585 on average (min=101.74281764030457 max=1027.219643354416)
+--- We executed a method 2 times, which took 1037.2725582122803 seconds, 518.6362791061401 seconds on average (min=505.6760492324829 max=531.5965089797974)
+--- There were 2 low level executions of solidity methods
+--- We did 12 high level queries, which took 478.2830808162689 seconds, 39.85692340135574 seconds on average (min=0.04125809669494629 max=164.39462804794312)
+--- Took 2747.2527084350586 seconds in total.
++++ Reached States:
+      _Complete_TransferResponsibility
+      vacio
++++ Explored Transitions:
+   from _Complete_TransferResponsibility executing TransferResponsibility
+   from _Complete_TransferResponsibility executing Complete

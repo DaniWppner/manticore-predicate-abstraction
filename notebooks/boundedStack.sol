@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.5.17;
 
-contract complexSizedStack {
+contract SizedStack {
     uint256 public size;
     uint256 public maxSize;
     uint256[] internal_arr;
