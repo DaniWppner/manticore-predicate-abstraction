@@ -3,6 +3,7 @@ import itertools
 import time
 from collections import defaultdict
 from contextlib import redirect_stdout
+from pathlib import Path
 import numpy as np
 
 
@@ -10,6 +11,7 @@ class abstraction_constructor:
     def __init__(self,path,output,advanceBlocks=False):
         self.path = path
         self.output = output
+        Path(output).mkdir(parents=True, exist_ok=True)
         self.tchk = state_constrainer(self.path,outputspace=self.output)
         self.advanceBlocks = advanceBlocks
         self.__init_states_and_methods__()

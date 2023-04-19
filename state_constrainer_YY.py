@@ -18,7 +18,7 @@ class state_constrainer:
     def _initAccountsAndContract(self,url):
         # Por ahora suponemos que tres cuentas es suficiente para la mayoria de los casos
         self.owner_account = self.manticore.create_account(balance=1*ETHER)
-        self.client_account = self.manticore.create_account(balance=1*ETHER)
+        #self.client_account = self.manticore.create_account(balance=1*ETHER)
         self.witness_account = self.manticore.create_account(balance=1*ETHER,name="witness")
         print("# -- Deploying Contract")
         with open(url,'r') as file:
