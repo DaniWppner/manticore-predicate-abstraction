@@ -1,0 +1,7 @@
+digraph { 
+init [label=init] 
+_ComputeTotal_GetDefectiveComponentsCount [label=_ComputeTotal_GetDefectiveComponentsCount] 
+init -> _ComputeTotal_GetDefectiveComponentsCount [label=constructor] 
+_ComputeTotal_GetDefectiveComponentsCount -> _ComputeTotal_GetDefectiveComponentsCount [label=ComputeTotal] 
+_ComputeTotal_GetDefectiveComponentsCount -> _ComputeTotal_GetDefectiveComponentsCount [label=GetDefectiveComponentsCount] 
+}

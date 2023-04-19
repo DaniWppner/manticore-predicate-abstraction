@@ -1,0 +1,502 @@
+(level _is_sat_z3_call) took 0.008021831512451172 seconds (sat)
+(level _getvalue_z3_call) took 0.0005319118499755859 seconds
+(level _is_sat_z3_call) took 0.007084846496582031 seconds (unsat)
+(level _is_sat_z3_call) took 0.0078122615814208984 seconds (sat)
+(level _getvalue_z3_call) took 0.00010633468627929688 seconds
+(level _is_sat_z3_call) took 0.006976127624511719 seconds (unsat)
+(level _is_sat_z3_call) took 0.007730960845947266 seconds (sat)
+(level _getvalue_z3_call) took 0.0001823902130126953 seconds
+(level _is_sat_z3_call) took 0.0070934295654296875 seconds (unsat)
+(level _is_sat_z3_call) took 0.00784444808959961 seconds (sat)
+(level _getvalue_z3_call) took 0.00010848045349121094 seconds
+(level _is_sat_z3_call) took 0.007071733474731445 seconds (unsat)
+(level _is_sat_z3_call) took 0.007765769958496094 seconds (sat)
+(level _getvalue_z3_call) took 0.0001430511474609375 seconds
+(level _is_sat_z3_call) took 0.007109642028808594 seconds (unsat)
+(level _is_sat_z3_call) took 0.00785684585571289 seconds (sat)
+(level _getvalue_z3_call) took 0.00011324882507324219 seconds
+(level _is_sat_z3_call) took 0.00700831413269043 seconds (unsat)
+(level _is_sat_z3_call) took 0.007889509201049805 seconds (sat)
+(level _getvalue_z3_call) took 0.0001475811004638672 seconds
+(level _is_sat_z3_call) took 0.0070858001708984375 seconds (unsat)
+(level _is_sat_z3_call) took 0.007945537567138672 seconds (sat)
+(level _getvalue_z3_call) took 0.00011587142944335938 seconds
+(level _is_sat_z3_call) took 0.007075309753417969 seconds (unsat)
+(level _is_sat_z3_call) took 0.007899761199951172 seconds (sat)
+(level _getvalue_z3_call) took 0.00015282630920410156 seconds
+(level _is_sat_z3_call) took 0.007070302963256836 seconds (unsat)
+(level _is_sat_z3_call) took 0.003393411636352539 seconds (unsat)
+(level solver.can_be_true) took 0.0041658878326416016 seconds
+(level state.can_be_true) took 0.004228353500366211 seconds
+found no testcases for vacio initial state
+(level _is_sat_z3_call) took 0.0034339427947998047 seconds (unsat)
+(level solver.can_be_true) took 0.00412297248840332 seconds
+(level state.can_be_true) took 0.004182100296020508 seconds
+found no testcases for _TransferResponsibility initial state
+(level _is_sat_z3_call) took 0.0034410953521728516 seconds (unsat)
+(level solver.can_be_true) took 0.004142284393310547 seconds
+(level state.can_be_true) took 0.00419926643371582 seconds
+found no testcases for _Complete initial state
+(level _is_sat_z3_call) took 0.0036847591400146484 seconds (sat)
+(level solver.can_be_true) took 0.0044443607330322266 seconds
+(level state.can_be_true) took 0.004503965377807617 seconds
+(level _is_sat_z3_call) took 0.003467559814453125 seconds (sat)
+(level solver.can_be_true) took 0.0041196346282958984 seconds
+(level state.can_be_true) took 0.004123210906982422 seconds
+(level solver.can_be_true) took 0.0001556873321533203 seconds
+(level state.can_be_true) took 0.00016689300537109375 seconds
+(level _is_sat_z3_call) took 0.0029926300048828125 seconds (sat)
+(level get_value_in_batch) took 0.0037631988525390625 seconds
+(level solve_one_n_batched) took 0.0038154125213623047 seconds
+(level _is_sat_z3_call) took 0.005678415298461914 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0002772808074951172 seconds
+(level _getvalue_all) took 0.0003025531768798828 seconds)
+(level get_value_in_batch) took 0.011859416961669922 seconds
+(level solve_one_n_batched) took 0.016448259353637695 seconds
+(level _is_sat_z3_call) took 0.002846240997314453 seconds (sat)
+(level get_value_in_batch) took 0.00430750846862793 seconds
+(level solve_one_n_batched) took 0.004314422607421875 seconds
+(level _is_sat_z3_call) took 0.002708911895751953 seconds (sat)
+(level get_value_in_batch) took 0.004218339920043945 seconds
+(level solve_one_n_batched) took 0.0042645931243896484 seconds
+(level _is_sat_z3_call) took 0.002660989761352539 seconds (sat)
+(level get_value_in_batch) took 0.0041675567626953125 seconds
+(level solve_one_n_batched) took 0.004209280014038086 seconds
+(level _is_sat_z3_call) took 0.002643108367919922 seconds (sat)
+(level get_value_in_batch) took 0.004149436950683594 seconds
+(level solve_one_n_batched) took 0.004155158996582031 seconds
+(level _is_sat_z3_call) took 0.002639293670654297 seconds (sat)
+(level get_value_in_batch) took 0.004155397415161133 seconds
+(level solve_one_n_batched) took 0.004198551177978516 seconds
+(level _is_sat_z3_call) took 0.003024578094482422 seconds (sat)
+(level get_value_in_batch) took 0.0045855045318603516 seconds
+(level solve_one_n_batched) took 0.0046460628509521484 seconds
+(level _is_sat_z3_call) took 0.0031485557556152344 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0005209445953369141 seconds
+(level _getvalue_all) took 0.0005633831024169922 seconds)
+(level get_value_in_batch) took 0.006288290023803711 seconds
+(level solve_one_n_batched) took 0.0077168941497802734 seconds
+(level _is_sat_z3_call) took 0.0027256011962890625 seconds (sat)
+(level get_value_in_batch) took 0.004294395446777344 seconds
+(level solve_one_n_batched) took 0.004500627517700195 seconds
+(level _is_sat_z3_call) took 0.05466103553771973 seconds (sat)
+(level _getvalue_all_z3_call) took 0.22971725463867188 seconds
+(level _getvalue_all) took 0.23139405250549316 seconds)
+(level get_value_in_batch) took 46.441508054733276 seconds
+(level solve_one_n_batched) took 46.493852853775024 seconds
+(level _is_sat_z3_call) took 0.0740809440612793 seconds (sat)
+(level _getvalue_all_z3_call) took 0.5896518230438232 seconds
+(level _getvalue_all) took 0.593670129776001 seconds)
+(level get_value_in_batch) took 108.78866028785706 seconds
+(level solve_one_n_batched) took 108.86151099205017 seconds
+(level _is_sat_z3_call) took 0.006199836730957031 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0005342960357666016 seconds
+(level _getvalue_all) took 0.0005910396575927734 seconds)
+(level get_value_in_batch) took 0.015018224716186523 seconds
+(level solve_one_n_batched) took 0.015903472900390625 seconds
+(level _is_sat_z3_call) took 0.004339694976806641 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0009140968322753906 seconds
+(level _getvalue_all) took 0.0009953975677490234 seconds)
+(level get_value_in_batch) took 0.042139291763305664 seconds
+(level solve_one_n_batched) took 0.043460845947265625 seconds
+(level 3) took 155.56646943092346 seconds
+(level _is_sat_z3_call) took 0.002930164337158203 seconds (sat)
+(level _getvalue_all_z3_call) took 0.00011610984802246094 seconds
+(level _getvalue_all) took 0.0001404285430908203 seconds)
+(level get_value_in_batch) took 0.003904581069946289 seconds
+(level solve_one_n_batched) took 0.003957271575927734 seconds
+-Concrete value for initial_block : 0
+found 1 testcases that reach _Complete_TransferResponsibility initial state
+# -- Calling TransferResponsibility
+(level _is_sat_z3_call) took 0.010282516479492188 seconds (sat)
+(level _getvalue_z3_call) took 0.00016689300537109375 seconds
+(level _is_sat_z3_call) took 0.0076923370361328125 seconds (sat)
+(level _getvalue_z3_call) took 0.00015234947204589844 seconds
+(level _is_sat_z3_call) took 0.007557868957519531 seconds (unsat)
+(level _is_sat_z3_call) took 0.06115913391113281 seconds (sat)
+(level _is_sat_z3_call) took 0.015549182891845703 seconds (sat)
+(level _getvalue_z3_call) took 0.015386104583740234 seconds
+(level _is_sat_z3_call) took 0.01027059555053711 seconds (unsat)
+(level _is_sat_z3_call) took 0.010275840759277344 seconds (sat)
+(level _getvalue_z3_call) took 0.005241870880126953 seconds
+(level _is_sat_z3_call) took 0.015367269515991211 seconds (unsat)
+(level _is_sat_z3_call) took 0.11591529846191406 seconds (sat)
+(level _getvalue_z3_call) took 0.0022323131561279297 seconds
+(level _is_sat_z3_call) took 0.013171195983886719 seconds (unsat)
+(level _is_sat_z3_call) took 0.00533604621887207 seconds (sat)
+(level _getvalue_z3_call) took 0.003645658493041992 seconds
+(level _is_sat_z3_call) took 0.004081249237060547 seconds (unsat)
+(level _is_sat_z3_call) took 0.013697385787963867 seconds (sat)
+(level _getvalue_z3_call) took 0.01053309440612793 seconds
+(level _is_sat_z3_call) took 0.015330076217651367 seconds (unsat)
+(level _is_sat_z3_call) took 0.00682830810546875 seconds (sat)
+(level _getvalue_z3_call) took 0.00031828880310058594 seconds
+(level _is_sat_z3_call) took 0.006127595901489258 seconds (unsat)
+(level _is_sat_z3_call) took 0.07495975494384766 seconds (sat)
+(level _getvalue_z3_call) took 0.015295028686523438 seconds
+(level _is_sat_z3_call) took 0.015292882919311523 seconds (unsat)
+(level _is_sat_z3_call) took 0.005212545394897461 seconds (sat)
+(level _getvalue_z3_call) took 0.01036834716796875 seconds
+(level _is_sat_z3_call) took 0.005269765853881836 seconds (unsat)
+(level _is_sat_z3_call) took 0.051194190979003906 seconds (sat)
+(level _getvalue_z3_call) took 0.002658367156982422 seconds
+(level _is_sat_z3_call) took 0.012832403182983398 seconds (unsat)
+(level _is_sat_z3_call) took 0.07165145874023438 seconds (sat)
+(level _getvalue_z3_call) took 0.010246038436889648 seconds
+(level _is_sat_z3_call) took 0.010240316390991211 seconds (unsat)
+(level _is_sat_z3_call) took 0.05619001388549805 seconds (sat)
+(level _getvalue_z3_call) took 0.015268564224243164 seconds
+(level _is_sat_z3_call) took 0.010217428207397461 seconds (unsat)
+(level _is_sat_z3_call) took 0.0716850757598877 seconds (sat)
+(level _getvalue_z3_call) took 0.010254383087158203 seconds
+(level _is_sat_z3_call) took 0.015290975570678711 seconds (unsat)
+(level _is_sat_z3_call) took 0.04774165153503418 seconds (sat)
+(level _getvalue_z3_call) took 0.00037026405334472656 seconds
+(level _is_sat_z3_call) took 0.007126569747924805 seconds (unsat)
+(level _is_sat_z3_call) took 0.04966926574707031 seconds (sat)
+(level _getvalue_z3_call) took 0.0003421306610107422 seconds
+(level _is_sat_z3_call) took 0.0063800811767578125 seconds (unsat)
+(level _is_sat_z3_call) took 0.047966718673706055 seconds (sat)
+(level _getvalue_z3_call) took 0.00037670135498046875 seconds
+(level _is_sat_z3_call) took 0.006869792938232422 seconds (unsat)
+(level _is_sat_z3_call) took 0.049516916275024414 seconds (sat)
+(level _getvalue_z3_call) took 0.00037932395935058594 seconds
+(level _is_sat_z3_call) took 0.006484270095825195 seconds (unsat)
+(level _is_sat_z3_call) took 0.04782366752624512 seconds (sat)
+(level _getvalue_z3_call) took 0.00038433074951171875 seconds
+(level _is_sat_z3_call) took 0.006830930709838867 seconds (unsat)
+(level _is_sat_z3_call) took 0.04809999465942383 seconds (sat)
+(level _getvalue_z3_call) took 0.00035309791564941406 seconds
+(level _is_sat_z3_call) took 0.006462812423706055 seconds (unsat)
+(level _is_sat_z3_call) took 0.0490572452545166 seconds (sat)
+(level _getvalue_z3_call) took 0.00039005279541015625 seconds
+(level _is_sat_z3_call) took 0.006884336471557617 seconds (unsat)
+(level _is_sat_z3_call) took 0.050028324127197266 seconds (sat)
+(level _getvalue_z3_call) took 0.0003714561462402344 seconds
+(level _is_sat_z3_call) took 0.00660395622253418 seconds (unsat)
+(level _is_sat_z3_call) took 0.04916548728942871 seconds (sat)
+(level _getvalue_z3_call) took 0.0003914833068847656 seconds
+(level _is_sat_z3_call) took 0.0069408416748046875 seconds (unsat)
+(level _is_sat_z3_call) took 0.006171226501464844 seconds (unsat)
+(level solver.can_be_true) took 0.009099721908569336 seconds
+(level state.can_be_true) took 0.009192705154418945 seconds
+no testcases for _Complete_TransferResponsibility-->TransferResponsibility-->vacio
+(level _is_sat_z3_call) took 0.006053924560546875 seconds (unsat)
+(level solver.can_be_true) took 0.008768558502197266 seconds
+(level state.can_be_true) took 0.008862972259521484 seconds
+no testcases for _Complete_TransferResponsibility-->TransferResponsibility-->_TransferResponsibility
+(level _is_sat_z3_call) took 0.006018400192260742 seconds (unsat)
+(level solver.can_be_true) took 0.00877690315246582 seconds
+(level state.can_be_true) took 0.008867740631103516 seconds
+no testcases for _Complete_TransferResponsibility-->TransferResponsibility-->_Complete
+(level _is_sat_z3_call) took 0.047713279724121094 seconds (sat)
+(level solver.can_be_true) took 0.05048036575317383 seconds
+(level state.can_be_true) took 0.05057382583618164 seconds
+(level _is_sat_z3_call) took 0.04773402214050293 seconds (sat)
+(level solver.can_be_true) took 0.05027961730957031 seconds
+(level state.can_be_true) took 0.05028367042541504 seconds
+(level solver.can_be_true) took 0.00016188621520996094 seconds
+(level state.can_be_true) took 0.00017380714416503906 seconds
+(level _is_sat_z3_call) took 0.003119230270385742 seconds (sat)
+(level get_value_in_batch) took 0.0058782100677490234 seconds
+(level solve_one_n_batched) took 0.005933284759521484 seconds
+(level _is_sat_z3_call) took 0.04858708381652832 seconds (sat)
+(level _getvalue_all_z3_call) took 0.00041294097900390625 seconds
+(level _getvalue_all) took 0.0004367828369140625 seconds)
+(level get_value_in_batch) took 0.0667724609375 seconds
+(level solve_one_n_batched) took 0.07541179656982422 seconds
+(level _is_sat_z3_call) took 0.0028848648071289062 seconds (sat)
+(level get_value_in_batch) took 0.006692409515380859 seconds
+(level solve_one_n_batched) took 0.006699085235595703 seconds
+(level _is_sat_z3_call) took 0.0027723312377929688 seconds (sat)
+(level get_value_in_batch) took 0.006697177886962891 seconds
+(level solve_one_n_batched) took 0.006753683090209961 seconds
+(level _is_sat_z3_call) took 0.0027773380279541016 seconds (sat)
+(level get_value_in_batch) took 0.006646156311035156 seconds
+(level solve_one_n_batched) took 0.0067064762115478516 seconds
+(level _is_sat_z3_call) took 0.0027883052825927734 seconds (sat)
+(level get_value_in_batch) took 0.006594419479370117 seconds
+(level solve_one_n_batched) took 0.0066013336181640625 seconds
+(level _is_sat_z3_call) took 0.002827882766723633 seconds (sat)
+(level get_value_in_batch) took 0.006743669509887695 seconds
+(level solve_one_n_batched) took 0.0067980289459228516 seconds
+(level _is_sat_z3_call) took 0.002859830856323242 seconds (sat)
+(level get_value_in_batch) took 0.006711483001708984 seconds
+(level solve_one_n_batched) took 0.006765127182006836 seconds
+(level _is_sat_z3_call) took 0.003472566604614258 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0012350082397460938 seconds
+(level _getvalue_all) took 0.0012984275817871094 seconds)
+(level get_value_in_batch) took 0.0112762451171875 seconds
+(level solve_one_n_batched) took 0.014331340789794922 seconds
+(level _is_sat_z3_call) took 0.0027892589569091797 seconds (sat)
+(level get_value_in_batch) took 0.0067441463470458984 seconds
+(level solve_one_n_batched) took 0.007177829742431641 seconds
+(level _is_sat_z3_call) took 0.05634164810180664 seconds (sat)
+(level _getvalue_all_z3_call) took 0.17183899879455566 seconds
+(level _getvalue_all) took 0.17355632781982422 seconds)
+(level get_value_in_batch) took 45.74828886985779 seconds
+(level solve_one_n_batched) took 45.801464557647705 seconds
+(level _is_sat_z3_call) took 0.07583856582641602 seconds (sat)
+(level _getvalue_all_z3_call) took 0.5327517986297607 seconds
+(level _getvalue_all) took 0.536937952041626 seconds)
+(level get_value_in_batch) took 103.36263847351074 seconds
+(level solve_one_n_batched) took 103.43593764305115 seconds
+(level _is_sat_z3_call) took 0.00702667236328125 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0005133152008056641 seconds
+(level _getvalue_all) took 0.0005681514739990234 seconds)
+(level get_value_in_batch) took 0.018171310424804688 seconds
+(level solve_one_n_batched) took 0.019153833389282227 seconds
+(level _is_sat_z3_call) took 0.004384756088256836 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0010197162628173828 seconds
+(level _getvalue_all) took 0.0011057853698730469 seconds)
+(level get_value_in_batch) took 0.05156207084655762 seconds
+(level solve_one_n_batched) took 0.053081512451171875 seconds
+(level _is_sat_z3_call) took 0.05136442184448242 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0010848045349121094 seconds
+(level _getvalue_all) took 0.0011446475982666016 seconds)
+(level get_value_in_batch) took 0.10139155387878418 seconds
+(level solve_one_n_batched) took 0.10240483283996582 seconds
+(level _is_sat_z3_call) took 0.0033054351806640625 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0003008842468261719 seconds
+(level _getvalue_all) took 0.0003521442413330078 seconds)
+(level get_value_in_batch) took 0.01425480842590332 seconds
+(level solve_one_n_batched) took 0.015085935592651367 seconds
+(level _is_sat_z3_call) took 0.0043087005615234375 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0009996891021728516 seconds
+(level _getvalue_all) took 0.0010833740234375 seconds)
+(level get_value_in_batch) took 0.04716753959655762 seconds
+(level solve_one_n_batched) took 0.04847979545593262 seconds
+(level 3) took 149.76003074645996 seconds
+(level _is_sat_z3_call) took 0.0029082298278808594 seconds (sat)
+(level _getvalue_all_z3_call) took 0.00010991096496582031 seconds
+(level _getvalue_all) took 0.00013136863708496094 seconds)
+(level get_value_in_batch) took 0.005829572677612305 seconds
+(level solve_one_n_batched) took 0.0058879852294921875 seconds
+-Concrete value for initial_block : 0
+found 1 testcases for _Complete_TransferResponsibility-->TransferResponsibility-->_Complete_TransferResponsibility
+# -- Calling Complete
+(level _is_sat_z3_call) took 0.05681490898132324 seconds (sat)
+(level _getvalue_z3_call) took 0.00044727325439453125 seconds
+(level _is_sat_z3_call) took 0.04783225059509277 seconds (sat)
+(level _getvalue_z3_call) took 0.0004029273986816406 seconds
+(level _is_sat_z3_call) took 0.007623434066772461 seconds (unsat)
+(level _is_sat_z3_call) took 0.0561223030090332 seconds (sat)
+(level _is_sat_z3_call) took 0.06626224517822266 seconds (sat)
+(level _getvalue_z3_call) took 0.010226249694824219 seconds
+(level _is_sat_z3_call) took 0.05606365203857422 seconds (sat)
+(level _getvalue_z3_call) took 0.020371198654174805 seconds
+(level _is_sat_z3_call) took 0.015294790267944336 seconds (unsat)
+(level _is_sat_z3_call) took 0.07000136375427246 seconds (sat)
+(level _getvalue_z3_call) took 0.0007781982421875 seconds
+(level _is_sat_z3_call) took 0.0851585865020752 seconds (sat)
+(level _getvalue_z3_call) took 0.0007669925689697266 seconds
+(level _is_sat_z3_call) took 0.059218645095825195 seconds (sat)
+(level _getvalue_z3_call) took 0.0007581710815429688 seconds
+(level _is_sat_z3_call) took 0.010913372039794922 seconds (unsat)
+(level _is_sat_z3_call) took 0.09026885032653809 seconds (sat)
+(level _is_sat_z3_call) took 0.015009880065917969 seconds (unsat)
+(level _getvalue_z3_call) took 0.0008363723754882812 seconds
+(level _is_sat_z3_call) took 0.00931859016418457 seconds (unsat)
+(level _is_sat_z3_call) took 0.0615382194519043 seconds (sat)
+(level _getvalue_z3_call) took 0.005302906036376953 seconds
+(level _is_sat_z3_call) took 0.0231781005859375 seconds (unsat)
+(level _is_sat_z3_call) took 0.05683279037475586 seconds (sat)
+(level _getvalue_z3_call) took 0.020406723022460938 seconds
+(level _is_sat_z3_call) took 0.06926488876342773 seconds (sat)
+(level _getvalue_z3_call) took 0.015303373336791992 seconds
+(level _is_sat_z3_call) took 0.028872013092041016 seconds (unsat)
+(level _is_sat_z3_call) took 0.026643991470336914 seconds (unsat)
+(level _is_sat_z3_call) took 0.6470394134521484 seconds (sat)
+(level _getvalue_z3_call) took 0.005304574966430664 seconds
+(level _is_sat_z3_call) took 0.040883779525756836 seconds (unsat)
+(level _is_sat_z3_call) took 0.09965324401855469 seconds (sat)
+(level _is_sat_z3_call) took 0.0968937873840332 seconds (sat)
+(level _is_sat_z3_call) took 0.06631112098693848 seconds (sat)
+(level _getvalue_z3_call) took 0.015307903289794922 seconds
+(level _is_sat_z3_call) took 0.015293359756469727 seconds (unsat)
+(level _is_sat_z3_call) took 0.05611777305603027 seconds (sat)
+(level _getvalue_z3_call) took 0.0051271915435791016 seconds
+(level _is_sat_z3_call) took 0.010215282440185547 seconds (unsat)
+(level _is_sat_z3_call) took 0.11190247535705566 seconds (sat)
+(level _getvalue_z3_call) took 0.015271902084350586 seconds
+(level _is_sat_z3_call) took 0.010191202163696289 seconds (unsat)
+(level _is_sat_z3_call) took 0.15366506576538086 seconds (sat)
+(level _getvalue_z3_call) took 0.0027747154235839844 seconds
+(level _is_sat_z3_call) took 0.015459537506103516 seconds (unsat)
+(level _is_sat_z3_call) took 0.12508749961853027 seconds (sat)
+(level _getvalue_z3_call) took 0.0007503032684326172 seconds
+(level _is_sat_z3_call) took 0.0043697357177734375 seconds (unsat)
+(level _is_sat_z3_call) took 0.04883766174316406 seconds (sat)
+(level _getvalue_z3_call) took 0.0005884170532226562 seconds
+(level _is_sat_z3_call) took 0.00900721549987793 seconds (unsat)
+(level _is_sat_z3_call) took 0.10707926750183105 seconds (sat)
+(level _getvalue_z3_call) took 0.010203361511230469 seconds
+(level _is_sat_z3_call) took 0.005129814147949219 seconds (unsat)
+(level _is_sat_z3_call) took 0.14786577224731445 seconds (sat)
+(level _getvalue_z3_call) took 0.010616064071655273 seconds
+(level _is_sat_z3_call) took 0.013931035995483398 seconds (unsat)
+(level _is_sat_z3_call) took 0.17503070831298828 seconds (sat)
+(level _getvalue_z3_call) took 0.0022509098052978516 seconds
+(level _is_sat_z3_call) took 0.005189180374145508 seconds (unsat)
+(level _is_sat_z3_call) took 0.061163902282714844 seconds (sat)
+(level _getvalue_z3_call) took 0.0051021575927734375 seconds
+(level _is_sat_z3_call) took 0.010191202163696289 seconds (unsat)
+(level _is_sat_z3_call) took 0.13262414932250977 seconds (sat)
+(level _getvalue_z3_call) took 0.015261650085449219 seconds
+(level _is_sat_z3_call) took 0.010185718536376953 seconds (unsat)
+(level _is_sat_z3_call) took 0.1563730239868164 seconds (sat)
+(level _getvalue_z3_call) took 0.0024008750915527344 seconds
+(level _is_sat_z3_call) took 0.014723062515258789 seconds (unsat)
+(level _is_sat_z3_call) took 0.17496657371520996 seconds (sat)
+(level _getvalue_z3_call) took 0.005121707916259766 seconds
+(level _is_sat_z3_call) took 0.007135868072509766 seconds (unsat)
+(level _is_sat_z3_call) took 0.06229996681213379 seconds (sat)
+(level _getvalue_z3_call) took 0.005113124847412109 seconds
+(level _is_sat_z3_call) took 0.010201215744018555 seconds (unsat)
+(level _is_sat_z3_call) took 0.09961676597595215 seconds (sat)
+(level _getvalue_z3_call) took 0.0007264614105224609 seconds
+(level _is_sat_z3_call) took 0.007643699645996094 seconds (unsat)
+(level _is_sat_z3_call) took 0.053273677825927734 seconds (sat)
+(level _getvalue_z3_call) took 0.0037636756896972656 seconds
+(level _is_sat_z3_call) took 0.012813806533813477 seconds (unsat)
+(level _is_sat_z3_call) took 0.10153818130493164 seconds (sat)
+(level _getvalue_z3_call) took 0.010202884674072266 seconds
+(level _is_sat_z3_call) took 0.015301704406738281 seconds (unsat)
+(level _is_sat_z3_call) took 0.11216020584106445 seconds (sat)
+(level _getvalue_z3_call) took 0.01629638671875 seconds
+(level _is_sat_z3_call) took 0.02036118507385254 seconds (unsat)
+(level _is_sat_z3_call) took 0.09199094772338867 seconds (sat)
+(level solver.can_be_true) took 0.09973931312561035 seconds
+(level state.can_be_true) took 0.09983396530151367 seconds
+(level _is_sat_z3_call) took 0.09138059616088867 seconds (sat)
+(level solver.can_be_true) took 0.09937429428100586 seconds
+(level state.can_be_true) took 0.09937834739685059 seconds
+(level solver.can_be_true) took 0.00018548965454101562 seconds
+(level state.can_be_true) took 0.00019693374633789062 seconds
+(level _is_sat_z3_call) took 0.0033025741577148438 seconds (sat)
+(level get_value_in_batch) took 0.008208513259887695 seconds
+(level solve_one_n_batched) took 0.008264780044555664 seconds
+(level _is_sat_z3_call) took 0.09069705009460449 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0006463527679443359 seconds
+(level _getvalue_all) took 0.0006716251373291016 seconds)
+(level get_value_in_batch) took 0.12808609008789062 seconds
+(level solve_one_n_batched) took 0.14505839347839355 seconds
+(level _is_sat_z3_call) took 0.0029337406158447266 seconds (sat)
+(level get_value_in_batch) took 0.009502887725830078 seconds
+(level solve_one_n_batched) took 0.009509086608886719 seconds
+(level _is_sat_z3_call) took 0.002856731414794922 seconds (sat)
+(level get_value_in_batch) took 0.00950002670288086 seconds
+(level solve_one_n_batched) took 0.00955510139465332 seconds
+(level _is_sat_z3_call) took 0.0957944393157959 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0006442070007324219 seconds
+(level _getvalue_all) took 0.0006697177886962891 seconds)
+(level get_value_in_batch) took 0.12475109100341797 seconds
+(level solve_one_n_batched) took 0.12911653518676758 seconds
+(level _is_sat_z3_call) took 0.002954244613647461 seconds (sat)
+(level get_value_in_batch) took 0.010241270065307617 seconds
+(level solve_one_n_batched) took 0.010248184204101562 seconds
+(level _is_sat_z3_call) took 0.00276947021484375 seconds (sat)
+(level get_value_in_batch) took 0.010091781616210938 seconds
+(level solve_one_n_batched) took 0.010145425796508789 seconds
+(level _is_sat_z3_call) took 0.0028808116912841797 seconds (sat)
+(level get_value_in_batch) took 0.010168790817260742 seconds
+(level solve_one_n_batched) took 0.010223627090454102 seconds
+(level _is_sat_z3_call) took 0.0038073062896728516 seconds (sat)
+(level _getvalue_all_z3_call) took 0.06182742118835449 seconds
+(level _getvalue_all) took 0.061930179595947266 seconds)
+(level get_value_in_batch) took 0.07672595977783203 seconds
+(level solve_one_n_batched) took 0.08135461807250977 seconds
+(level _is_sat_z3_call) took 0.0028755664825439453 seconds (sat)
+(level get_value_in_batch) took 0.01017904281616211 seconds
+(level solve_one_n_batched) took 0.01076364517211914 seconds
+(level _is_sat_z3_call) took 0.10646343231201172 seconds (sat)
+(level _getvalue_all_z3_call) took 0.18670892715454102 seconds
+(level _getvalue_all) took 0.18835973739624023 seconds)
+(level get_value_in_batch) took 45.68355846405029 seconds
+(level solve_one_n_batched) took 45.736796617507935 seconds
+(level _is_sat_z3_call) took 0.1284949779510498 seconds (sat)
+(level _getvalue_all_z3_call) took 0.5683960914611816 seconds
+(level _getvalue_all) took 0.5725047588348389 seconds)
+(level get_value_in_batch) took 102.4775960445404 seconds
+(level solve_one_n_batched) took 102.55080437660217 seconds
+(level _is_sat_z3_call) took 0.010557889938354492 seconds (sat)
+(level _getvalue_all_z3_call) took 0.000492095947265625 seconds
+(level _getvalue_all) took 0.0005450248718261719 seconds)
+(level get_value_in_batch) took 0.025148391723632812 seconds
+(level solve_one_n_batched) took 0.02633523941040039 seconds
+(level _is_sat_z3_call) took 0.004359006881713867 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0009174346923828125 seconds
+(level _getvalue_all) took 0.0010006427764892578 seconds)
+(level get_value_in_batch) took 0.06237435340881348 seconds
+(level solve_one_n_batched) took 0.06410694122314453 seconds
+(level _is_sat_z3_call) took 0.09880304336547852 seconds (sat)
+(level _getvalue_all_z3_call) took 0.001008749008178711 seconds
+(level _getvalue_all) took 0.001066446304321289 seconds)
+(level get_value_in_batch) took 0.17455244064331055 seconds
+(level solve_one_n_batched) took 0.17563509941101074 seconds
+(level _is_sat_z3_call) took 0.0033349990844726562 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0002999305725097656 seconds
+(level _getvalue_all) took 0.00035190582275390625 seconds)
+(level get_value_in_batch) took 0.017813444137573242 seconds
+(level solve_one_n_batched) took 0.01873922348022461 seconds
+(level _is_sat_z3_call) took 0.004285097122192383 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0009126663208007812 seconds
+(level _getvalue_all) took 0.0009951591491699219 seconds)
+(level get_value_in_batch) took 0.0582733154296875 seconds
+(level solve_one_n_batched) took 0.05977892875671387 seconds
+(level _is_sat_z3_call) took 0.09952592849731445 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0006837844848632812 seconds
+(level _getvalue_all) took 0.0007078647613525391 seconds)
+(level get_value_in_batch) took 0.14482927322387695 seconds
+(level solve_one_n_batched) took 0.14556336402893066 seconds
+(level _is_sat_z3_call) took 0.0032753944396972656 seconds (sat)
+(level _getvalue_all_z3_call) took 0.00029730796813964844 seconds
+(level _getvalue_all) took 0.0003478527069091797 seconds)
+(level get_value_in_batch) took 0.017640352249145508 seconds
+(level solve_one_n_batched) took 0.018491744995117188 seconds
+(level _is_sat_z3_call) took 0.004279613494873047 seconds (sat)
+(level _getvalue_all_z3_call) took 0.0009133815765380859 seconds
+(level _getvalue_all) took 0.0009970664978027344 seconds)
+(level get_value_in_batch) took 0.05439114570617676 seconds
+(level solve_one_n_batched) took 0.05573844909667969 seconds
+(level 3) took 149.42766523361206 seconds
+(level _is_sat_z3_call) took 0.002971172332763672 seconds (sat)
+(level _getvalue_all_z3_call) took 0.00010824203491210938 seconds
+(level _getvalue_all) took 0.0001323223114013672 seconds)
+(level get_value_in_batch) took 0.008253335952758789 seconds
+(level solve_one_n_batched) took 0.008322954177856445 seconds
+-Concrete value for initial_block : 0
+found 1 testcases for _Complete_TransferResponsibility-->Complete-->vacio
+(level _is_sat_z3_call) took 0.005356311798095703 seconds (unsat)
+(level solver.can_be_true) took 0.013070821762084961 seconds
+(level state.can_be_true) took 0.013162851333618164 seconds
+(level _is_sat_z3_call) took 0.00815582275390625 seconds (unsat)
+(level solver.can_be_true) took 0.012196063995361328 seconds
+(level state.can_be_true) took 0.01228952407836914 seconds
+no testcases for _Complete_TransferResponsibility-->Complete-->_TransferResponsibility
+(level _is_sat_z3_call) took 0.005444765090942383 seconds (unsat)
+(level solver.can_be_true) took 0.013356685638427734 seconds
+(level state.can_be_true) took 0.013448476791381836 seconds
+(level _is_sat_z3_call) took 0.008031368255615234 seconds (unsat)
+(level solver.can_be_true) took 0.012044668197631836 seconds
+(level state.can_be_true) took 0.012136459350585938 seconds
+no testcases for _Complete_TransferResponsibility-->Complete-->_Complete
+(level _is_sat_z3_call) took 0.005303859710693359 seconds (unsat)
+(level solver.can_be_true) took 0.013390541076660156 seconds
+(level state.can_be_true) took 0.013481378555297852 seconds
+(level _is_sat_z3_call) took 0.008130788803100586 seconds (unsat)
+(level solver.can_be_true) took 0.012293815612792969 seconds
+(level state.can_be_true) took 0.012387275695800781 seconds
+no testcases for _Complete_TransferResponsibility-->Complete-->_Complete_TransferResponsibility
+--- We executed the preconditions 3 times, which took 904.8155834674835 seconds to execute, 301.6051944891612 on average (min=100.39145112037659 max=702.2036793231964)
+--- There were 3 low level executions of the precondition methods
+--- We executed a method 2 times, which took 690.0773913860321 seconds, 345.03869569301605 seconds on average (min=339.21981287002563 max=350.85757851600647)
+--- There were 2 low level executions of the interface methods
+--- We did 12 high level queries, which took 456.64355182647705 seconds, 38.053629318873085 seconds on average (min=0.04270768165588379 max=155.65969371795654)
+--- Took 2051.645327568054 seconds in total.
++++ Reached States:
+      _Complete_TransferResponsibility
+      vacio
++++ Explored Transitions:
+   from _Complete_TransferResponsibility executing TransferResponsibility
+   from _Complete_TransferResponsibility executing Complete
