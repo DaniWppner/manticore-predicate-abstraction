@@ -147,9 +147,9 @@ class state_constrainer:
 
                               
 
-    def generateTestCases(self,keys=None,targets=None,testcaseName="user",ammount=1):
-        '''generate testcases for each state where the function in keys has the result in targets'''
-        count = 0
+    def generateTestCases(self,testcaseName,keys=None,targets=None,ammount=1):
+        '''pre: testcaseName is different than each other previous testcaseName.
+        pos:generate a testcase where the function in keys has the result in targets. Print it on file named testcaseName.'''
         func_ids_of_keys = list(map(lambda name : self.nameToFuncId[name],keys))
         if not (0 < ammount <= self.manticore.count_ready_states()):
             ammount = self.manticore.count_ready_states()
@@ -182,21 +182,23 @@ class state_constrainer:
                 found = True
                 with state as temp_state:
                     temp_state.constrain(condition)
-                    self.manticore.generate_testcase(state=temp_state,name=testcaseName+f"_{count}")
-                    #prefixed = [filename for filename in os.listdir('.') if filename.startswith("prefix")]
-                    #Also generate concrete values for variables that aren't included in transactions
+                    self.manticore.generate_testcase(state=temp_state,name=testcaseName+f"")
+                    #Also generate concrete values for variables that part of the blockchain itself 
                     to_concretize = list(self.symbolic_blockchain_vars)
                     values = temp_state.solve_one_n_batched(to_concretize)
+                    outputfile = [filename for filename in os.listdir(self.outputspace) if filename.startswith(testcaseName)][0] #previous call to manticore generated this file.
+
+                    migration_map = temp_state.context.get("migration_map")
+                    for concrete,symbolic in zip(values,to_concretize):
+                        del migration_map[symbolic.name]
+                        with open(outputfile,'a') as output:    
+                            output.write(f"-Concrete value for {symbolic.name} : {concrete}")
+                    temp_state.context["migration_map"] = migration_map
+
                     #FIXME Even though temp_state is supposed to be a CoW version of state, both share the same reference to the attribute called "context".
                     #This makes it so when the variables in "to_concretize" are migrated into "temp_state"'s set of constraints, 
                     # the variables remain named in the original state's migration_map, even though the variables themselves are properly deleted.
                     # This is why we need to delete them manually from the migration_map.  
-                    migration_map = temp_state.context.get("migration_map")
-                    #print(f"Testcase -- {count}")
-                    for concrete,symbolic in zip(values,to_concretize):
-                        del migration_map[symbolic.name]
-                        print(f"-Concrete value for {symbolic.name} : {concrete}")
-                    temp_state.context["migration_map"] = migration_map
                         
         return found
 
