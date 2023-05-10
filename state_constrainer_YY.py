@@ -1,6 +1,7 @@
 import time
 from manticore.core.smtlib import expression, operators
 from manticore.ethereum import ManticoreEVM, ABI
+import os
 
 ETHER = 10**18
 
@@ -14,6 +15,7 @@ class state_constrainer:
         self._initContractSelectorsAndMetadata()
         self._initBlockchain()
         self._snapshot_history = []
+        self.outputspace = outputspace
 
     def _initAccountsAndContract(self,url):
         # Por ahora suponemos que tres cuentas es suficiente para la mayoria de los casos
@@ -151,8 +153,9 @@ class state_constrainer:
         func_ids_of_keys = list(map(lambda name : self.nameToFuncId[name],keys))
         if not (0 < ammount <= self.manticore.count_ready_states()):
             ammount = self.manticore.count_ready_states()
+        found = False
         for state in self.manticore.ready_states:
-            if count >= ammount:
+            if found:
                 break
             #find the result of each function in func_ids
             results = []
@@ -176,11 +179,11 @@ class state_constrainer:
             
             can_be_true = state.can_be_true(condition)
             if can_be_true:
-                count += 1
+                found = True
                 with state as temp_state:
                     temp_state.constrain(condition)
                     self.manticore.generate_testcase(state=temp_state,name=testcaseName+f"_{count}")
-
+                    #prefixed = [filename for filename in os.listdir('.') if filename.startswith("prefix")]
                     #Also generate concrete values for variables that aren't included in transactions
                     to_concretize = list(self.symbolic_blockchain_vars)
                     values = temp_state.solve_one_n_batched(to_concretize)
@@ -191,14 +194,15 @@ class state_constrainer:
                     migration_map = temp_state.context.get("migration_map")
                     #print(f"Testcase -- {count}")
                     for concrete,symbolic in zip(values,to_concretize):
-                        print(f"-Concrete value for {symbolic.name} : {concrete}")
                         del migration_map[symbolic.name]
+                        print(f"-Concrete value for {symbolic.name} : {concrete}")
                     temp_state.context["migration_map"] = migration_map
                         
-        return count
+        return found
 
     def advance_symbolic_ammount_of_blocks(self):
-        ammount = self.manticore.make_symbolic_value(name="blocks_advanced")
+        index = len([var for var in self.symbolic_blockchain_vars if var.name.startswith("blocks_advanced")]) + 1 
+        ammount = self.manticore.make_symbolic_value(name=f"blocks_advanced{index}")
         self.symbolic_blockchain_vars.add(ammount)
         for state in self.manticore.ready_states:
             world = state.platform
