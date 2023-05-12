@@ -1,8 +1,0 @@
-digraph { 
-init [label=init] 
-_Complete_TransferResponsibility [label=_Complete_TransferResponsibility] 
-vacio [label=vacio] 
-init -> _Complete_TransferResponsibility [label=constructor] 
-_Complete_TransferResponsibility -> vacio [label=Complete] 
-_Complete_TransferResponsibility -> _Complete_TransferResponsibility [label=TransferResponsibility] 
-}
