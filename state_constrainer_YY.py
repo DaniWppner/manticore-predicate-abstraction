@@ -37,6 +37,7 @@ class state_constrainer:
         self.precon_names = []
         self.contractfunc_names = [] 
         self.enumdescriptor_names = []
+        self.predicate_names = []
         self.contract_metadata = self.manticore.get_metadata(self.working_contract)
         
         for func_hsh in self.contract_metadata.function_selectors:
@@ -47,6 +48,8 @@ class state_constrainer:
                 self.precon_names.append(func_name)
             elif func_name.startswith("Enum"):
                 self.enumdescriptor_names.append(func_name)
+            elif func_name.endswith("_predicate"):
+                self.predicate_names.append(func_name)
             else:
                 self.contractfunc_names.append(func_name)
 
@@ -57,9 +60,9 @@ class state_constrainer:
         self.symbolic_blockchain_vars.add(initial_block)
         self.manticore.start_block(blocknumber=initial_block,
             timestamp=int(time.time()), # current unix timestamp, #FIXME?
-            coinbase=self.owner_account,
-            difficulty=0x200,
-            gaslimit=0x7FFFFFFF)
+            coinbase=self.owner_account, # FIXME as well. It has to be set to _something_ for manticore.end_block() not to throw.
+            difficulty=0x200, #default
+            gaslimit=0x7FFFFFFF) #default
 
     def callContractFunction(self,func_name,call_args=None,tx_value=None,tx_sender=None):
         func_id = self.nameToFuncId[func_name]
@@ -186,12 +189,12 @@ class state_constrainer:
                     #Also generate concrete values for variables that part of the blockchain itself 
                     to_concretize = list(self.symbolic_blockchain_vars)
                     values = temp_state.solve_one_n_batched(to_concretize)
-                    outputfile = [filename for filename in os.listdir(self.outputspace) if filename.startswith(testcaseName)][0] #previous call to manticore generated this file.
+                    outputfile = [filename for filename in os.listdir(self.outputspace) if filename.startswith(testcaseName) and filename.endswith('.tx')][0] #previous call to manticore generated this file.
 
                     migration_map = temp_state.context.get("migration_map")
                     for concrete,symbolic in zip(values,to_concretize):
                         del migration_map[symbolic.name]
-                        with open(outputfile,'a') as output:    
+                        with open(self.outputspace+"/"+outputfile,'a') as output:    
                             output.write(f"-Concrete value for {symbolic.name} : {concrete}")
                     temp_state.context["migration_map"] = migration_map
 
@@ -229,6 +232,9 @@ class state_constrainer:
     def isallive(self):
         return (self.manticore.count_ready_states() > 0)
 
-    def safedelete(self):
-        self.manticore.kill()
-        self.manticore.remove_all()    
+    def safedelete(self,testaceses=False):
+        if testaceses:
+            self.manticore.finalize()
+        else:
+            self.manticore.kill()
+            self.manticore.remove_all()    
