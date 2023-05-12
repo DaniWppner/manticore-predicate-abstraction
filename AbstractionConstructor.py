@@ -12,7 +12,7 @@ class abstraction_constructor:
         self.path = path
         self.output = output
         Path(output).mkdir(parents=True, exist_ok=True)
-        self.tchk = state_constrainer(self.path,outputspace=self.output)
+        self.manticore_handler = state_constrainer(self.path,outputspace=self.output)
         self.advanceBlocks = advanceBlocks
         self.__init_states_and_methods__()
 
@@ -46,7 +46,7 @@ class abstraction_constructor:
                 #preguntar cuales son los estados iniciales
                 for ini_state in self.states:
                     ini_states_time_start = time.time()
-                    ini_state_count = self.tchk.generateTestCases(keys=self.traza,targets=(ini_state),testcaseName=f"STATE_{self.repr_state(ini_state)}")
+                    ini_state_count = self.manticore_handler.generateTestCases(keys=self.traza,targets=(ini_state),testcaseName=f"STATE_{self.repr_state(ini_state)}")
                     if ini_state_count > 0:
                         print(f"found {ini_state_count} testcases that reach {self.repr_state(ini_state)} initial state")
                         reachable_states.add(ini_state)
@@ -64,34 +64,34 @@ class abstraction_constructor:
                     to_explore = self.explorable_from_states(current_states).difference(explored)
                     if len(to_explore) == 0:
                         if global_snapshots_stack:
-                            self.tchk.goto_snapshot()
+                            self.manticore_handler.goto_snapshot()
                             current_states = global_snapshots_stack.pop()
                             continue
                         else:
                             break
                     else:
                         _state,method = to_explore.pop() #will loop through all the states anyways
-                        self.tchk.take_snapshot()
+                        self.manticore_handler.take_snapshot()
                         global_snapshots_stack.append(current_states)
-                        _low_level_methods_executed += self.tchk.manticore.count_ready_states()
+                        _low_level_methods_executed += self.manticore_handler.manticore.count_ready_states()
                         method_execution_time_ini = time.time()
                         print(f"# -- Calling {method}")
-                        self.tchk.callContractFunction(method)
+                        self.manticore_handler.callContractFunction(method)
                         method_execution_time_fin = time.time()
                         method_times.append(method_execution_time_fin-method_execution_time_ini)
                         if (self.advanceBlocks):
-                            self.tchk.advance_symbolic_ammount_of_blocks()
+                            self.manticore_handler.advance_symbolic_ammount_of_blocks()
                         
 
-                        if not self.tchk.isallive():
+                        if not self.manticore_handler.isallive():
                             #If trying to execute the method killed all states we should avoid executing anything else.
                             #Go back to before executing and mark this path as already explored. 
                             for ini_state in self.states_that_allow(method,current_states):
                                 explored.add((ini_state,method))
                             current_states = global_snapshots_stack.pop()
-                            self.tchk.manticore.goto_snapshot()
+                            self.manticore_handler.manticore.goto_snapshot()
                         else:
-                            _low_level_preconditions_executed += self.tchk.manticore.count_ready_states()
+                            _low_level_preconditions_executed += self.manticore_handler.manticore.count_ready_states()
                             check_preconditions_time_init = time.time()
                             self.check_preconditions()
                             check_preconditions_time_fin = time.time()
@@ -103,7 +103,7 @@ class abstraction_constructor:
                                 if (ini_state,method) not in explored:
                                     for fin_state in self.states:
                                         ini_result_states_time = time.time()
-                                        result = self.tchk.generateTestCases(keys=(self.traza+self.traza),targets=(ini_state + fin_state),testcaseName=f"transition{self.transition_name(ini_state,method,fin_state)}")
+                                        result = self.manticore_handler.generateTestCases(keys=(self.traza+self.traza),targets=(ini_state + fin_state),testcaseName=f"transition{self.transition_name(ini_state,method,fin_state)}")
                                         end_result_states_time = time.time()
                                         if(result>0):
                                             print(f"found {result} testcases for {self.transition_name(ini_state,method,fin_state)}")
@@ -134,11 +134,11 @@ class abstraction_constructor:
 
                 self.write_epa(epa,reachable_states)
 
-                self.tchk.safedelete()
+                self.manticore_handler.safedelete()
 
     def check_preconditions(self):
         for condition in self.traza:
-            self.tchk.callContractFunction(condition,tx_sender=self.tchk.witness_account)
+            self.manticore_handler.callContractFunction(condition,tx_sender=self.manticore_handler.witness_account)
 
 
     def repr_state(self,state):
@@ -165,30 +165,30 @@ class epa_constructor(abstraction_constructor):
         super().__init__(*args,**kwargs)
 
     def __init_states_and_methods__(self): 
-        self.traza = self.tchk.precon_names
+        self.traza = self.manticore_handler.precon_names
         self.states = list(itertools.product([0,1],repeat=len(self.traza)))
         self.methods = []
         for condition in self.traza:
-            self.methods.append(next(m for m in self.tchk.contractfunc_names if m==condition.replace('_precondition','')))
+            self.methods.append(next(m for m in self.manticore_handler.contractfunc_names if m==condition.replace('_precondition','')))
 
     def repr_state(self,state):
         text = ""
         for x,method in zip(state,self.methods):
-            text += '_'+method if x else ""
+            if method == "tau": ##no queremos que aparezca en la descripción de los estados
+                continue
+            else:
+                text += '_'+method if x else ""
         if text == "":
             text = "vacio"
         return text
     
-    '''def short_repr_state(self,state):
-        text = ""
-        for x,method in zip(state,range(len(self.methods))):
-            text += '_'+method if x else ""
-        if text == "":
-            text = "vacio"
-        return text'''
+#    def short_repr_state(self,state):
+#        return state
 
     def transition_name(self,start,method,end):
         return self.repr_state(start)+"-->"+method+"-->"+self.repr_state(end)
+        #return self.short_repr_state(start)+"-->"+method+"-->"+self.short_repr_state(end)
+
 
     def allowed_methods(self,state):
         allowed = set()
@@ -230,15 +230,15 @@ class state_abstraction_constructor(abstraction_constructor):
         super().__init__(*args,**kwargs)
 
     def __init_states_and_methods__(self): 
-        self.enumdir = self.tchk.getEnumInfo()
+        self.enumdir = self.manticore_handler.getEnumInfo()
         self.traza = list(self.enumdir.keys())
         #Cuando un contrato de solidity returnea Enum en realidad devuelve un uint8.
         enumReturnValues = list(map(lambda container : list(range(len(container))) ,self.enumdir.values()))
         self.states = list(itertools.product(*enumReturnValues))
         self.methods = []
         #Esto no está necesariamente bien? Dice que los metodos a considerar son los que tengan una precondicion explicita en el contrato.
-        for condition in self.tchk.precon_names:
-            self.methods.append(next(m for m in self.tchk.contractfunc_names if m==condition.replace('_precondition','')))
+        for condition in self.manticore_handler.precon_names:
+            self.methods.append(next(m for m in self.manticore_handler.contractfunc_names if m==condition.replace('_precondition','')))
 
     def repr_state(self,state):
         text = ""
