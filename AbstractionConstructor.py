@@ -169,7 +169,9 @@ class epa_constructor(abstraction_constructor):
         self.states = list(itertools.product([0,1],repeat=len(self.traza)))
         self.methods = []
         for condition in self.traza:
-            self.methods.append(next(m for m in self.manticore_handler.contractfunc_names if m==condition.replace('_precondition','')))
+            for m in self.manticore_handler.contractfunc_names:
+                if m==condition.replace('_precondition',''):
+                    self.methods.append(m)
 
     def repr_state(self,state):
         text = ""
