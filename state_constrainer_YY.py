@@ -208,12 +208,12 @@ class state_constrainer:
 
     def advance_symbolic_ammount_of_blocks(self):
         index = len([var for var in self.symbolic_blockchain_vars if var.name.startswith("blocks_advanced")]) + 1 
-        ammount = self.manticore.make_symbolic_value(name=f"blocks_advanced{index}")
-        self.manticore.constrain(ammount >= 0)
-        self.symbolic_blockchain_vars.add(ammount)
         for state in self.manticore.ready_states:
+            ammount = state.new_symbolic_value(nbits=256,label=f"blocks_advanced{index}") #el nombre se repite entre todos los estados pero serán objetos diferentes
+            state.constrain(ammount >= 0)
             world = state.platform
             world.advance_block_number(ammount)
+            self.symbolic_blockchain_vars.add(ammount) #existe state.input_symbols . ¿Posiblemente no necesitamos este dict?
         return ammount
 
     def take_snapshot(self):
