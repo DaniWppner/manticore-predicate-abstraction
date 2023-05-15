@@ -17,6 +17,7 @@ class abstraction_constructor:
         self.__init_states_and_methods__()
 
     def __init_states_and_methods__(self):
+        #FIXME hay comportamiento que debería estar en la superclase que es el handling de las user-defined preconditions
         raise NotImplementedError       
 
     def construct_abstraction(self):
@@ -195,9 +196,9 @@ class epa_constructor(abstraction_constructor):
 
     def allowed_methods(self,state):
         allowed = set()
-        for pre,method in zip(state,self.methods):
+        for pre,cond in zip(state,self.traza):
             if pre:
-                allowed.add(method)
+                allowed.add(next((m for m in self.methods if m == cond.replace('_precondition','')),None)) # FIXME CUIDADO!! Esto esta agregando None tecnicamente en vez de no agregar nada. Los usos actuales de esta función no se rompen pero no deberia ser asi.
         return allowed
 
     def states_that_allow(self,method,current_states):
