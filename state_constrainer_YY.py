@@ -22,7 +22,7 @@ class state_constrainer:
         self.owner_account = self.manticore.create_account(balance=1*ETHER)
         #self.client_account = self.manticore.create_account(balance=1*ETHER)
         self.witness_account = self.manticore.create_account(balance=1*ETHER,name="witness")
-        print("# -- Deploying Contract")
+        print(f"# -- Deploying Contract {url}")
         with open(url,'r') as file:
             source_code = file.read() 
         #Hardcodeamos args=None para que use argumentos simbolicos por defecto
