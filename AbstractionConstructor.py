@@ -175,7 +175,8 @@ class epa_constructor(abstraction_constructor):
 
     def repr_state(self,state):
         text = ""
-        for x,method in zip(state,self.methods):
+        for x,cond in zip(state,self.traza):
+            method = cond.replace('_precondition','')
             if method == "tau": ##no queremos que aparezca en la descripción de los estados
                 continue
             else:
