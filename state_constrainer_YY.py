@@ -6,7 +6,7 @@ import os
 ETHER = 10**18
 
 class state_constrainer:
-    def __init__(self,url,outputspace=None,workspace=None):
+    def __init__(self,url,outputspace=None,workspace=None): 
         if outputspace is None:
             outputspace = url + "_results"
         self.manticore = ManticoreEVM(workspace_url=workspace, outputspace_url="fs:"+outputspace)
@@ -57,6 +57,7 @@ class state_constrainer:
     def _initBlockchain(self):
         self.symbolic_blockchain_vars = set()
         initial_block= self.manticore.make_symbolic_value(name="initial_block")
+        self.manticore.constrain(initial_block > 0)
         self.symbolic_blockchain_vars.add(initial_block)
         self.manticore.start_block(blocknumber=initial_block,
             timestamp=int(time.time()), # current unix timestamp, #FIXME?
@@ -195,7 +196,7 @@ class state_constrainer:
                     for concrete,symbolic in zip(values,to_concretize):
                         del migration_map[symbolic.name]
                         with open(self.outputspace+"/"+outputfile,'a') as output:    
-                            output.write(f"-Concrete value for {symbolic.name} : {concrete}")
+                            output.write(f"-Concrete value for {symbolic.name} : {concrete}\n")
                     temp_state.context["migration_map"] = migration_map
 
                     #FIXME Even though temp_state is supposed to be a CoW version of state, both share the same reference to the attribute called "context".
@@ -208,6 +209,7 @@ class state_constrainer:
     def advance_symbolic_ammount_of_blocks(self):
         index = len([var for var in self.symbolic_blockchain_vars if var.name.startswith("blocks_advanced")]) + 1 
         ammount = self.manticore.make_symbolic_value(name=f"blocks_advanced{index}")
+        self.manticore.constrain(ammount >= 0)
         self.symbolic_blockchain_vars.add(ammount)
         for state in self.manticore.ready_states:
             world = state.platform
