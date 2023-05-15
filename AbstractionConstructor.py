@@ -73,7 +73,7 @@ class abstraction_constructor:
                         _state,method = to_explore.pop() #will loop through all the states anyways
                         self.manticore_handler.take_snapshot()
                         global_snapshots_stack.append(current_states)
-                        _low_level_methods_executed += self.manticore_handler.manticore.count_ready_states()
+                        _low_level_methods_executed += self.manticore_handler.manticore.count_ready_states() #rompiendo encapsulamiento
                         method_execution_time_ini = time.time()
                         print(f"# -- Calling {method}")
                         self.manticore_handler.callContractFunction(method)
@@ -89,9 +89,9 @@ class abstraction_constructor:
                             for ini_state in self.states_that_allow(method,current_states):
                                 explored.add((ini_state,method))
                             current_states = global_snapshots_stack.pop()
-                            self.manticore_handler.manticore.goto_snapshot()
+                            self.manticore_handler.goto_snapshot()
                         else:
-                            _low_level_preconditions_executed += self.manticore_handler.manticore.count_ready_states()
+                            _low_level_preconditions_executed += self.manticore_handler.count_ready_states()
                             check_preconditions_time_init = time.time()
                             self.check_preconditions()
                             check_preconditions_time_fin = time.time()
