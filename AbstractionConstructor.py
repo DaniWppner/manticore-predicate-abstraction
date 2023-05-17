@@ -58,7 +58,7 @@ class abstraction_constructor:
                     query_times.append(ini_states_time_end-ini_states_time_start)
 
 
-                current_states = list(reachable_states)
+                current_states = list(reachable_states) #por qué es un set? Creo que podría ser una lista desde siempre
 
                 while True:
                     '''Hace dfs sobre los estados, teniendo que capturar snapshots del estado global cada vez que se ejecuta una transicion, y levantandolas para retroceder'''
@@ -80,9 +80,6 @@ class abstraction_constructor:
                         self.manticore_handler.callContractFunction(method)
                         method_execution_time_fin = time.time()
                         method_times.append(method_execution_time_fin-method_execution_time_ini)
-                        if (self.advanceBlocks):
-                            self.manticore_handler.advance_symbolic_ammount_of_blocks()
-                        
 
                         if not self.manticore_handler.isallive():
                             #If trying to execute the method killed all states we should avoid executing anything else.
@@ -92,7 +89,10 @@ class abstraction_constructor:
                             current_states = global_snapshots_stack.pop()
                             self.manticore_handler.goto_snapshot()
                         else:
-                            _low_level_preconditions_executed += self.manticore_handler.count_ready_states()
+                            if (self.advanceBlocks):
+                                self.manticore_handler.advance_symbolic_ammount_of_blocks()
+
+                            _low_level_preconditions_executed += self.manticore_handler.manticore.count_ready_states()
                             check_preconditions_time_init = time.time()
                             self.check_preconditions()
                             check_preconditions_time_fin = time.time()
@@ -140,7 +140,7 @@ class abstraction_constructor:
     def check_preconditions(self):
         for condition in self.traza:
             self.manticore_handler.callContractFunction(condition,tx_sender=self.manticore_handler.witness_account)
-
+        #self.manticore_handler.callContractFunction("blockNumber")
 
     def repr_state(self,state):
         raise NotImplementedError
@@ -198,7 +198,9 @@ class epa_constructor(abstraction_constructor):
         allowed = set()
         for pre,cond in zip(state,self.traza):
             if pre:
-                allowed.add(next((m for m in self.methods if m == cond.replace('_precondition','')),None)) # FIXME CUIDADO!! Esto esta agregando None tecnicamente en vez de no agregar nada. Los usos actuales de esta función no se rompen pero no deberia ser asi.
+                for m in self.methods:
+                    if m == cond.replace('_precondition',''):
+                        allowed.add(m)
         return allowed
 
     def states_that_allow(self,method,current_states):
