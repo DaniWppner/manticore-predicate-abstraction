@@ -116,7 +116,7 @@ class state_constrainer:
             if (return_types != '()') :
                 #FIXME transforma "(int)" -> "int"      (es un bug de manticore)
                 #No funciona si la transaccion tuvo varios returns 
-                return_types = return_types[1:len(return_types)-1]
+                return_types = return_types[1:-1]
                 result = ABI.deserialize(return_types,transaction.return_data)
                 return result
     
@@ -188,13 +188,15 @@ class state_constrainer:
                     temp_state.constrain(condition)
                     self.manticore.generate_testcase(state=temp_state,name=testcaseName+f"")
                     #Also generate concrete values for variables that part of the blockchain itself 
-                    to_concretize = list(self.symbolic_blockchain_vars)
+                    #to_concretize = list(self.symbolic_blockchain_vars)
+                    to_concretize = state.input_symbols
                     values = temp_state.solve_one_n_batched(to_concretize)
                     outputfile = [filename for filename in os.listdir(self.outputspace) if filename.startswith(testcaseName) and filename.endswith('.tx')][0] #previous call to manticore generated this file.
 
                     migration_map = temp_state.context.get("migration_map")
                     for concrete,symbolic in zip(values,to_concretize):
-                        del migration_map[symbolic.name]
+                        if symbolic.name in migration_map: #Puede no ser agregada al migration_map si no es simbolica.
+                            del migration_map[symbolic.name]
                         with open(self.outputspace+"/"+outputfile,'a') as output:    
                             output.write(f"-Concrete value for {symbolic.name} : {concrete}\n")
                     temp_state.context["migration_map"] = migration_map
@@ -214,7 +216,6 @@ class state_constrainer:
             world = state.platform
             world.advance_block_number(ammount)
             self.symbolic_blockchain_vars.add(ammount) #existe state.input_symbols . ¿Posiblemente no necesitamos este dict?
-        return ammount
 
     def take_snapshot(self):
         self.manticore.take_snapshot()
