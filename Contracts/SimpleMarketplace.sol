@@ -79,7 +79,7 @@ contract SimpleMarketplace {
         StateEnum = StateType.Accepted;
     }
 
-    function MakeOffer_precondition(int offerPrice) public returns(bool){
+    function MakeOffer_precondition() public returns(bool){
         return (StateEnum == StateType.ItemAvailable);
     }
     function Reject_precondition() public returns(bool){
