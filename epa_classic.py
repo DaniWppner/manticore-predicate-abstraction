@@ -60,6 +60,8 @@ class epa_classic_constructor:
         self.explored = set()
         self.epa = defaultdict(list)
 
+        self.manticore_handler.take_snapshot()
+
         check_preconditions_time_init = time.time()
         self.check_preconditions()
         check_preconditions_time_fin = time.time()
@@ -79,20 +81,16 @@ class epa_classic_constructor:
         ini_states_time_end = time.time()
         query_times.append(ini_states_time_end-ini_states_time_start)
 
+        self.manticore_handler.goto_snapshot()
+        self.set_contract_state_to_generic()
 
-        self.manticore_handler.callContractFunction("setter")
-        if self.advanceBlocks:
-                    #self.manticore_handler.setSymbolicBlock() 
-            raise NotImplementedError
-        self.manticore_handler.constrainTo("invariant",True)
-        self.check_preconditions()
 
-        to_explore = self.explorable_from_states(self.reachable_states).difference(self.explored)
-        while len(to_explore) > 0:
+        while len(self.to_explore()) > 0:
             '''Hace bfs sobre los estados, captura un snapshot antes de cada método y retrocede al estado del setter global'''
             _,method = to_explore.pop() #will loop through all the states anyways
                     
             self.manticore_handler.take_snapshot()
+
             method_execution_time_ini = time.time()
 
             print(f"# -- Calling {method}")
@@ -125,6 +123,15 @@ class epa_classic_constructor:
                         query_times.append(time.time() - query_start)
 
             self.manticore_handler.goto_snapshot()
+
+
+    def set_contract_state_to_generic(self):
+        self.manticore_handler.callContractFunction("setter")
+        if self.advanceBlocks:
+                    #self.manticore_handler.setSymbolicBlock() 
+            raise NotImplementedError
+        self.manticore_handler.constrainTo("invariant",True)
+        self.check_preconditions()
 
     def query_reached_states(self, ini_state, method):
         for fin_state in self.states:
@@ -179,12 +186,13 @@ class epa_classic_constructor:
                 allowing.add(state)
         return allowing
 
-    def explorable_from_states(self,states):
+    def to_explore(self):
         explorable = set()
-        for state in states:
+        for state in self.reachable_states():
             for method in self.allowed_methods(state):
                 explorable.add((state,method))
-        return explorable
+        return explorable.difference(self.explored)
+
 
     def write_epa(self,reachable_states):
         with open(self.output+"/epa.txt",'w') as output:
