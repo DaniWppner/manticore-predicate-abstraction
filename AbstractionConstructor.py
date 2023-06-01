@@ -1,4 +1,4 @@
-from state_constrainer_YY import state_constrainer
+from manticore_handler import manticore_handler
 import itertools
 import time
 from collections import defaultdict
@@ -12,7 +12,7 @@ class abstraction_constructor:
         self.path = path
         self.output = output
         Path(output).mkdir(parents=True, exist_ok=True)
-        self.manticore_handler = state_constrainer(self.path,outputspace=self.output)
+        self.manticore_handler = manticore_handler(self.path,outputspace=self.output)
         self.advanceBlocks = advanceBlocks
         self.__init_states_and_methods__()
 

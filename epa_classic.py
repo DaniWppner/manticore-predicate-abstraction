@@ -1,4 +1,4 @@
-from state_constrainer_YY import state_constrainer
+from manticore_handler import manticore_handler
 import itertools
 import time
 from collections import defaultdict
@@ -12,7 +12,7 @@ class epa_classic_constructor:
         self.path = path
         self.output = output
         Path(output).mkdir(parents=True, exist_ok=True)
-        self.manticore_handler = state_constrainer(self.path,outputspace=self.output)
+        self.manticore_handler = manticore_handler(self.path,outputspace=self.output)
         self.advanceBlocks = advanceBlocks
         self.__init_states_and_methods__()
 
@@ -87,7 +87,7 @@ class epa_classic_constructor:
 
         while len(self.to_explore()) > 0:
             '''Hace bfs sobre los estados, captura un snapshot antes de cada método y retrocede al estado del setter global'''
-            _,method = to_explore.pop() #will loop through all the states anyways
+            _,method = next(iter(self.to_explore())) #any
                     
             self.manticore_handler.take_snapshot()
 
@@ -128,7 +128,7 @@ class epa_classic_constructor:
     def set_contract_state_to_generic(self):
         self.manticore_handler.callContractFunction("setter")
         if self.advanceBlocks:
-                    #self.manticore_handler.setSymbolicBlock() 
+            self.manticore_handler.set_block_to_new_symbolic(name="current_block") 
             raise NotImplementedError
         self.manticore_handler.constrainTo("invariant",True)
         self.check_preconditions()
@@ -154,7 +154,7 @@ class epa_classic_constructor:
         text = ""
         for x,cond in zip(state,self.traza):
             method = cond.replace('_precondition','')
-            if method == "tau": ##no queremos que aparezca en la descripción de los estados
+            if method == "tau": ##no queremos que aparezca en la descripción de los estados (FIXME, hardcodeado).
                 continue
             else:
                 text += '_'+method if x else ""
