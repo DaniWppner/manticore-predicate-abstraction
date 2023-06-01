@@ -55,10 +55,10 @@ class state_constrainer:
 
 
     def _initBlockchain(self):
-        self.symbolic_blockchain_vars = set()
+        self.initial_symbolic_blockchain_vars = set()
         initial_block= self.manticore.make_symbolic_value(name="initial_block")
         self.manticore.constrain(initial_block > 0)
-        self.symbolic_blockchain_vars.add(initial_block)
+        self.initial_symbolic_blockchain_vars.add(initial_block)
         self.manticore.start_block(blocknumber=initial_block,
             timestamp=int(time.time()), # current unix timestamp, #FIXME?
             coinbase=self.owner_account, # FIXME as well. It has to be set to _something_ for manticore.end_block() not to throw.
@@ -188,8 +188,7 @@ class state_constrainer:
                     temp_state.constrain(condition)
                     self.manticore.generate_testcase(state=temp_state,name=testcaseName+f"")
                     #Also generate concrete values for variables that part of the blockchain itself 
-                    #to_concretize = list(self.symbolic_blockchain_vars)
-                    to_concretize = state.input_symbols
+                    to_concretize = state.input_symbols + list(self.initial_symbolic_blockchain_vars) 
                     values = temp_state.solve_one_n_batched(to_concretize)
                     outputfile = [filename for filename in os.listdir(self.outputspace) if filename.startswith(testcaseName) and filename.endswith('.tx')][0] #previous call to manticore generated this file.
 
@@ -209,21 +208,21 @@ class state_constrainer:
         return found
 
     def advance_symbolic_ammount_of_blocks(self):
-        index = len([var for var in self.symbolic_blockchain_vars if var.name.startswith("blocks_advanced")]) + 1 
         for state in self.manticore.ready_states:
-            ammount = state.new_symbolic_value(nbits=256,label=f"blocks_advanced{index}") #el nombre se repite entre todos los estados pero serán objetos diferentes
+            #we are creating a new symbolic variable for each manticore state.
+            index = len([var for var in state.input_symbols if var.name.startswith("blocks_advanced")]) + 1
+            ammount = state.new_symbolic_value(nbits=256,label=f"blocks_advanced{index}")
             state.constrain(ammount >= 0)
             world = state.platform
             world.advance_block_number(ammount)
-            self.symbolic_blockchain_vars.add(ammount) #existe state.input_symbols . ¿Posiblemente no necesitamos este dict?
 
     def take_snapshot(self):
         self.manticore.take_snapshot()
-        self._snapshot_history.append(self.symbolic_blockchain_vars.copy())    
+        self._snapshot_history.append(self.initial_symbolic_blockchain_vars.copy())    
 
     def goto_snapshot(self):
         self.manticore.goto_snapshot()
-        self.symbolic_blockchain_vars = self._snapshot_history.pop()
+        self.initial_symbolic_blockchain_vars = self._snapshot_history.pop()
 
     def can_be_true(self,expr):
         count = 0
