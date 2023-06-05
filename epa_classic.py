@@ -69,7 +69,6 @@ class epa_classic_constructor:
                 
         #preguntar cuales son los estados iniciales
         ini_states_time_start = time.time()
-        self.query_reached_states(ini_state,"init")
         for ini_state in self.states:
             ini_state_count = self.manticore_handler.generateTestCases(keys=self.traza,targets=(ini_state),testcaseName=f"STATE_{self.repr_state(ini_state)}")
             if ini_state_count > 0:
