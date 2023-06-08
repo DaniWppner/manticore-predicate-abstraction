@@ -28,33 +28,32 @@ class epa_classic_constructor:
 
     def construct_abstraction(self):
         with open(self.output+"/ConsoleOutput",'w') as f:
-            with redirect_stdout(f):
-                start = time.time()
+            start = time.time()
 
-                method_times = []
-                precondition_times = []
-                query_times = []
+            method_times = []
+            precondition_times = []
+            query_times = []
 
-                self.__construct_abstraction(method_times, precondition_times, query_times)
+            self.__construct_abstraction(method_times, precondition_times, query_times, output_file=f)
 
-                end = time.time()
-                print(f"--- We executed the preconditions {len(precondition_times)} times, which took {sum(precondition_times)} seconds to execute, {np.mean(precondition_times)} on average (min={np.min(precondition_times)} max={np.max(precondition_times)})")
-                print(f"--- We executed a method {len(method_times)} times, which took {sum(method_times)} seconds, {np.mean(method_times)} seconds on average (min={np.min(method_times)} max={np.max(method_times)})")
-                print(f"--- We did {len(query_times)} high level queries, which took {sum(query_times)} seconds, {np.mean(query_times)} seconds on average (min={np.min(query_times)} max={np.max(query_times)})")
-                print(f"--- Took {end-start} seconds in total.")
+            end = time.time()
+            f.write(f'''--- We executed the preconditions {len(precondition_times)} times, which took {sum(precondition_times)} seconds to execute, {np.mean(precondition_times)} on average (min={np.min(precondition_times)} max={np.max(precondition_times)})
+            --- We executed a method {len(method_times)} times, which took {sum(method_times)} seconds, {np.mean(method_times)} seconds on average (min={np.min(method_times)} max={np.max(method_times)})
+            --- We did {len(query_times)} high level queries, which took {sum(query_times)} seconds, {np.mean(query_times)} seconds on average (min={np.min(query_times)} max={np.max(query_times)})
+            --- Took {end-start} seconds in total.''')
 
-                print("+++ Reached States:")
-                for state in self.reachable_states:
-                    print(f"      {self.repr_state(state)}")
-                print("+++ Explored Transitions:")
-                for state,method in self.explored:
-                    print(f"   from {self.repr_state(state)} executing {method}")
+            f.write("+++ Reached States:\n")
+            for state in self.reachable_states:
+                f.write(f"      {self.repr_state(state)}\n")
+            f.write("+++ Explored Transitions:\n")
+            for state,method in self.explored:
+                f.write(f"   from {self.repr_state(state)} executing {method}\n")
 
-                self.write_epa(self.reachable_states)
+            self.write_epa(self.reachable_states)
 
-                self.manticore_handler.safedelete()
+            self.manticore_handler.safedelete()
 
-    def __construct_abstraction(self, method_times, precondition_times, query_times):
+    def __construct_abstraction(self, method_times, precondition_times, query_times, output_file):
 
         self.reachable_states = set()
         self.explored = set()
@@ -72,11 +71,11 @@ class epa_classic_constructor:
         for ini_state in self.states:
             ini_state_count = self.manticore_handler.generateTestCases(keys=self.traza,targets=(ini_state),testcaseName=f"STATE_{self.repr_state(ini_state)}")
             if ini_state_count > 0:
-                print(f"found {ini_state_count} testcases that reach {self.repr_state(ini_state)} initial state")
+                output_file.write(f"found {ini_state_count} testcases that reach {self.repr_state(ini_state)} initial state\n")
                 self.reachable_states.add(ini_state)
                 self.epa["ini"].append(ini_state)
             else:
-                print(f"found no testcases for {self.repr_state(ini_state)} initial state")
+                output_file.write(f"found no testcases for {self.repr_state(ini_state)} initial state\n")
         ini_states_time_end = time.time()
         query_times.append(ini_states_time_end-ini_states_time_start)
 
@@ -92,7 +91,7 @@ class epa_classic_constructor:
 
             method_execution_time_ini = time.time()
 
-            print(f"# -- Calling {method}")
+            output_file.write(f"# -- Calling {method} \n")
             self.manticore_handler.callContractFunction(method)
 
             method_execution_time_fin = time.time()
@@ -118,7 +117,7 @@ class epa_classic_constructor:
                 for ini_state in self.states_that_allow(method,self.reachable_states):
                     if (ini_state,method) not in self.explored:
                         query_start = time.time()
-                        self.query_reached_states(ini_state, method)
+                        self.query_reached_states(ini_state, method, output_file)
                         query_times.append(time.time() - query_start)
 
             self.manticore_handler.goto_snapshot()
@@ -127,20 +126,20 @@ class epa_classic_constructor:
     def set_contract_state_to_generic(self):
         self.manticore_handler.callContractFunction("setter")
         if self.advanceBlocks:
-            self.manticore_handler.set_block_to_new_symbolic(name="current_block") 
             raise NotImplementedError
+            self.manticore_handler.set_block_to_new_symbolic(name="current_block") 
         self.manticore_handler.constrainTo("invariant",True)
         self.check_preconditions()
 
-    def query_reached_states(self, ini_state, method):
+    def query_reached_states(self, ini_state, method, output_file):
         for fin_state in self.states:
             result = self.manticore_handler.generateTestCases(keys=(self.traza+self.traza),targets=(ini_state + fin_state),testcaseName=f"transition{self.transition_name(ini_state,method,fin_state)}")
             if(result>0):
-                print(f"found {result} testcases for {self.transition_name(ini_state,method,fin_state)}")
+                output_file.write(f"found {result} testcases for {self.transition_name(ini_state,method,fin_state)}\n")
                 self.reachable_states.add(fin_state)
                 self.epa[(ini_state,method)].append(fin_state)
             else:
-                print(f"no testcases for {self.transition_name(ini_state,method,fin_state)}")
+                output_file.write(f"no testcases for {self.transition_name(ini_state,method,fin_state)}\n")
 
         self.explored.add((ini_state,method))
 
