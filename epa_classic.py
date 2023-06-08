@@ -81,6 +81,7 @@ class epa_classic_constructor:
 
         self.manticore_handler.goto_snapshot()
         self.set_contract_state_to_generic()
+        self.check_preconditions()
 
 
         while len(self.to_explore()) > 0:
@@ -98,11 +99,10 @@ class epa_classic_constructor:
             method_times.append(method_execution_time_fin-method_execution_time_ini)
 
             if not self.manticore_handler.isallive():
-                        #If trying to execute the method killed all states we should avoid executing anything else.
+                        #If trying to execute the method killed all states then no transitions are possible via that method.
                         #Go back to before executing and mark this path as already explored. 
                 for state in self.states_that_allow(method,self.reachable_states):
                     self.explored.add((state,method))
-                self.manticore_handler.goto_snapshot()
             else:
                 if (self.advanceBlocks):
                     self.manticore_handler.advance_symbolic_ammount_of_blocks()
@@ -129,7 +129,6 @@ class epa_classic_constructor:
             raise NotImplementedError
             self.manticore_handler.set_block_to_new_symbolic(name="current_block") 
         self.manticore_handler.constrainTo("invariant",True)
-        self.check_preconditions()
 
     def query_reached_states(self, ini_state, method, output_file):
         for fin_state in self.states:
