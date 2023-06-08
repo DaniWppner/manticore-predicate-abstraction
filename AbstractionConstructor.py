@@ -1,11 +1,38 @@
-from manticore_handler import manticore_handler
-import itertools
 import time
+import more_itertools
+from manticore_handler import manticore_handler
 from collections import defaultdict
 from contextlib import redirect_stdout
 from pathlib import Path
 import numpy as np
 
+TAU = 'tau'
+
+class epa_state:
+    def __init__(self, _satisfied_conditions, _conditions ):
+        self.satisfied_conditions = _satisfied_conditions
+        self._all_conditions = _conditions
+
+    @property
+    def allowed_methods(self,methods):
+        return [m for m in methods if self.allows(m)]
+    
+    def allows(self,method):
+        return (method+"_precondition") in self.satisfied_conditions
+    
+    def satisfies(self,condition):
+        return condition in self.satisfied_conditions
+    
+    def __repr__(self) -> str:
+        text = ""
+        for cond in self._all_conditions:
+            cond_name = cond.replace('_precondition','') 
+            if self.satisfies(cond):
+                text += f"_{cond_name}"
+        return text        
+
+    def as_list(self):
+        return [(1 if self.satisfies(c) else 0) for c in self._all_conditions]
 
 class abstraction_constructor:
     def __init__(self,path,output,advanceBlocks=False):
@@ -29,7 +56,7 @@ class abstraction_constructor:
                 current_states = set()
                 explored = set()
                 global_snapshots_stack = []
-                epa = defaultdict(list)
+                self.epa = defaultdict(list)
 
                 method_times = []
                 precondition_times = []
@@ -47,11 +74,11 @@ class abstraction_constructor:
                 #preguntar cuales son los estados iniciales
                 for ini_state in self.states:
                     ini_states_time_start = time.time()
-                    ini_state_count = self.manticore_handler.generateTestCases(keys=self.traza,targets=(ini_state),testcaseName=f"STATE_{self.repr_state(ini_state)}")
+                    ini_state_count = self.manticore_handler.generateTestCases(keys=self.traza,targets=(ini_state.as_list),testcaseName=f"STATE_{self.repr_state(ini_state)}")
                     if ini_state_count > 0:
                         print(f"found {ini_state_count} testcases that reach {self.repr_state(ini_state)} initial state")
                         reachable_states.add(ini_state)
-                        epa["ini"].append(ini_state)
+                        self.epa["ini"].append(ini_state)
                     else:
                         print(f"found no testcases for {self.repr_state(ini_state)} initial state")
                     ini_states_time_end = time.time()
@@ -102,17 +129,7 @@ class abstraction_constructor:
                             new_states = []
                             for ini_state in self.states_that_allow(method,current_states):
                                 if (ini_state,method) not in explored:
-                                    for fin_state in self.states:
-                                        ini_result_states_time = time.time()
-                                        result = self.manticore_handler.generateTestCases(keys=(self.traza+self.traza),targets=(ini_state + fin_state),testcaseName=f"transition{self.transition_name(ini_state,method,fin_state)}")
-                                        end_result_states_time = time.time()
-                                        if(result>0):
-                                            print(f"found {result} testcases for {self.transition_name(ini_state,method,fin_state)}")
-                                            new_states.append(fin_state)
-                                            epa[(ini_state,method)].append(fin_state)
-                                        else:
-                                            print(f"no testcases for {self.transition_name(ini_state,method,fin_state)}")
-                                        query_times.append(end_result_states_time-ini_result_states_time)
+                                    self.explore_from_state(self.epa, query_times, ini_state, method, new_states) #chequear parametros de esto cuando vuelvas
                                     explored.add((ini_state,method))
 
                             reachable_states.update(new_states)
@@ -133,18 +150,28 @@ class abstraction_constructor:
                 for state,method in explored:
                     print(f"   from {self.repr_state(state)} executing {method}")
 
-                self.write_epa(epa,reachable_states)
+                self.write_self.epa(self.epa,reachable_states)
 
                 self.manticore_handler.safedelete()
+
+    def explore_from_state(self, query_times, ini_state, method, new_states):
+        for fin_state in self.states:
+            ini_result_states_time = time.time()
+            result = self.manticore_handler.generateTestCases(keys=(self.traza+self.traza),targets=(ini_state.as_list() + fin_state.as_list()),testcaseName=f"transition{self.transition_name(ini_state,method,fin_state)}")
+            end_result_states_time = time.time()
+            if(result>0):
+                print(f"found {result} testcases for {self.transition_name(ini_state,method,fin_state)}")
+                new_states.append(fin_state)
+                self.epa[(ini_state,method)].append(fin_state)
+            else:
+                print(f"no testcases for {self.transition_name(ini_state,method,fin_state)}")
+            query_times.append(end_result_states_time-ini_result_states_time)
 
     def check_preconditions(self):
         for condition in self.traza:
             self.manticore_handler.callContractFunction(condition,tx_sender=self.manticore_handler.witness_account)
         #self.manticore_handler.callContractFunction("blockNumber")
-
-    def repr_state(self,state):
-        raise NotImplementedError
-    
+ 
     def transition_name(self,start,method,end):
         raise NotImplementedError
 
@@ -157,7 +184,7 @@ class abstraction_constructor:
     def explorable_from_states(self,states):
         raise NotImplementedError
 
-    def write_epa(self,epa,reachable_states):
+    def write_epa(self,reachable_states):
         raise NotImplementedError
 
 
@@ -167,24 +194,17 @@ class epa_constructor(abstraction_constructor):
 
     def __init_states_and_methods__(self): 
         self.traza = self.manticore_handler.precon_names
-        self.states = list(itertools.product([0,1],repeat=len(self.traza)))
-        self.methods = []
+        self.methods = [TAU]
+        self.states = []
         for condition in self.traza:
             for m in self.manticore_handler.contractfunc_names:
                 if m==condition.replace('_precondition',''):
                     self.methods.append(m)
+        for method_set in more_itertools.set_partitions(self.traza):
+            self.states.append(epa_state(self.methods,method_set))
 
     def repr_state(self,state):
-        text = ""
-        for x,cond in zip(state,self.traza):
-            method = cond.replace('_precondition','')
-            if method == "tau": ##no queremos que aparezca en la descripción de los estados
-                continue
-            else:
-                text += '_'+method if x else ""
-        if text == "":
-            text = "vacio"
-        return text
+        return repr(state)
     
 #    def short_repr_state(self,state):
 #        return state
@@ -194,19 +214,13 @@ class epa_constructor(abstraction_constructor):
         #return self.short_repr_state(start)+"-->"+method+"-->"+self.short_repr_state(end)
 
 
-    def allowed_methods(self,state):
-        allowed = set()
-        for pre,cond in zip(state,self.traza):
-            if pre:
-                for m in self.methods:
-                    if m == cond.replace('_precondition',''):
-                        allowed.add(m)
-        return allowed
+    def allowed_methods(self,state : epa_state):
+        return state.allowed_methods(self.methods)
 
     def states_that_allow(self,method,current_states):
         allowing = set()
         for state in current_states:
-            if method in self.allowed_methods(state):
+            if state.allows(method):
                 allowing.add(state)
         return allowing
 
@@ -217,17 +231,17 @@ class epa_constructor(abstraction_constructor):
                 explorable.add((state,method))
         return explorable
 
-    def write_epa(self,epa,reachable_states):
-        with open(self.output+"/epa.txt",'w') as output:
+    def write_epa(self,reachable_states):
+        with open(self.output+"/self.epa.txt",'w') as output:
             output.write("digraph { \n")
             output.write("init [label=init] \n")
             for state in reachable_states:
                 output.write(f"{self.repr_state(state)} [label={self.repr_state(state)}] \n")
-            for fin_state in epa["ini"]:
+            for fin_state in self.epa["ini"]:
                 output.write(f"init -> {self.repr_state(fin_state)} [label=constructor] \n")
             for state in reachable_states:
                 for method in self.methods:
-                    for fin_state in epa[state,method]:
+                    for fin_state in self.epa[state,method]:
                         output.write(f"{self.repr_state(state)} -> {self.repr_state(fin_state)} [label={method}] \n")
             output.write("}")
            
@@ -268,16 +282,16 @@ class state_abstraction_constructor(abstraction_constructor):
                 explorable.add((state,method))
         return explorable
 
-    def write_epa(self,epa,reachable_states):
+    def write_epa(self,reachable_states):
         with open(self.output+"/states.txt",'w') as output:
             output.write("digraph { \n")
             output.write("init [label=init] \n")
             for state in reachable_states:
                 output.write(f"{self.repr_state(state)} [label={self.repr_state(state)}] \n")
-            for fin_state in epa["ini"]:
+            for fin_state in self.epa["ini"]:
                 output.write(f"init -> {self.repr_state(fin_state)} [label=constructor] \n")
             for state in reachable_states:
                 for method in self.methods:
-                    for fin_state in epa[state,method]:
+                    for fin_state in self.epa[state,method]:
                         output.write(f"{self.repr_state(state)} -> {self.repr_state(fin_state)} [label={method}] \n")
             output.write("}")
