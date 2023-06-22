@@ -87,7 +87,7 @@ class abstraction_constructor:
                 query_times.append(ini_states_time_end-ini_states_time_start)
 
 
-            current_states = list(reachable_states) #por qué es un set? Creo que podría ser una lista desde siempre
+            current_states = list(reachable_states)
 
             while True:
                 '''Hace dfs sobre los estados, teniendo que capturar snapshots del estado global cada vez que se ejecuta una transicion, y levantandolas para retroceder'''
@@ -179,9 +179,6 @@ class abstraction_constructor:
     def transition_name(self,start,method,end):
         raise NotImplementedError
 
-    def allowed_methods(self,state):
-        raise NotImplementedError
-
     def states_that_allow(self,method,current_states):
         raise NotImplementedError
 
@@ -219,9 +216,6 @@ class epa_constructor(abstraction_constructor):
         #return self.short_repr_state(start)+"-->"+method+"-->"+self.short_repr_state(end)
 
 
-    def allowed_methods(self,state : epa_state):
-        return state.allowed_methods(self.methods)
-
     def states_that_allow(self,method,current_states):
         allowing = set()
         for state in current_states:
@@ -232,7 +226,7 @@ class epa_constructor(abstraction_constructor):
     def explorable_from_states(self,states):
         explorable = set()
         for state in states:
-            for method in self.allowed_methods(state):
+            for method in state.allowed_methods(self.methods):
                 explorable.add((state,method))
         return explorable
 
@@ -274,8 +268,6 @@ class state_abstraction_constructor(abstraction_constructor):
     def transition_name(self,start,method,end):
         return self.repr_state(start)+"-->"+method+"-->"+self.repr_state(end)
 
-    def allowed_methods(self,state):
-        return set(self.methods)
 
     def states_that_allow(self,method,current_states):
         return set(current_states)
