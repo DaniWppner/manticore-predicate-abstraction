@@ -187,7 +187,7 @@ class epa_classic_constructor:
 
     def to_explore(self):
         explorable = set()
-        for state in self.reachable_states():
+        for state in self.reachable_states:
             for method in self.allowed_methods(state):
                 explorable.add((state,method))
         return explorable.difference(self.explored)
