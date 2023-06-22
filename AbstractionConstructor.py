@@ -36,11 +36,11 @@ class epa_state:
         return [(1 if self.satisfies(c) else 0) for c in self._all_conditions]
 
 class abstraction_constructor:
-    def __init__(self,path,output,advanceBlocks=False):
+    def __init__(self,path,outputdir,advanceBlocks=False):
         self.path = path
-        self.output = output
-        Path(output).mkdir(parents=True, exist_ok=True)
-        self.manticore_handler = manticore_handler(self.path,outputspace=self.output)
+        self.outputdir = outputdir
+        Path(outputdir).mkdir(parents=True, exist_ok=True)
+        self.manticore_handler = manticore_handler(self.path,outputspace=outputdir)
         self.advanceBlocks = advanceBlocks
         self.__init_states_and_methods__()
 
@@ -50,7 +50,7 @@ class abstraction_constructor:
     
     @property
     def output(self):
-        return self.output+"/ConsoleOutput"
+        return self.outputdir+"/ConsoleOutput"
 
     def construct_abstraction(self):
         with open(self.output,'w') as f:
