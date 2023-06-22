@@ -17,7 +17,7 @@ class epa_state:
         return [m for m in methods if self.allows(m)]
     
     def allows(self,method):
-        return (method+"_precondition") in self.satisfied_conditions
+        return ((method+"_precondition") in self.satisfied_conditions) or method == TAU
     
     def satisfies(self,condition):
         return condition in self.satisfied_conditions
@@ -119,9 +119,6 @@ class abstraction_constructor:
                         current_states = global_snapshots_stack.pop()
                         self.manticore_handler.goto_snapshot()
                     else:
-                        if (self.advanceBlocks):
-                            self.manticore_handler.advance_symbolic_ammount_of_blocks()
-
                         _low_level_preconditions_executed += self.manticore_handler.manticore.count_ready_states()
                         check_preconditions_time_init = time.time()
                         self.check_preconditions()
@@ -195,13 +192,16 @@ class epa_constructor(abstraction_constructor):
 
     def __init_states_and_methods__(self): 
         self.traza = self.manticore_handler.precon_names
-        self.methods = [TAU]
+        self.methods = []
+        if(self.advanceBlocks):
+            self.methods.append(TAU) #FIXME TAU
         self.states = []
         for condition in self.traza:
             for m in self.manticore_handler.contractfunc_names:
                 if m==condition.replace('_precondition',''):
                     self.methods.append(m)
-        condition_parts = [part for partition in more_itertools.set_partitions(self.traza) for part in partition] + [[]]
+        condition_parts = [part for partition in more_itertools.set_partitions(self.traza) for part in partition]
+        condition_parts.append([])
         for condition_set in condition_parts:
             self.states.append(epa_state(_satisfied_conditions=condition_set, _conditions = self.traza))
 
@@ -214,7 +214,6 @@ class epa_constructor(abstraction_constructor):
     def transition_name(self,start,method,end):
         return self.repr_state(start)+"-->"+method+"-->"+self.repr_state(end)
         #return self.short_repr_state(start)+"-->"+method+"-->"+self.short_repr_state(end)
-
 
     def states_that_allow(self,method,current_states):
         allowing = set()

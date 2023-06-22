@@ -59,15 +59,18 @@ class manticore_handler:
         self.set_block_to_new_symbolic(name="initial_block")
 
     def callContractFunction(self,func_name,call_args=None,tx_value=None,tx_sender=None):
-        func_id = self.nameToFuncId[func_name]
+        if func_name == "tau":
+            self.tau() #do we really need a class representing the methods if this is the only exception?
+        else:
+            func_id = self.nameToFuncId[func_name]
 
-        print(f"# -- Calling {func_name}")
+            print(f"# -- Calling {func_name}")
 
-        call_args, tx_value, tx_sender = self.make_transaction_parameters(func_id, call_args, tx_value, tx_sender)
-    
-        #__getattr__ is overriden to construct the function object.
-        fun = getattr(self.working_contract,func_name)
-        fun(*call_args,value=tx_value,caller=tx_sender)
+            call_args, tx_value, tx_sender = self.make_transaction_parameters(func_id, call_args, tx_value, tx_sender)
+        
+            #__getattr__ is overriden to construct the function object.
+            fun = getattr(self.working_contract,func_name)
+            fun(*call_args,value=tx_value,caller=tx_sender)
 
     def make_transaction_parameters(self, func_id, call_args=None, tx_value=None, tx_sender=None):
         # construct the arguments passed to the contract method
@@ -208,6 +211,9 @@ class manticore_handler:
             state.constrain(ammount >= 0)
             world = state.platform
             world.advance_block_number(ammount)
+
+    def tau(self):
+        self.advance_symbolic_ammount_of_blocks()
 
     def set_block_to_new_symbolic(self,name):
         initial_block= self.manticore.make_symbolic_value(name=name)
