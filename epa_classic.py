@@ -124,11 +124,13 @@ class epa_classic_constructor:
 
 
     def set_contract_state_to_generic(self):
-        self.manticore_handler.callContractFunction("setter")
+        #setter should at the beggining:
+        #  require(invariant(inputs));
+        #if not everything would be catastrophic
+        self.manticore_handler.callContractFunction("setter") 
         if self.advanceBlocks:
             raise NotImplementedError
             self.manticore_handler.set_block_to_new_symbolic(name="current_block") 
-        self.manticore_handler.constrainTo("invariant",True)
 
     def query_reached_states(self, ini_state, method, output_file):
         for fin_state in self.states:
