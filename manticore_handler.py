@@ -55,13 +55,13 @@ class manticore_handler:
 
 
     def _initBlockchain(self):
-        self.symbolic_blockchain_vars = set()
+        self.initial_symbolic_blockchain_vars = set()
         self.set_block_to_new_symbolic(name="initial_block")
 
     def callContractFunction(self,func_name,call_args=None,tx_value=None,tx_sender=None):
         func_id = self.nameToFuncId[func_name]
 
-        #print(f"# -- Calling {func_name}")
+        print(f"# -- Calling {func_name}")
 
         call_args, tx_value, tx_sender = self.make_transaction_parameters(func_id, call_args, tx_value, tx_sender)
     
@@ -212,7 +212,7 @@ class manticore_handler:
     def set_block_to_new_symbolic(self,name):
         initial_block= self.manticore.make_symbolic_value(name=name)
         self.manticore.constrain(initial_block > 0)
-        self.symbolic_blockchain_vars.add(initial_block)
+        self.initial_symbolic_blockchain_vars.add(initial_block)
         self.manticore.start_block(blocknumber=initial_block,
             timestamp=int(time.time()), # current unix timestamp, #FIXME?
             coinbase=self.owner_account, # FIXME as well. It has to be set to _something_ for manticore.end_block() not to throw.
