@@ -5,7 +5,7 @@ import os
 
 ETHER = 10**18
 
-class state_constrainer:
+class manticore_handler:
     def __init__(self,url,outputspace=None,workspace=None): 
         if outputspace is None:
             outputspace = url + "_results"
@@ -55,15 +55,8 @@ class state_constrainer:
 
 
     def _initBlockchain(self):
-        self.initial_symbolic_blockchain_vars = set()
-        initial_block= self.manticore.make_symbolic_value(name="initial_block")
-        self.manticore.constrain(initial_block > 0)
-        self.initial_symbolic_blockchain_vars.add(initial_block)
-        self.manticore.start_block(blocknumber=initial_block,
-            timestamp=int(time.time()), # current unix timestamp, #FIXME?
-            coinbase=self.owner_account, # FIXME as well. It has to be set to _something_ for manticore.end_block() not to throw.
-            difficulty=0x200, #default
-            gaslimit=0x7FFFFFFF) #default
+        self.symbolic_blockchain_vars = set()
+        self.set_block_to_new_symbolic(name="initial_block")
 
     def callContractFunction(self,func_name,call_args=None,tx_value=None,tx_sender=None):
         func_id = self.nameToFuncId[func_name]
@@ -215,6 +208,16 @@ class state_constrainer:
             state.constrain(ammount >= 0)
             world = state.platform
             world.advance_block_number(ammount)
+
+    def set_block_to_new_symbolic(self,name):
+        initial_block= self.manticore.make_symbolic_value(name=name)
+        self.manticore.constrain(initial_block > 0)
+        self.symbolic_blockchain_vars.add(initial_block)
+        self.manticore.start_block(blocknumber=initial_block,
+            timestamp=int(time.time()), # current unix timestamp, #FIXME?
+            coinbase=self.owner_account, # FIXME as well. It has to be set to _something_ for manticore.end_block() not to throw.
+            difficulty=0x200, #default
+            gaslimit=0x7FFFFFFF) #default
 
     def take_snapshot(self):
         self.manticore.take_snapshot()
