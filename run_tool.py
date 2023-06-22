@@ -1,7 +1,7 @@
 from manticore_handler import manticore_handler
 import sys
 from manticore.ethereum import ABI 
-from AbstractionConstructor import epa_constructor
+from epa_classic import epa_classic_constructor
 
 
 #%%%%%%%%%  benchmark 1
@@ -21,5 +21,11 @@ for contract in contracts:
 '''
 #%%%%%%%%%  diferencias contra verisol
 
+'''
 epaCrowdFunding = epa_constructor("Scripts/Crowdfunding/CrowdfundingTruco.sol","graph/vs_verisol/CrowdfundingTrucoBalance",advanceBlocks=False)
 epaCrowdFunding.construct_abstraction()
+'''
+#%%%%%%%%   epa classic
+
+epaThermostat = epa_classic_constructor("Contracts/RoomThermostat.sol","graph/epaClassic/RoomThermostat",advanceBlocks=False)
+epaThermostat.construct_abstraction()
