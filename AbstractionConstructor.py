@@ -2,7 +2,6 @@ import time
 import more_itertools
 from manticore_handler import manticore_handler
 from collections import defaultdict
-from contextlib import redirect_stdout
 from pathlib import Path
 import numpy as np
 
@@ -200,8 +199,7 @@ class epa_constructor(abstraction_constructor):
             for m in self.manticore_handler.contractfunc_names:
                 if m==condition.replace('_precondition',''):
                     self.methods.append(m)
-        condition_parts = [part for partition in more_itertools.set_partitions(self.traza) for part in partition]
-        condition_parts.append([])
+        condition_parts = list(more_itertools.powerset(self.traza))
         for condition_set in condition_parts:
             self.states.append(epa_state(_satisfied_conditions=condition_set, _conditions = self.traza))
 
