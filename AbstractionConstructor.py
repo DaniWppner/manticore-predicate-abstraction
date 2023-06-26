@@ -205,14 +205,8 @@ class epa_constructor(abstraction_constructor):
         for condition_set in condition_parts:
             self.states.append(epa_state(_satisfied_conditions=condition_set, _conditions = self.traza))
 
-    def repr_state(self,state):
-        return repr(state)
-    
-#    def short_repr_state(self,state):
-#        return state
-
     def transition_name(self,start,method,end):
-        return self.repr_state(start)+"-->"+method+"-->"+self.repr_state(end)
+        return repr(start)+"-->"+method+"-->"+repr(end)
         #return self.short_repr_state(start)+"-->"+method+"-->"+self.short_repr_state(end)
 
     def states_that_allow(self,method,current_states):
@@ -234,13 +228,13 @@ class epa_constructor(abstraction_constructor):
             output.write("digraph { \n")
             output.write("init [label=init] \n")
             for state in reachable_states:
-                output.write(f"{self.repr_state(state)} [label={self.repr_state(state)}] \n")
+                output.write(f"{repr(state)} [label={repr(state)}] \n")
             for fin_state in self.epa["ini"]:
-                output.write(f"init -> {self.repr_state(fin_state)} [label=constructor] \n")
+                output.write(f"init -> {repr(fin_state)} [label=constructor] \n")
             for state in reachable_states:
                 for method in self.methods:
                     for fin_state in self.epa[state,method]:
-                        output.write(f"{self.repr_state(state)} -> {self.repr_state(fin_state)} [label={method}] \n")
+                        output.write(f"{repr(state)} -> {repr(fin_state)} [label={method}] \n")
             output.write("}")
            
 class state_abstraction_constructor(abstraction_constructor):
