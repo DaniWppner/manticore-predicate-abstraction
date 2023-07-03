@@ -75,13 +75,13 @@ class abstraction_constructor:
             #preguntar cuales son los estados iniciales
             for ini_state in self.states:
                 ini_states_time_start = time.time()
-                ini_state_count = self.manticore_handler.generateTestCases(keys=self.traza,targets=(ini_state.as_list()),testcaseName=f"STATE_{self.repr_state(ini_state)}")
+                ini_state_count = self.manticore_handler.generateTestCases(keys=self.traza,targets=(ini_state.as_list()),testcaseName=f"STATE_{repr(ini_state)}")
                 if ini_state_count > 0:
-                    f.write(f"found {ini_state_count} testcases that reach {self.repr_state(ini_state)} initial state \n")
+                    f.write(f"found {ini_state_count} testcases that reach {repr(ini_state)} initial state \n")
                     reachable_states.add(ini_state)
                     self.epa["ini"].append(ini_state)
                 else:
-                    f.write(f"found no testcases for {self.repr_state(ini_state)} initial state \n")
+                    f.write(f"found no testcases for {repr(ini_state)} initial state \n")
                 ini_states_time_end = time.time()
                 query_times.append(ini_states_time_end-ini_states_time_start)
 
@@ -145,10 +145,10 @@ class abstraction_constructor:
             )
             f.write("+++ Reached States:\n")
             for state in reachable_states:
-                f.write(f"      {self.repr_state(state)} \n")
+                f.write(f"      {repr(state)} \n")
             f.write("+++ Explored Transitions:\n")
             for state,method in explored:
-                f.write(f"   from {self.repr_state(state)} executing {method}\n")
+                f.write(f"   from {repr(state)} executing {method}\n")
 
             self.write_epa(reachable_states)
 
