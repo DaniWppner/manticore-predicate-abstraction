@@ -124,7 +124,7 @@ class epa_classic_constructor:
 
 
     def set_contract_state_to_generic(self):
-        #setter should at the beggining:
+        #the method setter() at the beggining should:
         #  require(invariant(inputs));
         #if not everything would be catastrophic
         self.manticore_handler.callContractFunction("setter") 
