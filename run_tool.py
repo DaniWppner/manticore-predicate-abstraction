@@ -26,6 +26,17 @@ epaCrowdFunding = epa_constructor("Scripts/Crowdfunding/CrowdfundingTruco.sol","
 epaCrowdFunding.construct_abstraction()
 '''
 #%%%%%%%%   epa classic
-
+'''
 epaThermostat = epa_classic_constructor("Contracts/RoomThermostat.sol","graph/epaClassic/RoomThermostat",advanceBlocks=False)
 epaThermostat.construct_abstraction()
+'''
+#%%%%%%%%%  benchmark 1 epa classic
+#corrieron []
+#rapidas ["BasicProvenance","DefectiveComponentCounter","SimpleMarketplace","RoomThermostat","HelloBlockchain"]
+#lentas ["DigitalLocker","AssetTransfer","FrequentFlyerRewardsCalculator"]
+contracts = ["BasicProvenance","RoomThermostat","DefectiveComponentCounter","SimpleMarketplace"]
+for contract in contracts:
+    for i in range(5):
+        print(contract)
+        epaCOnst = epa_classic_constructor(f"Contracts_Invariant/{contract}Invariant.sol",f"graph/epaClassic/Averages/{contract}Metrics{i}")
+        epaCOnst.construct_abstraction()
