@@ -1,0 +1,18 @@
+CrowdfundingTruco son intentos de simular el avance del tiempo a la verisol, es decir con una funcion del contrato que mockea los bloques. 
+	- CrowdfundingTruco es el primer intento, en el que faltan transiciones en la EPA pues explora las funciones Claim y GetFunds siempre desde el constructor con balance 0
+	- Agregamos una condición que predica (balance > 0) para expandir el conjunto de estados y ver si eso funcionaba.
+		-CrowdfundingTrucoBalancesBUGGY es la primer corrida en la que los nombres de los estados no consideran el predicado, debería borrarselo para mi
+		-CrowdfundingTrucoBalances es la versión con este predicado
+
+Crowdfunding+(.) son intentos de hacerlo nativamente con advance_blocks. 
+	- Había un bug que terminaba la ejecucuión pues el rollback estaba mal hecho. Con esta versión:
+		- CrowdfundingTransicionImposible es el primer intento, que encontró estados que no podrían existir (_GetFunds_Claim) pero no guarda la informacion de los bloques para cada testcase
+		- Crowdfunding3 es guarda la informacion de los bloques pero está hecho a mano (tiene el mismo estado imposible)
+		- Crowdunding4 tiene información de los bloques de forma automatica
+	- Arreglando el bug:
+		- Tuvimos que cambiar como se generan las variables de blockchain para que sean independientes para cada estado de manticore
+			- CrowdfundingAdvanceTime automáticamente imprime los bloques, en la versión antes de cambiar eso (y entonces crashea) lo dejo porque genera el estado imposible.
+			- CrowdfunfingAdvanceTIme2 debería tener eso arreglado
+	- como no encuentra transiciones correspondientes a Donate, etc, le agregamos balance (CrowdFundingAdvanceTimeBalance).
+		
+	#IMPORTANTE : para correr con info extra de debug del numero de bloque mirar el metodo call_pre en Abstraction_constructor #IMPORTANTE

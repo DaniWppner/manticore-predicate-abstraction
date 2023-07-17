@@ -1,0 +1,16 @@
+digraph { 
+init [label=init] 
+_GetFunds [label=_GetFunds] 
+vacio [label=vacio] 
+_Donate [label=_Donate] 
+_Claim [label=_Claim] 
+init -> vacio [label=constructor] 
+init -> _Donate [label=constructor] 
+init -> _Claim [label=constructor] 
+init -> _GetFunds [label=constructor] 
+_GetFunds -> _GetFunds [label=GetFunds] 
+_Donate -> vacio [label=Donate] 
+_Donate -> _Donate [label=Donate] 
+_Donate -> _Claim [label=Donate] 
+_Donate -> _GetFunds [label=Donate] 
+}
