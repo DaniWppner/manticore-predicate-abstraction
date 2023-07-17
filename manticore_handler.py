@@ -4,6 +4,7 @@ from manticore.ethereum import ManticoreEVM, ABI
 import os
 
 ETHER = 10**18
+TAU = 'tau'
 
 class manticore_handler:
     def __init__(self,url,outputspace=None,workspace=None): 
@@ -59,7 +60,7 @@ class manticore_handler:
         self.set_block_to_new_symbolic(name="initial_block")
 
     def callContractFunction(self,func_name,call_args=None,tx_value=None,tx_sender=None):
-        if func_name == "tau":
+        if func_name == TAU: #FIXME TAU
             self.tau() #do we really need a class representing the methods if this is the only exception?
         else:
             func_id = self.nameToFuncId[func_name]
