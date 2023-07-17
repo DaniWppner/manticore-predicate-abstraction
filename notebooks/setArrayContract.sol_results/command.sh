@@ -1,0 +1,1 @@
+/home/lafhis/.local/lib/python3.10/site-packages/ipykernel_launcher.py -f /home/lafhis/.local/share/jupyter/runtime/kernel-da9b0530-1fd9-4146-be63-2c8ffe4c9f4d.json

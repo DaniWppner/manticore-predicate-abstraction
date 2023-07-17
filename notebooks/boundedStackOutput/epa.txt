@@ -1,0 +1,15 @@
+digraph { 
+init [label=init] 
+_push [label=_push] 
+_pop [label=_pop] 
+_pop_push [label=_pop_push] 
+vacio [label=vacio] 
+init -> vacio [label=constructor] 
+init -> _push [label=constructor] 
+_push -> _pop [label=push] 
+_push -> _pop_push [label=push] 
+_pop -> _pop [label=pop] 
+_pop_push -> _pop_push [label=pop] 
+_pop_push -> _pop [label=push] 
+_pop_push -> _pop_push [label=push] 
+}

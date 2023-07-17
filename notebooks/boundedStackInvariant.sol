@@ -34,15 +34,14 @@ contract SizedStack {
     }
 
     function setter(uint256 sizeNew, uint256 maxSizeNew, uint256[] memory newArr) public {
-        require(invariant(sizeNew,maxSizeNew,newArr));
         size = sizeNew;
         maxSize = maxSizeNew;
         internal_arr = newArr;
     }
 
-    function invariant(uint256 possibleSize, uint256 possibleMaxSize, uint256[] memory possibleArr) public returns(bool){
-        bool result = (possibleSize >= 0) && (possibleSize <= possibleMaxSize);
-        result = result && (possibleArr.length == possibleSize);
+    function invariant() public returns(bool){
+        bool result = (size >= 0) && (size <= maxSize);
+        result = result && (internal_arr.length == size);
         return result;
     }
  
