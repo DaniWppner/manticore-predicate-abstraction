@@ -222,18 +222,18 @@ class epa_constructor(abstraction_constructor):
         return explorable
 
     def write_epa(self,reachable_states):
-        with open(self.output+"/self.epa.txt",'w') as output:
-            output.write("digraph { \n")
-            output.write("init [label=init] \n")
+        with open(self.outputdir+"/epa.txt",'w') as epa_file:
+            epa_file.write("digraph { \n")
+            epa_file.write("init [label=init] \n")
             for state in reachable_states:
-                output.write(f"{repr(state)} [label={repr(state)}] \n")
+                epa_file.write(f"{repr(state)} [label={repr(state)}] \n")
             for fin_state in self.epa["ini"]:
-                output.write(f"init -> {repr(fin_state)} [label=constructor] \n")
+                epa_file.write(f"init -> {repr(fin_state)} [label=constructor] \n")
             for state in reachable_states:
                 for method in self.methods:
                     for fin_state in self.epa[state,method]:
-                        output.write(f"{repr(state)} -> {repr(fin_state)} [label={method}] \n")
-            output.write("}")
+                        epa_file.write(f"{repr(state)} -> {repr(fin_state)} [label={method}] \n")
+            epa_file.write("}")
            
 class state_abstraction_constructor(abstraction_constructor):
     def __init__(self,*args,**kwargs):
