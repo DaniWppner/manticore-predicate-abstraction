@@ -48,6 +48,25 @@ contract RoomThermostat {
         Mode = mode;
     }
 
+    function setter(StateType stateNew, address installerNew, address userNew, int targetTemperatureNew, ModeEnum modeNew) public {
+        require(invariant(stateNew,installerNew,userNew,targetTemperatureNew,modeNew));
+        State = stateNew;
+        Installer = installerNew;
+        User = userNew;
+        TargetTemperature = targetTemperatureNew;
+        Mode = modeNew;
+    }
+
+    function invariant(StateType stateNew, address installerNew, address userNew, int targetTemperatureNew, ModeEnum modeNew) public returns(bool){
+        bool result = (stateNew == StateType.Created || stateNew == StateType.InUse);
+        result = result && (modeNew == ModeEnum.Auto || modeNew == ModeEnum.Cool || modeNew == ModeEnum.Heat || modeNew == ModeEnum.Off);
+        if(stateNew == StateType.Created){
+            result = (targetTemperatureNew == 70) && (modeNew == ModeEnum.Off);
+        }
+        return result;
+    }
+ 
+
     function StartThermostat_precondition() public returns(bool){
         return (State == StateType.Created);
     }
@@ -56,12 +75,6 @@ contract RoomThermostat {
     }
     function SetMode_precondition() public returns(bool){
         return (State == StateType.InUse);
-    }
-    function EnumStateType() public returns (string memory){
-        return ("Created,InUse");
-    }
-    function EnumModeEnum() public returns (string memory){
-        return ("Off,Cool,Heat,Auto");
     }
 
 }

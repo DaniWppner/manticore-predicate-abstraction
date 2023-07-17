@@ -1,0 +1,46 @@
+found no testcases for vacio initial state
+found no testcases for _Reject initial state
+found True testcases that reach _MakeOffer initial state
+found no testcases for _MakeOffer_Reject initial state
+found no testcases for _AcceptOffer initial state
+found no testcases for _AcceptOffer_Reject initial state
+found no testcases for _AcceptOffer_MakeOffer initial state
+found no testcases for _AcceptOffer_MakeOffer_Reject initial state
+# -- Calling MakeOffer 
+no testcases for _MakeOffer-->MakeOffer-->vacio
+no testcases for _MakeOffer-->MakeOffer-->_Reject
+no testcases for _MakeOffer-->MakeOffer-->_MakeOffer
+no testcases for _MakeOffer-->MakeOffer-->_MakeOffer_Reject
+no testcases for _MakeOffer-->MakeOffer-->_AcceptOffer
+found True testcases for _MakeOffer-->MakeOffer-->_AcceptOffer_Reject
+no testcases for _MakeOffer-->MakeOffer-->_AcceptOffer_MakeOffer
+no testcases for _MakeOffer-->MakeOffer-->_AcceptOffer_MakeOffer_Reject
+# -- Calling Reject 
+no testcases for _AcceptOffer_Reject-->Reject-->vacio
+no testcases for _AcceptOffer_Reject-->Reject-->_Reject
+found True testcases for _AcceptOffer_Reject-->Reject-->_MakeOffer
+no testcases for _AcceptOffer_Reject-->Reject-->_MakeOffer_Reject
+no testcases for _AcceptOffer_Reject-->Reject-->_AcceptOffer
+no testcases for _AcceptOffer_Reject-->Reject-->_AcceptOffer_Reject
+no testcases for _AcceptOffer_Reject-->Reject-->_AcceptOffer_MakeOffer
+no testcases for _AcceptOffer_Reject-->Reject-->_AcceptOffer_MakeOffer_Reject
+# -- Calling AcceptOffer 
+found True testcases for _AcceptOffer_Reject-->AcceptOffer-->vacio
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_Reject
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_MakeOffer
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_MakeOffer_Reject
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_AcceptOffer
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_AcceptOffer_Reject
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_AcceptOffer_MakeOffer
+no testcases for _AcceptOffer_Reject-->AcceptOffer-->_AcceptOffer_MakeOffer_Reject
+--- We executed the preconditions 4 times, which took 25945.769154310226 seconds to execute, 6486.442288577557 on average (min=489.8109362125397 max=8573.98895573616)
+            --- We executed a method 3 times, which took 23851.08765912056 seconds, 7950.362553040187 seconds on average (min=7910.373764038086 max=8018.040446996689)
+            --- We did 4 high level queries, which took 1982.1515879631042 seconds, 495.53789699077606 seconds on average (min=491.8741366863251 max=501.66384267807007)
+            --- Took 66820.19627857208 seconds in total.+++ Reached States:
+      _AcceptOffer_Reject
+      vacio
+      _MakeOffer
++++ Explored Transitions:
+   from _AcceptOffer_Reject executing Reject
+   from _AcceptOffer_Reject executing AcceptOffer
+   from _MakeOffer executing MakeOffer

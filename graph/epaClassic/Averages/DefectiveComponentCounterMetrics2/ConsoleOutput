@@ -1,0 +1,22 @@
+found no testcases for vacio initial state
+found no testcases for _ComputeTotal initial state
+found no testcases for _GetDefectiveComponentsCount initial state
+found True testcases that reach _GetDefectiveComponentsCount_ComputeTotal initial state
+# -- Calling GetDefectiveComponentsCount 
+no testcases for _GetDefectiveComponentsCount_ComputeTotal-->GetDefectiveComponentsCount-->vacio
+no testcases for _GetDefectiveComponentsCount_ComputeTotal-->GetDefectiveComponentsCount-->_ComputeTotal
+no testcases for _GetDefectiveComponentsCount_ComputeTotal-->GetDefectiveComponentsCount-->_GetDefectiveComponentsCount
+found True testcases for _GetDefectiveComponentsCount_ComputeTotal-->GetDefectiveComponentsCount-->_GetDefectiveComponentsCount_ComputeTotal
+# -- Calling ComputeTotal 
+no testcases for _GetDefectiveComponentsCount_ComputeTotal-->ComputeTotal-->vacio
+no testcases for _GetDefectiveComponentsCount_ComputeTotal-->ComputeTotal-->_ComputeTotal
+no testcases for _GetDefectiveComponentsCount_ComputeTotal-->ComputeTotal-->_GetDefectiveComponentsCount
+found True testcases for _GetDefectiveComponentsCount_ComputeTotal-->ComputeTotal-->_GetDefectiveComponentsCount_ComputeTotal
+--- We executed the preconditions 3 times, which took 10437.625219106674 seconds to execute, 3479.2084063688912 on average (min=113.69085717201233 max=5184.079229593277)
+            --- We executed a method 2 times, which took 11388.150704860687 seconds, 5694.075352430344 seconds on average (min=4338.257302284241 max=7049.8934025764465)
+            --- We did 3 high level queries, which took 2550.645241498947 seconds, 850.215080499649 seconds on average (min=181.31329011917114 max=1206.3656673431396)
+            --- Took 43129.611244916916 seconds in total.+++ Reached States:
+      _GetDefectiveComponentsCount_ComputeTotal
++++ Explored Transitions:
+   from _GetDefectiveComponentsCount_ComputeTotal executing GetDefectiveComponentsCount
+   from _GetDefectiveComponentsCount_ComputeTotal executing ComputeTotal

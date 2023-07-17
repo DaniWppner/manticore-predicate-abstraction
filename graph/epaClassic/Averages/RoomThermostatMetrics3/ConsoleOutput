@@ -1,0 +1,45 @@
+found no testcases for vacio initial state
+found no testcases for _SetTargetTemperature initial state
+found True testcases that reach _StartThermostat initial state
+found no testcases for _StartThermostat_SetTargetTemperature initial state
+found no testcases for _SetMode initial state
+found no testcases for _SetMode_SetTargetTemperature initial state
+found no testcases for _SetMode_StartThermostat initial state
+found no testcases for _SetMode_StartThermostat_SetTargetTemperature initial state
+# -- Calling StartThermostat 
+no testcases for _StartThermostat-->StartThermostat-->vacio
+no testcases for _StartThermostat-->StartThermostat-->_SetTargetTemperature
+no testcases for _StartThermostat-->StartThermostat-->_StartThermostat
+no testcases for _StartThermostat-->StartThermostat-->_StartThermostat_SetTargetTemperature
+no testcases for _StartThermostat-->StartThermostat-->_SetMode
+found True testcases for _StartThermostat-->StartThermostat-->_SetMode_SetTargetTemperature
+no testcases for _StartThermostat-->StartThermostat-->_SetMode_StartThermostat
+no testcases for _StartThermostat-->StartThermostat-->_SetMode_StartThermostat_SetTargetTemperature
+# -- Calling SetTargetTemperature 
+no testcases for _SetMode_SetTargetTemperature-->SetTargetTemperature-->vacio
+no testcases for _SetMode_SetTargetTemperature-->SetTargetTemperature-->_SetTargetTemperature
+no testcases for _SetMode_SetTargetTemperature-->SetTargetTemperature-->_StartThermostat
+no testcases for _SetMode_SetTargetTemperature-->SetTargetTemperature-->_StartThermostat_SetTargetTemperature
+no testcases for _SetMode_SetTargetTemperature-->SetTargetTemperature-->_SetMode
+found True testcases for _SetMode_SetTargetTemperature-->SetTargetTemperature-->_SetMode_SetTargetTemperature
+no testcases for _SetMode_SetTargetTemperature-->SetTargetTemperature-->_SetMode_StartThermostat
+no testcases for _SetMode_SetTargetTemperature-->SetTargetTemperature-->_SetMode_StartThermostat_SetTargetTemperature
+# -- Calling SetMode 
+no testcases for _SetMode_SetTargetTemperature-->SetMode-->vacio
+no testcases for _SetMode_SetTargetTemperature-->SetMode-->_SetTargetTemperature
+no testcases for _SetMode_SetTargetTemperature-->SetMode-->_StartThermostat
+no testcases for _SetMode_SetTargetTemperature-->SetMode-->_StartThermostat_SetTargetTemperature
+no testcases for _SetMode_SetTargetTemperature-->SetMode-->_SetMode
+found True testcases for _SetMode_SetTargetTemperature-->SetMode-->_SetMode_SetTargetTemperature
+no testcases for _SetMode_SetTargetTemperature-->SetMode-->_SetMode_StartThermostat
+no testcases for _SetMode_SetTargetTemperature-->SetMode-->_SetMode_StartThermostat_SetTargetTemperature
+--- We executed the preconditions 4 times, which took 30290.31347346306 seconds to execute, 7572.578368365765 on average (min=197.56331753730774 max=13351.674963712692)
+            --- We executed a method 3 times, which took 16721.39242386818 seconds, 5573.797474622726 seconds on average (min=5535.010340213776 max=5611.528256416321)
+            --- We did 4 high level queries, which took 875.9526977539062 seconds, 218.98817443847656 seconds on average (min=198.9855227470398 max=238.82525730133057)
+            --- Took 57431.9864153862 seconds in total.+++ Reached States:
+      _SetMode_SetTargetTemperature
+      _StartThermostat
++++ Explored Transitions:
+   from _StartThermostat executing StartThermostat
+   from _SetMode_SetTargetTemperature executing SetTargetTemperature
+   from _SetMode_SetTargetTemperature executing SetMode

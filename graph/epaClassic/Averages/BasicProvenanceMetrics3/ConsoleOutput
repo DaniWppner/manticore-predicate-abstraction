@@ -1,0 +1,23 @@
+found no testcases for vacio initial state
+found no testcases for _TransferResponsibility initial state
+found no testcases for _Complete initial state
+found True testcases that reach _Complete_TransferResponsibility initial state
+# -- Calling Complete 
+found True testcases for _Complete_TransferResponsibility-->Complete-->vacio
+no testcases for _Complete_TransferResponsibility-->Complete-->_TransferResponsibility
+no testcases for _Complete_TransferResponsibility-->Complete-->_Complete
+no testcases for _Complete_TransferResponsibility-->Complete-->_Complete_TransferResponsibility
+# -- Calling TransferResponsibility 
+no testcases for _Complete_TransferResponsibility-->TransferResponsibility-->vacio
+no testcases for _Complete_TransferResponsibility-->TransferResponsibility-->_TransferResponsibility
+no testcases for _Complete_TransferResponsibility-->TransferResponsibility-->_Complete
+found True testcases for _Complete_TransferResponsibility-->TransferResponsibility-->_Complete_TransferResponsibility
+--- We executed the preconditions 3 times, which took 17403.61795926094 seconds to execute, 5801.205986420314 on average (min=262.1412527561188 max=8572.529900550842)
+            --- We executed a method 2 times, which took 12412.854237318039 seconds, 6206.4271186590195 seconds on average (min=6168.647540807724 max=6244.206696510315)
+            --- We did 3 high level queries, which took 1108.0919425487518 seconds, 369.3639808495839 seconds on average (min=363.4002332687378 max=380.42714834213257)
+            --- Took 38999.705569028854 seconds in total.+++ Reached States:
+      _Complete_TransferResponsibility
+      vacio
++++ Explored Transitions:
+   from _Complete_TransferResponsibility executing Complete
+   from _Complete_TransferResponsibility executing TransferResponsibility

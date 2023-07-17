@@ -1,0 +1,9 @@
+digraph { 
+init [label=init] 
+_SetMode_SetTargetTemperature [label=_SetMode_SetTargetTemperature] 
+_StartThermostat [label=_StartThermostat] 
+init -> _StartThermostat [label=constructor] 
+_SetMode_SetTargetTemperature -> _SetMode_SetTargetTemperature [label=SetMode] 
+_SetMode_SetTargetTemperature -> _SetMode_SetTargetTemperature [label=SetTargetTemperature] 
+_StartThermostat -> _SetMode_SetTargetTemperature [label=StartThermostat] 
+}
