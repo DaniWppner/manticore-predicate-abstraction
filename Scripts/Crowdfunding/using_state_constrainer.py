@@ -1,10 +1,10 @@
 import sys
-from state_constrainer_YY import state_constrainer
+from manticore_handler import manticore_handler
 from manticore.core.smtlib.expression import BoolConstant
 
 
 
-tchk = state_constrainer("CrowdfundingPredicates.sol",outputspace="new constrainer")
+tchk = manticore_handler("CrowdfundingPredicates.sol",outputspace="new constrainer")
 
 tchk.constrainTo("D_predicate",1)
 tchk.constrainTo("F_predicate",0)
