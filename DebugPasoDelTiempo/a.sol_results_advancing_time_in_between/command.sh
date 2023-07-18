@@ -1,0 +1,1 @@
+/home/lafhis/.local/bin/ipython

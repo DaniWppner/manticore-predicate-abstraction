@@ -1,0 +1,23 @@
+found True testcases that reach vacio initial state 
+found True testcases that reach _increase_b initial state 
+# -- Calling tau 
+found True testcases for _increase_b-->tau-->vacio
+no testcases for _increase_b-->tau-->_increase_b
+found True testcases for vacio-->tau-->vacio
+found True testcases for vacio-->tau-->_increase_b
+# -- Calling increase_b 
+no testcases for _increase_b-->increase_b-->vacio
+found True testcases for _increase_b-->increase_b-->_increase_b
+
+                --- We executed the preconditions 3 times, which took 32.85472750663757 seconds to execute, 10.951575835545858 on average (min=8.16795539855957 max=12.573800802230835)
+                --- There were 5 low level executions of the precondition methods 
+                --- We executed a method 2 times, which took 69.79838728904724 seconds, 34.89919364452362 seconds on average (min=0.0623319149017334 max=69.73605537414551)
+                --- There were 10 low level executions of the interface methods
+                --- We did 8 high level queries, which took 68.33846855163574 seconds, 8.542308568954468 seconds on average (min=0.05910921096801758 max=13.832846403121948)
+                --- Took 171.37739276885986 seconds in total.+++ Reached States:
+      _increase_b 
+      vacio 
++++ Explored Transitions:
+   from vacio executing tau
+   from _increase_b executing increase_b
+   from _increase_b executing tau

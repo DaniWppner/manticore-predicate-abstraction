@@ -1,0 +1,11 @@
+digraph { 
+init [label=init] 
+_increase_b [label=_increase_b] 
+vacio [label=vacio] 
+init -> vacio [label=constructor] 
+init -> _increase_b [label=constructor] 
+_increase_b -> vacio [label=tau] 
+_increase_b -> _increase_b [label=increase_b] 
+vacio -> vacio [label=tau] 
+vacio -> _increase_b [label=tau] 
+}

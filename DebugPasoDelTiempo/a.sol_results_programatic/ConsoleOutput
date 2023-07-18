@@ -1,0 +1,13 @@
+found True testcases that reach vacio initial state 
+# -- Calling tau 
+found True testcases for vacio-->tau-->vacio
+
+                --- We executed the preconditions 2 times, which took 3.0994415283203125e-06 seconds to execute, 1.5497207641601562e-06 on average (min=9.5367431640625e-07 max=2.1457672119140625e-06)
+                --- There were 1 low level executions of the precondition methods 
+                --- We executed a method 1 times, which took 0.0018055438995361328 seconds, 0.0018055438995361328 seconds on average (min=0.0018055438995361328 max=0.0018055438995361328)
+                --- There were 1 low level executions of the interface methods
+                --- We did 2 high level queries, which took 0.26405978202819824 seconds, 0.13202989101409912 seconds on average (min=0.1311204433441162 max=0.13293933868408203)
+                --- Took 0.26822376251220703 seconds in total.+++ Reached States:
+      vacio 
++++ Explored Transitions:
+   from vacio executing tau

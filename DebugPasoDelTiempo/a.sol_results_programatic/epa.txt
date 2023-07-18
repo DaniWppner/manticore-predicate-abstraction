@@ -1,0 +1,6 @@
+digraph { 
+init [label=init] 
+vacio [label=vacio] 
+init -> vacio [label=constructor] 
+vacio -> vacio [label=tau] 
+}
