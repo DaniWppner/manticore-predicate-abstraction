@@ -194,7 +194,8 @@ class state_constrainer:
 
                     migration_map = temp_state.context.get("migration_map")
                     for concrete,symbolic in zip(values,to_concretize):
-                        del migration_map[symbolic.name]
+                        if symbolic.name in migration_map:
+                            del migration_map[symbolic.name]
                         with open(self.outputspace+"/"+outputfile,'a') as output:    
                             output.write(f"-Concrete value for {symbolic.name} : {concrete}\n")
                     temp_state.context["migration_map"] = migration_map
