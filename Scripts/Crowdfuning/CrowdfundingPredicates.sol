@@ -72,4 +72,14 @@ contract Crowdfunding {
        return(block.number > max_block && goal > address(this).balance && !funded);
     }
 
+    function blockNumber() public returns (uint){
+        return (block.number);
+    }
+    
+    function balanceGTZero_precondition() public returns (bool){
+        return (address(this).balance > 0);
+    }
+
+
+
 }
