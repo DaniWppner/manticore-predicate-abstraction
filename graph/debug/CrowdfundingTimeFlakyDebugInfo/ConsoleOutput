@@ -1,0 +1,17 @@
+found True testcases that reach vacio initial state 
+found True testcases that reach _GetFunds initial state 
+found True testcases that reach _Claim initial state 
+found no testcases for _balanceGTZero initial state 
+found True testcases that reach _Donate initial state 
+found True testcases that reach _GetFunds_Claim initial state 
+found no testcases for _GetFunds_balanceGTZero initial state 
+found no testcases for _GetFunds_Donate initial state 
+found no testcases for _Claim_balanceGTZero initial state 
+found True testcases that reach _Claim_Donate initial state 
+found no testcases for _balanceGTZero_Donate initial state 
+found no testcases for _GetFunds_Claim_balanceGTZero initial state 
+found no testcases for _GetFunds_Claim_Donate initial state 
+found no testcases for _GetFunds_balanceGTZero_Donate initial state 
+found no testcases for _Claim_balanceGTZero_Donate initial state 
+found no testcases for _GetFunds_Claim_balanceGTZero_Donate initial state 
+# -- Calling tau 

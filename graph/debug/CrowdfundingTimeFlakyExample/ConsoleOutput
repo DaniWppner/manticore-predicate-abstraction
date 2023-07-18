@@ -1,0 +1,151 @@
+found True testcases that reach vacio initial state 
+found True testcases that reach _GetFunds initial state 
+found True testcases that reach _Claim initial state 
+found no testcases for _balanceGTZero initial state 
+found True testcases that reach _Donate initial state 
+found True testcases that reach _GetFunds_Claim initial state 
+found no testcases for _GetFunds_balanceGTZero initial state 
+found no testcases for _GetFunds_Donate initial state 
+found no testcases for _Claim_balanceGTZero initial state 
+found True testcases that reach _Claim_Donate initial state 
+found no testcases for _balanceGTZero_Donate initial state 
+found no testcases for _GetFunds_Claim_balanceGTZero initial state 
+found no testcases for _GetFunds_Claim_Donate initial state 
+found no testcases for _GetFunds_balanceGTZero_Donate initial state 
+found no testcases for _Claim_balanceGTZero_Donate initial state 
+found no testcases for _GetFunds_Claim_balanceGTZero_Donate initial state 
+# -- Calling GetFunds 
+no testcases for _GetFunds-->GetFunds-->vacio
+found True testcases for _GetFunds-->GetFunds-->_GetFunds
+no testcases for _GetFunds-->GetFunds-->_Claim
+no testcases for _GetFunds-->GetFunds-->_balanceGTZero
+no testcases for _GetFunds-->GetFunds-->_Donate
+no testcases for _GetFunds-->GetFunds-->_GetFunds_Claim
+no testcases for _GetFunds-->GetFunds-->_GetFunds_balanceGTZero
+no testcases for _GetFunds-->GetFunds-->_GetFunds_Donate
+no testcases for _GetFunds-->GetFunds-->_Claim_balanceGTZero
+no testcases for _GetFunds-->GetFunds-->_Claim_Donate
+no testcases for _GetFunds-->GetFunds-->_balanceGTZero_Donate
+no testcases for _GetFunds-->GetFunds-->_GetFunds_Claim_balanceGTZero
+no testcases for _GetFunds-->GetFunds-->_GetFunds_Claim_Donate
+no testcases for _GetFunds-->GetFunds-->_GetFunds_balanceGTZero_Donate
+no testcases for _GetFunds-->GetFunds-->_Claim_balanceGTZero_Donate
+no testcases for _GetFunds-->GetFunds-->_GetFunds_Claim_balanceGTZero_Donate
+no testcases for _GetFunds_Claim-->GetFunds-->vacio
+no testcases for _GetFunds_Claim-->GetFunds-->_GetFunds
+no testcases for _GetFunds_Claim-->GetFunds-->_Claim
+no testcases for _GetFunds_Claim-->GetFunds-->_balanceGTZero
+no testcases for _GetFunds_Claim-->GetFunds-->_Donate
+no testcases for _GetFunds_Claim-->GetFunds-->_GetFunds_Claim
+no testcases for _GetFunds_Claim-->GetFunds-->_GetFunds_balanceGTZero
+no testcases for _GetFunds_Claim-->GetFunds-->_GetFunds_Donate
+no testcases for _GetFunds_Claim-->GetFunds-->_Claim_balanceGTZero
+no testcases for _GetFunds_Claim-->GetFunds-->_Claim_Donate
+no testcases for _GetFunds_Claim-->GetFunds-->_balanceGTZero_Donate
+no testcases for _GetFunds_Claim-->GetFunds-->_GetFunds_Claim_balanceGTZero
+no testcases for _GetFunds_Claim-->GetFunds-->_GetFunds_Claim_Donate
+no testcases for _GetFunds_Claim-->GetFunds-->_GetFunds_balanceGTZero_Donate
+no testcases for _GetFunds_Claim-->GetFunds-->_Claim_balanceGTZero_Donate
+no testcases for _GetFunds_Claim-->GetFunds-->_GetFunds_Claim_balanceGTZero_Donate
+# -- Calling tau 
+found True testcases for _GetFunds-->tau-->vacio
+found True testcases for _GetFunds-->tau-->_GetFunds
+no testcases for _GetFunds-->tau-->_Claim
+no testcases for _GetFunds-->tau-->_balanceGTZero
+found True testcases for _GetFunds-->tau-->_Donate
+found True testcases for _GetFunds-->tau-->_GetFunds_Claim
+no testcases for _GetFunds-->tau-->_GetFunds_balanceGTZero
+no testcases for _GetFunds-->tau-->_GetFunds_Donate
+no testcases for _GetFunds-->tau-->_Claim_balanceGTZero
+no testcases for _GetFunds-->tau-->_Claim_Donate
+no testcases for _GetFunds-->tau-->_balanceGTZero_Donate
+no testcases for _GetFunds-->tau-->_GetFunds_Claim_balanceGTZero
+no testcases for _GetFunds-->tau-->_GetFunds_Claim_Donate
+no testcases for _GetFunds-->tau-->_GetFunds_balanceGTZero_Donate
+no testcases for _GetFunds-->tau-->_Claim_balanceGTZero_Donate
+no testcases for _GetFunds-->tau-->_GetFunds_Claim_balanceGTZero_Donate
+# -- Calling tau 
+found True testcases for _Donate-->tau-->vacio
+no testcases for _Donate-->tau-->_GetFunds
+no testcases for _Donate-->tau-->_Claim
+no testcases for _Donate-->tau-->_balanceGTZero
+found True testcases for _Donate-->tau-->_Donate
+found True testcases for _Donate-->tau-->_GetFunds_Claim
+no testcases for _Donate-->tau-->_GetFunds_balanceGTZero
+no testcases for _Donate-->tau-->_GetFunds_Donate
+no testcases for _Donate-->tau-->_Claim_balanceGTZero
+no testcases for _Donate-->tau-->_Claim_Donate
+no testcases for _Donate-->tau-->_balanceGTZero_Donate
+no testcases for _Donate-->tau-->_GetFunds_Claim_balanceGTZero
+no testcases for _Donate-->tau-->_GetFunds_Claim_Donate
+no testcases for _Donate-->tau-->_GetFunds_balanceGTZero_Donate
+no testcases for _Donate-->tau-->_Claim_balanceGTZero_Donate
+no testcases for _Donate-->tau-->_GetFunds_Claim_balanceGTZero_Donate
+found True testcases for _GetFunds_Claim-->tau-->vacio
+no testcases for _GetFunds_Claim-->tau-->_GetFunds
+no testcases for _GetFunds_Claim-->tau-->_Claim
+no testcases for _GetFunds_Claim-->tau-->_balanceGTZero
+found True testcases for _GetFunds_Claim-->tau-->_Donate
+found True testcases for _GetFunds_Claim-->tau-->_GetFunds_Claim
+no testcases for _GetFunds_Claim-->tau-->_GetFunds_balanceGTZero
+no testcases for _GetFunds_Claim-->tau-->_GetFunds_Donate
+no testcases for _GetFunds_Claim-->tau-->_Claim_balanceGTZero
+no testcases for _GetFunds_Claim-->tau-->_Claim_Donate
+no testcases for _GetFunds_Claim-->tau-->_balanceGTZero_Donate
+no testcases for _GetFunds_Claim-->tau-->_GetFunds_Claim_balanceGTZero
+no testcases for _GetFunds_Claim-->tau-->_GetFunds_Claim_Donate
+no testcases for _GetFunds_Claim-->tau-->_GetFunds_balanceGTZero_Donate
+no testcases for _GetFunds_Claim-->tau-->_Claim_balanceGTZero_Donate
+no testcases for _GetFunds_Claim-->tau-->_GetFunds_Claim_balanceGTZero_Donate
+found True testcases for vacio-->tau-->vacio
+no testcases for vacio-->tau-->_GetFunds
+no testcases for vacio-->tau-->_Claim
+no testcases for vacio-->tau-->_balanceGTZero
+no testcases for vacio-->tau-->_Donate
+found True testcases for vacio-->tau-->_GetFunds_Claim
+no testcases for vacio-->tau-->_GetFunds_balanceGTZero
+no testcases for vacio-->tau-->_GetFunds_Donate
+no testcases for vacio-->tau-->_Claim_balanceGTZero
+no testcases for vacio-->tau-->_Claim_Donate
+no testcases for vacio-->tau-->_balanceGTZero_Donate
+no testcases for vacio-->tau-->_GetFunds_Claim_balanceGTZero
+no testcases for vacio-->tau-->_GetFunds_Claim_Donate
+no testcases for vacio-->tau-->_GetFunds_balanceGTZero_Donate
+no testcases for vacio-->tau-->_Claim_balanceGTZero_Donate
+no testcases for vacio-->tau-->_GetFunds_Claim_balanceGTZero_Donate
+# -- Calling Claim 
+# -- Calling Donate 
+no testcases for _Donate-->Donate-->vacio
+no testcases for _Donate-->Donate-->_GetFunds
+no testcases for _Donate-->Donate-->_Claim
+no testcases for _Donate-->Donate-->_balanceGTZero
+found True testcases for _Donate-->Donate-->_Donate
+no testcases for _Donate-->Donate-->_GetFunds_Claim
+no testcases for _Donate-->Donate-->_GetFunds_balanceGTZero
+no testcases for _Donate-->Donate-->_GetFunds_Donate
+no testcases for _Donate-->Donate-->_Claim_balanceGTZero
+no testcases for _Donate-->Donate-->_Claim_Donate
+found True testcases for _Donate-->Donate-->_balanceGTZero_Donate
+no testcases for _Donate-->Donate-->_GetFunds_Claim_balanceGTZero
+no testcases for _Donate-->Donate-->_GetFunds_Claim_Donate
+no testcases for _Donate-->Donate-->_GetFunds_balanceGTZero_Donate
+no testcases for _Donate-->Donate-->_Claim_balanceGTZero_Donate
+no testcases for _Donate-->Donate-->_GetFunds_Claim_balanceGTZero_Donate
+# -- Calling Donate 
+no testcases for _balanceGTZero_Donate-->Donate-->vacio
+no testcases for _balanceGTZero_Donate-->Donate-->_GetFunds
+no testcases for _balanceGTZero_Donate-->Donate-->_Claim
+no testcases for _balanceGTZero_Donate-->Donate-->_balanceGTZero
+no testcases for _balanceGTZero_Donate-->Donate-->_Donate
+no testcases for _balanceGTZero_Donate-->Donate-->_GetFunds_Claim
+no testcases for _balanceGTZero_Donate-->Donate-->_GetFunds_balanceGTZero
+no testcases for _balanceGTZero_Donate-->Donate-->_GetFunds_Donate
+no testcases for _balanceGTZero_Donate-->Donate-->_Claim_balanceGTZero
+no testcases for _balanceGTZero_Donate-->Donate-->_Claim_Donate
+found True testcases for _balanceGTZero_Donate-->Donate-->_balanceGTZero_Donate
+no testcases for _balanceGTZero_Donate-->Donate-->_GetFunds_Claim_balanceGTZero
+no testcases for _balanceGTZero_Donate-->Donate-->_GetFunds_Claim_Donate
+no testcases for _balanceGTZero_Donate-->Donate-->_GetFunds_balanceGTZero_Donate
+no testcases for _balanceGTZero_Donate-->Donate-->_Claim_balanceGTZero_Donate
+no testcases for _balanceGTZero_Donate-->Donate-->_GetFunds_Claim_balanceGTZero_Donate
+# -- Calling tau 

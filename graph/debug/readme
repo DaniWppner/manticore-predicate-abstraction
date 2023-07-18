@@ -1,0 +1,4 @@
+Sobre CrowdfundingTime: son runs de la versión que avanza el tiempo programáticamente para ver que los refactors no rompan nada.
+	CrowdFundingTimeBUGGY --> Versión en la que estaba mal hecho el DFS y se repetían queries.
+	CrowdfundingTimeFlakyExample --> Ejemplo de versión que da resultados unsound de manera no determínistica. Esto lo hablamos con Javi y parecería ser un bug de manticore afawk.
+
