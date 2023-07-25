@@ -188,7 +188,7 @@ class state_constrainer:
                     temp_state.constrain(condition)
                     self.manticore.generate_testcase(state=temp_state,name=testcaseName+f"")
                     #Also generate concrete values for variables that part of the blockchain itself 
-                    to_concretize = state.input_symbols
+                    to_concretize = state.input_symbols + list(self.symbolic_blockchain_vars)
                     values = temp_state.solve_one_n_batched(to_concretize)
                     outputfile = [filename for filename in os.listdir(self.outputspace) if filename.startswith(testcaseName) and filename.endswith('.tx')][0] #previous call to manticore generated this file.
 
@@ -214,8 +214,8 @@ class state_constrainer:
             state.constrain(ammount >= 0)
             world = state.platform
             world.advance_block_number(ammount)
-            self.symbolic_blockchain_vars.add(ammount) #existe state.input_symbols . ¿Posiblemente no necesitamos este dict?
-            
+            #self.symbolic_blockchain_vars.add(ammount) #existe state.input_symbols . ¿Posiblemente no necesitamos este dict?
+
     def take_snapshot(self):
         self.manticore.take_snapshot()
         self._snapshot_history.append(self.symbolic_blockchain_vars.copy())    
