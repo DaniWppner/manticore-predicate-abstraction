@@ -8,19 +8,19 @@ TAU = 'tau'
 
 
 class manticore_handler:
-    def __init__(self, url, outputspace=None, workspace=None):
+    def __init__(self, url, outputspace=None, workspace=None, contract_name=None):
         if outputspace is None:
             outputspace = url + "_results"
         self.manticore = ManticoreEVM(
             workspace_url=workspace, outputspace_url="fs:"+outputspace)
 
-        self._initAccountsAndContract(url)
+        self._initAccountsAndContract(url, contract_name)
         self._initContractSelectorsAndMetadata()
         self._initBlockchain()
         self._snapshot_history = []
         self.outputspace = outputspace
 
-    def _initAccountsAndContract(self, url):
+    def _initAccountsAndContract(self, url, contract_name):
         # Por ahora suponemos que tres cuentas es suficiente para la mayoria de los casos
         self.owner_account = self.manticore.create_account(balance=1*ETHER)
         # self.client_account = self.manticore.create_account(balance=1*ETHER)
@@ -32,7 +32,7 @@ class manticore_handler:
         # Hardcodeamos args=None para que use argumentos simbolicos por defecto
         start = time.time()
         self.working_contract = self.manticore.solidity_create_contract(
-            source_code, owner=self.owner_account, args=None)
+            source_code, owner=self.owner_account, args=None, contract_name=contract_name)
         end = time.time()
         assert (
             self.working_contract is not None), "Problemas en el creado del contrato"
