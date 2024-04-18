@@ -27,10 +27,10 @@ class manticore_handler:
 
     def _initAccounts(self):
         # Por ahora suponemos que tres cuentas es suficiente para la mayoria de los casos
-        self.owner_account = self.manticore.create_account(balance=1*ETHER)
-        # self.client_account = self.manticore.create_account(balance=1*ETHER)
+        self.owner_account = self.manticore.create_account(balance=100*ETHER)
+        # self.client_account = self.manticore.create_account(balance=100*ETHER)
         self.witness_account = self.manticore.create_account(
-            balance=1*ETHER, name="witness")
+            balance=100*ETHER, name="witness")
 
     def _initContractSelectorsAndMetadata(self):
         self.nameToFuncId = {}
@@ -239,7 +239,7 @@ class manticore_handler:
                                    difficulty=0x200,  # default
                                    gaslimit=0x7FFFFFFF)  # default
 
-    def add_contract(self, url, contract_name=None, args=None, owner=None):
+    def add_contract(self, url, contract_name=None, args=None, owner=None, balance=None):
         print(f"# -- Deploying Contract {url}")
         with open(url, 'r') as file:
             source_code = file.read()
@@ -248,7 +248,7 @@ class manticore_handler:
         if owner is None:
             owner = self.owner_account
         new_contract = self.manticore.solidity_create_contract(
-            source_code, owner=owner, args=args, contract_name=contract_name)
+            source_code, owner=owner, args=args, contract_name=contract_name, balance=balance)
         end = time.time()
         assert (
             new_contract is not None), "Problemas en el creado del contrato"
