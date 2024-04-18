@@ -27,16 +27,7 @@ class manticore_handler:
         self.witness_account = self.manticore.create_account(
             balance=1*ETHER, name="witness")
         print(f"# -- Deploying Contract {url}")
-        with open(url, 'r') as file:
-            source_code = file.read()
-        # Hardcodeamos args=None para que use argumentos simbolicos por defecto
-        start = time.time()
-        self.working_contract = self.manticore.solidity_create_contract(
-            source_code, owner=self.owner_account, args=None, contract_name=contract_name)
-        end = time.time()
-        assert (
-            self.working_contract is not None), "Problemas en el creado del contrato"
-        print(f"# -- Contract Deployed      (took {end-start} seconds)")
+        self.working_contract = self.add_contract(url, contract_name)
 
     def _initContractSelectorsAndMetadata(self):
         self.nameToFuncId = {}
@@ -245,14 +236,14 @@ class manticore_handler:
                                    difficulty=0x200,  # default
                                    gaslimit=0x7FFFFFFF)  # default
 
-    def add_contract(self, url, contract_name=None):
+    def add_contract(self, url, contract_name=None, args=None):
         print(f"# -- Deploying Contract {url}")
         with open(url, 'r') as file:
             source_code = file.read()
         # Hardcodeamos args=None para que use argumentos simbolicos por defecto
         start = time.time()
         new_contract = self.manticore.solidity_create_contract(
-            source_code, owner=self.owner_account, args=None, contract_name=contract_name)
+            source_code, owner=self.owner_account, args=args, contract_name=contract_name)
         end = time.time()
         assert (
             new_contract is not None), "Problemas en el creado del contrato"
