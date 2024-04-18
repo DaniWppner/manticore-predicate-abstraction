@@ -21,13 +21,16 @@ class manticore_handler:
         self.outputspace = outputspace
 
     def _initAccountsAndContract(self, url, contract_name):
+        self._initAccounts()
+        print(f"# -- Deploying Contract {url}")
+        self.working_contract = self.add_contract(url, contract_name)
+
+    def _initAccounts(self):
         # Por ahora suponemos que tres cuentas es suficiente para la mayoria de los casos
         self.owner_account = self.manticore.create_account(balance=1*ETHER)
         # self.client_account = self.manticore.create_account(balance=1*ETHER)
         self.witness_account = self.manticore.create_account(
             balance=1*ETHER, name="witness")
-        print(f"# -- Deploying Contract {url}")
-        self.working_contract = self.add_contract(url, contract_name)
 
     def _initContractSelectorsAndMetadata(self):
         self.nameToFuncId = {}
