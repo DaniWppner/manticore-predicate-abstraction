@@ -245,6 +245,20 @@ class manticore_handler:
                                    difficulty=0x200,  # default
                                    gaslimit=0x7FFFFFFF)  # default
 
+    def add_contract(self, url, contract_name=None):
+        print(f"# -- Deploying Contract {url}")
+        with open(url, 'r') as file:
+            source_code = file.read()
+        # Hardcodeamos args=None para que use argumentos simbolicos por defecto
+        start = time.time()
+        new_contract = self.manticore.solidity_create_contract(
+            source_code, owner=self.owner_account, args=None, contract_name=contract_name)
+        end = time.time()
+        assert (
+            new_contract is not None), "Problemas en el creado del contrato"
+        print(f"# -- Contract Deployed      (took {end-start} seconds)")
+        return new_contract
+
     def take_snapshot(self):
         self.manticore.take_snapshot()
         self._snapshot_history.append(
