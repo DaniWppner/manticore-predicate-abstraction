@@ -239,14 +239,14 @@ class manticore_handler:
                                    difficulty=0x200,  # default
                                    gaslimit=0x7FFFFFFF)  # default
 
-    def add_contract(self, url, contract_name=None, args=None, owner=None, balance=None):
+    def add_contract(self, url, contract_name=None, args=None, owner=None, balance=0):
         print(f"# -- Deploying Contract {url}")
         with open(url, 'r') as file:
             source_code = file.read()
-        # Hardcodeamos args=None para que use argumentos simbolicos por defecto
         start = time.time()
         if owner is None:
             owner = self.owner_account
+        # Hardcodeamos args=None para que use argumentos simbolicos por defecto
         new_contract = self.manticore.solidity_create_contract(
             source_code, owner=owner, args=args, contract_name=contract_name, balance=balance)
         end = time.time()
