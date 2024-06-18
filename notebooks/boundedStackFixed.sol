@@ -30,6 +30,7 @@ contract SizedStack {
         require(!isEmpty());
         uint256 was = top();
         internal_arr.pop();
+        size = size - 1;
         return was;
     }
 
@@ -39,13 +40,5 @@ contract SizedStack {
 
     function pop_precondition() public view returns (bool) {
         return !isEmpty();
-    }
-
-    function top_precondition() public view returns (bool) {
-        return true;
-    }
-
-    function isEmpty_precondition() public view returns (bool) {
-        return true;
     }
 }
